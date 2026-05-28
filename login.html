@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff; --accent: #0000ff; --dark: #0B1F3A; --bg: #F5F7FA; --white: #FFFFFF; --text: #0B1F3A; }
+        body { font-family: 'Be Vietnam Pro', 'Inter', sans-serif; background: var(--bg); }
+        .login-card { background: var(--white); border-radius: 16px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,255,0.1); max-width: 400px; margin: 100px auto; border: 1px solid rgba(0,0,255,0.2); }
+        .login-card h3 { color: var(--text); }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,0,255,0.15); }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; position: fixed; bottom: 0; width: 100%; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        footer a:hover { color: var(--accent); }
+        .btn-blue { background: var(--accent); color: var(--text); border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; width: 100%; }
+        .btn-blue:hover { background: #0000cc; }
+        .text-blue { color: var(--accent) !important; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h3 class="fw-bold text-center mb-4"><i class="bi bi-diagram-3-fill text-blue"></i> <span style="color: var(--text);">Hub66</span></h3>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="email@domain.com" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Vai trò</label>
+                <select class="form-control" id="roleSelect">
+                    <option value="member">Thành viên (Member)</option>
+                    <option value="partner">Đối tác (Partner)</option>
+                    <option value="referrer">Người giới thiệu (Referrer)</option>
+                    <option value="admin">Quản trị (Admin)</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <div class="mb-3">
+                <a href="#" class="text-decoration-none small">Quên mật khẩu?</a>
+            </div>
+            <div class="alert alert-warning small py-2 mb-3" role="alert">
+                <i class="bi bi-shield-lock-fill"></i> <strong>Bảo mật:</strong> Admin yêu cầu 2FA. Không chia sẻ tài khoản. Truy cập nhạy cảm được ghi log.
+            </div>
+            <button type="submit" class="btn btn-blue mb-3">Đăng nhập</button>
+            <p class="text-center text-muted">
+                Chưa có tài khoản? <a href="register.html">Đăng ký tài khoản mới</a>
+            </p>
+        </form>
+    </div>
+
+    <div class="text-center mt-3" style="max-width: 400px; margin: 0 auto;">
+        <div class="card border-0 bg-transparent">
+            <div class="card-body py-2">
+                <p class="small text-muted mb-1">Demo nội bộ:</p>
+                <div class="d-flex gap-2 justify-content-center flex-wrap">
+                    <span class="badge bg-dark">Member: member@hub66.vn</span>
+                    <span class="badge bg-dark">Admin: admin@hub66.vn</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p class="small mb-0">© 2026 Hub66. Tài Chính Á Châu.</p>
+            <a href="index.html">Trang chủ</a> | <a href="faq.html">FAQ</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const role = document.getElementById('roleSelect').value;
+            let redirect = 'member-dashboard.html';
+            if (role === 'admin') redirect = 'admin-dashboard.html';
+            else if (role === 'partner') redirect = 'partner-dashboard.html';
+            else if (role === 'referrer') redirect = 'referrer-dashboard.html';
+            alert('Đăng nhập thành công với vai trò: ' + role);
+            window.location.href = redirect;
+        });
+    </script>
+</body>
+</html>

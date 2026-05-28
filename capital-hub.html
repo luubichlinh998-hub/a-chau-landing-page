@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Hub - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff;
+            --accent: #0000ff;
+            --dark: #0B1F3A;  --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .navbar { background: var(--primary) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
+        .navbar .nav-link:hover { color: var(--accent) !important; }
+        .btn-primary { background: var(--accent); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; color: var(--primary); }
+        .btn-primary:hover { background: #0000cc; }
+        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 60px 0; }
+        .section-card { background: var(--white); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .checklist-item { background: #f8fafc; border-radius: 8px; padding: 16px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+        .checklist-item.warning { border-color: var(--warning); background: #fffbeb; }
+        .checklist-item.danger { border-color: var(--danger); background: #fef2f2; }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+        .warning-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; color: #92400e; font-size: 14px; }
+        .warning-box i { color: var(--warning); }
+        .info-box { background: #dbeafe; border-radius: 8px; padding: 16px; color: #1e40af; font-size: 14px; }
+        .data-room-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .data-room-item:hover { border-color: var(--primary); }
+        .data-room-item.locked { opacity: 0.6; }
+        .deal-type-badge { font-size: 11px; padding: 4px 12px; border-radius: 4px; font-weight: 600; }
+        .deal-type-badge.capital { background: #dbeafe; color: #1e40af; }
+        .fee-highlight { background: linear-gradient(135deg, var(--dark) 0%, #7c3aed 100%); color: #fff; padding: 24px; border-radius: 12px; text-align: center; }
+        .fee-highlight .fee-percent { font-size: 3rem; font-weight: 700; }
+        .fee-highlight .fee-label { font-size: 14px; opacity: 0.9; }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--accent); }
+        /* Data Room MVP Styles */
+        .dr-section { background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .dr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .dr-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+        .dr-tab { padding: 10px 20px; border-radius: 8px 8px 0 0; cursor: pointer; transition: all 0.2s; border: none; background: transparent; font-weight: 500; color: #64748b; }
+        .dr-tab:hover { color: var(--primary); }
+        .dr-tab.active { background: var(--dark); color: #fff; }
+        .dr-deal-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.2s; }
+        .dr-deal-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .dr-deal-card .deal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .dr-doc-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+        .dr-doc-item:hover { border-color: var(--primary); background: #f8fafc; }
+        .dr-doc-item.restricted { border-color: #fca5a5; background: #fef2f2; }
+        .dr-upload-zone { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 40px; text-align: center; transition: all 0.2s; cursor: pointer; }
+        .dr-upload-zone:hover, .dr-upload-zone.dragover { border-color: var(--primary); background: rgba(26,86,219,0.05); }
+        .dr-upload-zone i { font-size: 48px; color: #94a3b8; margin-bottom: 16px; }
+        .dr-progress { height: 8px; border-radius: 4px; background: #e2e8f0; overflow: hidden; margin-top: 12px; }
+        .dr-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary) 0%, #7c3aed 100%); border-radius: 4px; transition: width 0.3s ease; width: 0%; }
+        .dr-watermark-preview { position: relative; overflow: hidden; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; }
+        .dr-watermark-preview::before { content: 'HUB66 - CONFIDENTIAL'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 28px; font-weight: 700; color: rgba(220,38,38,0.1); white-space: nowrap; pointer-events: none; z-index: 10; }
+        .dr-watermark-preview.dragover::after { content: ''; position: absolute; inset: 0; background: rgba(26,86,219,0.05); border-radius: 8px; }
+        .dr-access-log { background: #f8fafc; border-radius: 8px; padding: 16px; max-height: 300px; overflow-y: auto; }
+        .dr-log-entry { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e2e8f0; }
+        .dr-log-entry:last-child { border-bottom: none; }
+        .dr-log-entry .dr-log-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--dark); color: #fff; font-size: 14px; flex-shrink: 0; }
+        .dr-permission-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; }
+        .dr-permission-badge.admin { background: #7c3aed; color: #fff; }
+        .dr-permission-badge.member { background: #059669; color: #fff; }
+        .dr-permission-badge.partner { background: #1a56db; color: #fff; }
+        .dr-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1050; }
+        .dr-modal { background: #fff; border-radius: 16px; padding: 32px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .dr-access-denied { background: #fef2f2; border: 2px solid #dc2626; border-radius: 12px; padding: 24px; text-align: center; }
+        .dr-access-denied i { font-size: 48px; color: #dc2626; margin-bottom: 16px; }
+
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
+        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,255,0.5); }
+        .floating-chat-modal { position: fixed; bottom: 96px; right: 24px; width: 380px; max-height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
+        .floating-chat-modal.open { display: flex; }
+        .floating-chat-header { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .floating-chat-header h6 { margin: 0; font-size: 15px; font-weight: 600; }
+        .floating-chat-body { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+        .floating-chat-msg { padding: 10px 14px; margin-bottom: 10px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .floating-chat-msg.ai { background: var(--white); border: 1px solid #e2e8f0; }
+        .floating-chat-msg.user { background: var(--accent); color: var(--primary); margin-left: 20%; }
+        .floating-chat-msg.system { background: #fef3c7; border: 1px solid #fbbf24; font-size: 13px; }
+        .floating-chat-input { padding: 12px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: var(--white); }
+        .floating-chat-input input { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+        .floating-chat-input input:focus { outline: none; border-color: var(--accent); }
+        .floating-chat-input button { background: var(--accent); color: var(--primary); border-radius: 8px; padding: 8px 14px; font-size: 14px; }
+        .floating-chat-ai-selector { padding: 10px 16px; background: var(--white); border-bottom: 1px solid #e2e8f0; display: flex; gap: 6px; flex-wrap: wrap; }
+        .ai-chip { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #e2e8f0; background: var(--white); color: #475569; }
+        .ai-chip:hover, .ai-chip.active { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        @media (max-width: 480px) { .floating-chat-modal { width: calc(100% - 32px); right: 16px; bottom: 88px; } .floating-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; font-size: 20px; } }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="capital-hub.html">Capital Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="service-hub.html">Service Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-hub.html">M&A Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+                    <li class="nav-item"><a class="nav-link" href="post-need.html">Đăng nhu cầu</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="deal-type-badge capital">VỐN</span>
+                        <span class="badge bg-warning text-dark">Hub66 Capital</span>
+                    </div>
+                    <h1 class="mb-3">Capital Hub - Kết nối nguồn vốn</h1>
+                    <p class="text-light opacity-75">Nền tảng kết nối doanh nghiệp với nguồn vốn - Vốn mạo hiểm, vốn ngân hàng, vốn đầu tư. Không phải sàn rao vặt.</p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fee-highlight">
+                        <div class="fee-percent">3%</div>
+                        <div class="fee-label">Phí Hub66 trên deal thành công</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <!-- Warning Box -->
+        <div class="warning-box mb-4">
+            <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                <div>
+                    <strong>Quan trọng:</strong> Hub66 không cam kết giải ngân thành công. Tất cả các deal vốn đều phải trải qua quy trình xác minh và phê duyệt rủi ro. Quyết định đầu tư cuối cùng thuộc về bên cho vay/đầu tư.
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 Hub Overview -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-diagram-3 text-primary"></i> Mô hình 5 Hub của Hub66</h4>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 bg-primary bg-opacity-10 rounded-3">
+                        <strong class="text-primary">Capital Hub</strong>
+                        <p class="small mb-0">Kết nối nguồn vốn - Vốn mạo hiểm, ngân hàng, đầu tư</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 bg-success bg-opacity-10 rounded-3">
+                        <strong class="text-success">Service Hub</strong>
+                        <p class="small mb-0">Catalog dịch vụ B2B - Tư vấn, logistics, marketing</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3 bg-danger bg-opacity-10 rounded-3">
+                        <strong class="text-danger">M&A Hub</strong>
+                        <p class="small mb-0">Mua bán và sáp nhập doanh nghiệp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist hồ sơ vốn -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-clipboard-check text-primary"></i> Checklist hồ sơ vốn</h4>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checklist-item">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <span>Đăng ký kinh doanh hợp lệ</span>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <span>Báo cáo tài chính 2 năm gần nhất</span>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <span>Giấy tờ tài sản đảm bảo (nếu có)</span>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <span>Kế hoạch kinh doanh / phương án vay</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checklist-item warning">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-exclamation-triangle text-warning"></i>
+                            <span>Nợ xấu hoặc nợ quá hạn chưa giải quyết</span>
+                        </div>
+                    </div>
+                    <div class="checklist-item warning">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-exclamation-triangle text-warning"></i>
+                            <span>Thiếu hồ sơ pháp lý chứng minh tài chính</span>
+                        </div>
+                    </div>
+                    <div class="checklist-item danger">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-x-circle text-danger"></i>
+                            <span>Hồ sơ không minh bạch, thông tin mâu thuẫn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form nhu cầu vốn -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary"></i> Đăng nhu cầu vốn - 14 trường bắt buộc</h4>
+            <form id="capitalForm">
+                <div class="row">
+                    <!-- Trường 1-2: Số tiền và hạn mức -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Số tiền cần huy động (VNĐ) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="VD: 5,000,000,000" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Hạn mức tín dụng mong muốn (VNĐ) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="VD: 10,000,000,000">
+                    </div>
+                    <!-- Trường 3: Ngành -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngành kinh doanh <span class="text-danger">*</span></label>
+                        <select class="form-control" required>
+                            <option value="">Chọn ngành</option>
+                            <option value="manufacturing">Sản xuất</option>
+                            <option value="trading">Thương mại</option>
+                            <option value="services">Dịch vụ</option>
+                            <option value="tech">Công nghệ</option>
+                            <option value="real-estate">Bất động sản</option>
+                            <option value="logistics">Logistics</option>
+                            <option value="fnb">F&B</option>
+                            <option value="healthcare">Y tế</option>
+                            <option value="education">Giáo dục</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <!-- Trường 4: Mục đích vốn -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mục đích sử dụng vốn <span class="text-danger">*</span></label>
+                        <select class="form-control" required>
+                            <option value="">Chọn mục đích</option>
+                            <option value="expansion">Mở rộng sản xuất kinh doanh</option>
+                            <option value="equipment">Mua thiết bị / máy móc</option>
+                            <option value="working-capital">Vốn lưu động</option>
+                            <option value="real-estate-invest">Đầu tư bất động sản</option>
+                            <option value="technology">Đầu tư công nghệ</option>
+                            <option value="marketing">Marketing / mở rộng thị trường</option>
+                            <option value="acquisition">Mua lại doanh nghiệp</option>
+                            <option value="refinancing">Tái cơ cấu nợ</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <!-- Trường 5: Doanh thu hàng năm -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Doanh thu hàng năm (VNĐ) <span class="text-danger">*</span></label>
+                        <select class="form-control" required>
+                            <option value="">Chọn mức doanh thu</option>
+                            <option value="under-1b">Dưới 1 tỷ</option>
+                            <option value="1b-5b">1 - 5 tỷ</option>
+                            <option value="5b-10b">5 - 10 tỷ</option>
+                            <option value="10b-50b">10 - 50 tỷ</option>
+                            <option value="50b-100b">50 - 100 tỷ</option>
+                            <option value="over-100b">Trên 100 tỷ</option>
+                        </select>
+                    </div>
+                    <!-- Trường 6: Tình trạng lợi nhuận -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tình trạng lợi nhuận <span class="text-danger">*</span></label>
+                        <select class="form-control" required>
+                            <option value="">Chọn tình trạng</option>
+                            <option value="profitable">Có lợi nhuận ổn định</option>
+                            <option value="profitable-growing">Có lợi nhuận và tăng trưởng</option>
+                            <option value="break-even">Hòa vốn</option>
+                            <option value="loss-reducing">Lỗ nhưng đang giảm</option>
+                            <option value="loss-growing">Lỗ và tăng trưởng</option>
+                        </select>
+                    </div>
+                    <!-- Trường 7: Nợ hiện tại -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nợ hiện tại (VNĐ)</label>
+                        <input type="text" class="form-control" placeholder="VD: 2,000,000,000">
+                    </div>
+                    <!-- Trường 8: Tài sản đảm bảo -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tài sản đảm bảo có thể thế chấp</label>
+                        <select class="form-control">
+                            <option value="">Chọn loại tài sản</option>
+                            <option value="none">Không có</option>
+                            <option value="real-estate">Bất động sản</option>
+                            <option value="vehicle">Phương tiện / xe cộ</option>
+                            <option value="equipment">Thiết bị / máy móc</option>
+                            <option value="stock">Cổ phần / cổ phiếu</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <!-- Trường 9: Dòng tiền -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Công suất dòng tiền hàng tháng</label>
+                        <select class="form-control">
+                            <option value="">Chọn mức dòng tiền</option>
+                            <option value="positive-strong">Dương mạnh (>20% doanh thu)</option>
+                            <option value="positive">Dương (5-20% doanh thu)</option>
+                            <option value="break-even">Cân bằng</option>
+                            <option value="negative">Âm dưới 10%</option>
+                            <option value="negative-high">Âm trên 10%</option>
+                        </select>
+                    </div>
+                    <!-- Trường 10: Ngân hàng hiện tại -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quan hệ ngân hàng hiện tại</label>
+                        <input type="text" class="form-control" placeholder="VD: Vietcombank, ACB, VPBank...">
+                    </div>
+                    <!-- Trường 11: Thời hạn mong muốn -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Thời hạn mong muốn <span class="text-danger">*</span></label>
+                        <select class="form-control" required>
+                            <option value="">Chọn thời hạn</option>
+                            <option value="short">Dưới 1 năm</option>
+                            <option value="medium">1-3 năm</option>
+                            <option value="long">3-5 năm</option>
+                            <option value="extended">Trên 5 năm</option>
+                        </select>
+                    </div>
+                    <!-- Trường 12: Tài liệu tài chính -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tài liệu tài chính đã có</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="doc1">
+                            <label class="form-check-label" for="doc1">Báo cáo tài chính 2 năm</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="doc2">
+                            <label class="form-check-label" for="doc2">Sổ sách kế toán</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="doc3">
+                            <label class="form-check-label" for="doc3">Hồ sơ pháp lý doanh nghiệp</label>
+                        </div>
+                    </div>
+                    <!-- Mô tả bổ sung -->
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Mô tả dự án / kế hoạch kinh doanh</label>
+                        <textarea class="form-control" rows="3" placeholder="Mô tả chi tiết dự án, kế hoạch sử dụng vốn, và dự kiến khả năng trả nợ..."></textarea>
+                    </div>
+                    <!-- Consents -->
+                    <div class="col-12">
+                        <div class="alert alert-warning mb-3">
+                            <i class="bi bi-exclamation-triangle"></i> <strong>Lưu ý quan trọng:</strong> Hub66 <strong>không cam kết</strong> cấp vốn thành công. Phí 3% chỉ phát sinh khi có văn bản cấp hạn mức/khoản vốn và bên vay có quyền sử dụng.
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeFeeCapital" required>
+                            <label class="form-check-label" for="agreeFeeCapital">
+                                Tôi đồng ý với <a href="fee-policy.html">chính sách phí</a> của Hub66: <strong>3% phí Hub66</strong> trên hạn mức vốn được cấp
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeNoGuarantee" required>
+                            <label class="form-check-label" for="agreeNoGuarantee">
+                                Tôi hiểu rằng Hub66 <strong>không cam kết phê duyệt vốn</strong> thành công và quyết định cuối cùng thuộc về bên cho vay/đầu tư
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeNoFake" required>
+                            <label class="form-check-label" for="agreeNoFake">
+                                Tôi cam kết không làm hồ sơ giả và cung cấp thông tin trung thực
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Gửi nhu cầu vốn</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Capital Workflow -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-arrow-right-circle text-primary"></i> Quy trình xử lý 12 bước</h4>
+            <div class="row text-center">
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">1</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Submit</p>
+                    <small class="text-muted">Gửi nhu cầu</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">2</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">AI Scoring</p>
+                    <small class="text-muted">Chấm điểm sơ bộ</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">3</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Checklist</p>
+                    <small class="text-muted">DS hồ sơ thiếu</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">4</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Admin Review</p>
+                    <small class="text-muted">Xem xét hồ sơ</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">5</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Fee Agreement</p>
+                    <small class="text-muted">Xác nhận thỏa thuận phí</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">6</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">CAP Code</p>
+                    <small class="text-muted">Tạo mã CAP-YYYY-0001</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">7</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Matching</p>
+                    <small class="text-muted">Ghép đối tác vốn</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">8</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">NDA</p>
+                    <small class="text-muted">Ký NDA & permission</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">9</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Due Diligence</p>
+                    <small class="text-muted">Kiểm tra DD</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-warning fw-bold">10</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Credit Approval</p>
+                    <small class="text-muted">Phê duyệt tín dụng</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-success fw-bold">11</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Limit Confirmed</p>
+                    <small class="text-muted">Xác nhận hạn mức</small>
+                </div>
+                <div class="col-md-2 col-4 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-success fw-bold">12</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Invoice & Fee</p>
+                    <small class="text-muted">Xuất hóa đơn 3%</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA ROOM MVP - TICAAAAA-52 -->
+        <div class="dr-section" id="dataRoomSection">
+            <div class="dr-header">
+                <h4 class="fw-bold mb-0"><i class="bi bi-folder2-open text-primary"></i> Data Room MVP</h4>
+                <div class="d-flex gap-2">
+                    <select class="form-control form-control-sm" id="drRoleSelect" style="width: 140px;">
+                        <option value="admin">Admin</option>
+                        <option value="member" selected>Member</option>
+                        <option value="partner">Partner</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- NDA Warning -->
+            <div class="warning-box mb-4" id="drNdaWarning">
+                <div class="d-flex align-items-start gap-3">
+                    <i class="bi bi-file-earmark-lock-fill fs-4"></i>
+                    <div>
+                        <strong>NDA Required:</strong> Data room chỉ hiển thị sau khi đã ký NDA thành công. Vui lòng ký NDA để truy cập tài liệu.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Room Tabs -->
+            <div class="dr-tabs" id="drTabs" style="display: none;">
+                <button class="dr-tab active" data-tab="documents"><i class="bi bi-file-earmark"></i> Tài liệu</button>
+                <button class="dr-tab" data-tab="upload"><i class="bi bi-upload"></i> Upload</button>
+                <button class="dr-tab" data-tab="preview"><i class="bi bi-eye"></i> Preview</button>
+                <button class="dr-tab" data-tab="access-log"><i class="bi bi-clock-history"></i> Log truy cập</button>
+            </div>
+
+            <!-- Tab: Documents -->
+            <div id="drTabDocuments" class="dr-tab-content">
+                <div class="row">
+                    <!-- Deal 1 -->
+                    <div class="col-lg-6">
+                        <div class="dr-deal-card">
+                            <div class="deal-header">
+                                <div>
+                                    <span class="deal-type-badge capital">VỐN</span>
+                                    <h5 class="fw-semibold mt-2 mb-0">Deal #DEAL-2026-001</h5>
+                                    <small class="text-muted">Dự án mở rộng sản xuất XXX</small>
+                                </div>
+                                <span class="dr-permission-badge admin">Admin</span>
+                            </div>
+                            <div class="dr-doc-item">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                    <div>
+                                        <strong>Báo cáo tài chính 2024</strong>
+                                        <p class="small text-muted mb-0">PDF - 25 trang</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary" onclick="DR.openDocument('FIN-2024-Q4', 'Báo cáo tài chính 2024')"><i class="bi bi-eye"></i></button>
+                            </div>
+                            <div class="dr-doc-item">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-excel text-success"></i>
+                                    <div>
+                                        <strong>Kế hoạch kinh doanh 2025</strong>
+                                        <p class="small text-muted mb-0">XLSX - Template</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary" onclick="DR.openDocument('BP-2025', 'Kế hoạch kinh doanh 2025')"><i class="bi bi-eye"></i></button>
+                            </div>
+                            <div class="dr-doc-item restricted">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                    <div>
+                                        <strong>Hồ sơ pháp lý công ty</strong>
+                                        <p class="small text-muted mb-0">PDF - Bị hạn chế</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="DR.showAccessDenied('Hồ sơ pháp lý công ty')"><i class="bi bi-lock"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Deal 2 -->
+                    <div class="col-lg-6">
+                        <div class="dr-deal-card">
+                            <div class="deal-header">
+                                <div>
+                                    <span class="deal-type-badge capital">VỐ喃</span>
+                                    <h5 class="fw-semibold mt-2 mb-0">Deal #DEAL-2026-002</h5>
+                                    <small class="text-muted">Dự án công nghệ XXX</small>
+                                </div>
+                                <span class="dr-permission-badge member">Member</span>
+                            </div>
+                            <div class="dr-doc-item">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-text text-primary"></i>
+                                    <div>
+                                        <strong>Teaser dự án</strong>
+                                        <p class="small text-muted mb-0">DOCX - 5 trang</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary" onclick="DR.openDocument('TEASER-001', 'Teaser dự án')"><i class="bi bi-eye"></i></button>
+                            </div>
+                            <div class="dr-doc-item">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                    <div>
+                                        <strong>Mô hình tài chính</strong>
+                                        <p class="small text-muted mb-0">PDF - Financial Model</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary" onclick="DR.openDocument('FIN-MODEL', 'Mô hình tài chính')"><i class="bi bi-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Upload -->
+            <div id="drTabUpload" class="dr-tab-content" style="display: none;">
+                <div class="dr-upload-zone" id="drUploadZone">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <h5>Kéo thả file vào đây</h5>
+                    <p class="text-muted mb-3">hoặc click để chọn file</p>
+                    <p class="small text-muted">Hỗ trợ: PDF, DOCX, XLSX, PNG, JPG (tối đa 50MB)</p>
+                    <input type="file" id="drFileInput" multiple hidden>
+                </div>
+                <div id="drUploadProgress" style="display: none;">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <strong id="drFileName">document.pdf</strong>
+                                <span class="text-muted" id="drFileProgress">0%</span>
+                            </div>
+                            <div class="dr-progress">
+                                <div class="dr-progress-bar" id="drProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Preview with Watermark -->
+            <div id="drTabPreview" class="dr-tab-content" style="display: none;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="dr-watermark-preview p-5" id="drWatermarkPreview" style="min-height: 400px;">
+                            <div class="text-center">
+                                <i class="bi bi-file-earmark-pdf text-muted" style="font-size: 80px;"></i>
+                                <h5 class="mt-3">Document Preview</h5>
+                                <p class="text-muted" id="drPreviewDocName">Chọn tài liệu để xem preview</p>
+                                <div class="dr-watermark-overlay mt-4 p-3 bg-white rounded">
+                                    <small class="text-muted">Watermark sẽ hiển thị:</small>
+                                    <p class="mb-0 fw-semibold text-danger">HUB66 - CONFIDENTIAL - <span id="drPreviewUser">Nguyễn Văn A</span> - <span id="drPreviewDate">2026-05-26</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">User Name (watermark)</label>
+                            <input type="text" class="form-control" id="drWatermarkUser" value="Nguyễn Văn A">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date (watermark)</label>
+                            <input type="date" class="form-control" id="drWatermarkDate" value="2026-05-26">
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> Watermark "HUB66 - CONFIDENTIAL - [User Name] - [Date]" sẽ hiển thị trên tất cả tài liệu được xem trong data room.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Access Log -->
+            <div id="drTabAccessLog" class="dr-tab-content" style="display: none;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="dr-access-log" id="drAccessLog">
+                            <!-- Log entries will be populated by JS -->
+                        </div>
+                        <div class="mt-2" id="drAccessStats"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-secondary">
+                            <h6 class="fw-semibold mb-2"><i class="bi bi-shield-check"></i> Permission Matrix</h6>
+                            <ul class="small mb-0">
+                                <li><strong>Admin:</strong> Xem tất cả tài liệu</li>
+                                <li><strong>Member:</strong> Chỉ tài liệu được duyệt</li>
+                                <li><strong>Partner:</strong> Chỉ deal liên quan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Luồng hoạt động -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-arrow-right-circle text-primary"></i> Luồng hoạt động 6 bước</h4>
+            <div class="row text-center">
+                <div class="col-md-2 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-primary fw-bold">1</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Đăng ký Member</p>
+                    <small class="text-muted">1M/năm</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-primary fw-bold">2</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Đăng nhu cầu vốn</p>
+                    <small class="text-muted">Hub-specific form</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-primary fw-bold">3</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">AI & Admin duyệt</p>
+                    <small class="text-muted">Xác minh rủi ro</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-primary fw-bold">4</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Ký NDA</p>
+                    <small class="text-muted">Bảo mật thông tin</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-primary fw-bold">5</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Matching</p>
+                    <small class="text-muted">Ghép đối tác hợp phù hợp</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">6</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Thành công</p>
+                    <small class="text-muted">Thu phí 3%</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Access Denied Modal -->
+    <div class="dr-modal-overlay" id="drAccessDeniedModal" style="display: none;">
+        <div class="dr-modal">
+            <div class="dr-access-denied">
+                <i class="bi bi-ban"></i>
+                <h4 class="fw-bold text-danger">Bạn không có quyền xem tài liệu này</h4>
+                <p class="text-muted mb-3">Tài liệu này yêu cầu quyền Admin hoặc Member đã được duyệt.</p>
+                <p class="small text-muted mb-0">Vui lòng liên hệ Admin để được cấp quyền truy cập.</p>
+            </div>
+            <button class="btn btn-primary mt-4 w-100" onclick="DR.closeAccessDenied()">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</h5>
+                    <p>Private Business Matching Hub - Không phải sàn rao vặt. Kết nối doanh nghiệp Việt Nam một cách an toàn, bảo mật.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hubs</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="capital-hub.html">Capital Hub</a></li>
+                        <li><a href="service-hub.html">Service Hub</a></li>
+                        <li><a href="ma-hub.html">M&A Hub</a></li>
+                        <li><a href="deal-board.html">Deal Board</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Đăng ký</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="register.html">Đăng ký Member</a></li>
+                        <li><a href="post-need.html">Đăng nhu cầu</a></li>
+                        <li><a href="become-partner.html">Trở thành Partner</a></li>
+                        <li><a href="become-referrer.html">Trở thành Referrer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="ai-assistant.html">AI Assistant</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="fee-policy.html">Bảng phí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Pháp lý</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html">Điều khoản</a></li>
+                        <li><a href="privacy.html">Bảo mật</a></li>
+                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #334155;">
+            <p class="text-center text-muted small">© 2026 Hub66. Tài Chính Á Châu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/hub66-ids.js"></script>
+    <script src="js/data-room-core.js"></script>
+    <script src="js/data-room-access-log.js"></script>
+    <script>
+        // Data Room MVP - TICAAAAA-52
+        const DR = {
+            currentRole: 'member',
+            ndaSigned: false,
+            currentTab: 'documents',
+            dataRoom: null,
+
+            // Mock documents
+            documents: {
+                'FIN-2024-Q4': { name: 'Báo cáo tài chính 2024', type: 'pdf', deal: 'DEAL-2026-001', minRole: 'member', category: 'financial' },
+                'BP-2025': { name: 'Kế hoạch kinh doanh 2025', type: 'xlsx', deal: 'DEAL-2026-001', minRole: 'member', category: 'misc' },
+                'LEGAL-001': { name: 'Hồ sơ pháp lý công ty', type: 'pdf', deal: 'DEAL-2026-001', minRole: 'admin', category: 'legal' },
+                'TEASER-001': { name: 'Teaser dự án', type: 'docx', deal: 'DEAL-2026-002', minRole: 'member', category: 'teaser' },
+                'FIN-MODEL': { name: 'Mô hình tài chính', type: 'pdf', deal: 'DEAL-2026-002', minRole: 'member', category: 'financial' }
+            },
+
+            init: function() {
+                this.dataRoom = new DataRoomCore({
+                    defaultUser: { id: 'user-demo', name: 'Nguyễn Văn Demo', role: DataRoomRoles.MEMBER }
+                });
+
+                // Seed sample files if empty
+                if (this.dataRoom.getAllFiles({ hubType: 'capital' }).length === 0) {
+                    this._seedSampleData();
+                }
+
+                // Role selector
+                document.getElementById('drRoleSelect').addEventListener('change', (e) => {
+                    this.updateRole(e.target.value);
+                });
+
+                // Tab clicks
+                document.querySelectorAll('.dr-tab').forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                });
+
+                // Drag and drop upload
+                const uploadZone = document.getElementById('drUploadZone');
+                const fileInput = document.getElementById('drFileInput');
+
+                uploadZone.addEventListener('click', () => fileInput.click());
+                uploadZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.add('dragover');
+                });
+                uploadZone.addEventListener('dragleave', () => {
+                    uploadZone.classList.remove('dragover');
+                });
+                uploadZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.remove('dragover');
+                    this.handleFiles(e.dataTransfer.files);
+                });
+                fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
+
+                // Watermark inputs
+                document.getElementById('drWatermarkUser').addEventListener('input', (e) => {
+                    document.getElementById('drPreviewUser').textContent = e.target.value || '[User Name]';
+                    this.updateWatermarkPreview();
+                });
+                document.getElementById('drWatermarkDate').addEventListener('change', (e) => {
+                    document.getElementById('drPreviewDate').textContent = e.target.value || '[Date]';
+                    this.updateWatermarkPreview();
+                });
+
+                // Log Data Room init
+                dataRoomAccessLog.addEntry({ id: 'system', name: 'System', role: 'system' }, 'init', null, { hubType: 'capital', fileName: 'Data Room Capital initialized' });
+            },
+
+            _seedSampleData: function() {
+                const sampleFiles = [
+                    { name: 'Bao cao tai chinh 2024.pdf', size: 1024000, type: 'application/pdf', category: 'financial' },
+                    { name: 'Ke hoach kinh doanh 2025.xlsx', size: 512000, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', category: 'valuation' },
+                    { name: 'Ho so phap ly cong ty.pdf', size: 2048000, type: 'application/pdf', category: 'legal', isRestricted: true },
+                    { name: 'Teaser du an.docx', size: 256000, type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', category: 'teaser' },
+                    { name: 'Mo hinh tai chinh.pdf', size: 1536000, type: 'application/pdf', category: 'financial' }
+                ];
+                sampleFiles.forEach(meta => {
+                    const fakeFile = new File(['x'], meta.name, { type: meta.type });
+                    this.dataRoom.upload(fakeFile, { category: meta.category, hubType: 'capital', isRestricted: meta.isRestricted || false });
+                });
+            },
+
+            renderDocuments: function() {
+                const container = document.getElementById('drTabDocuments');
+                const files = this.dataRoom.getFiles({ hubType: 'capital' });
+
+                if (files.length === 0) {
+                    container.innerHTML = '<div class="text-center text-muted py-5"><i class="bi bi-folder-x" style="font-size:48px;"></i><p class="mt-3">Chưa có tài liệu nào trong Data Room. Hãy upload file đầu tiên.</p></div>';
+                    return;
+                }
+
+                // Group files by deal (use category as deal proxy for capital hub)
+                const byCategory = {};
+                files.forEach(f => {
+                    const cat = f.category || 'misc';
+                    if (!byCategory[cat]) byCategory[cat] = [];
+                    byCategory[cat].push(f);
+                });
+
+                const dealNames = { financial: 'Báo cáo tài chính', valuation: 'Định giá & Kế hoạch', legal: 'Pháp lý', teaser: 'Teaser & Giới thiệu', dd: 'Due Diligence', misc: 'Khác' };
+
+                container.innerHTML = Object.entries(byCategory).map(([cat, catFiles], idx) => `
+                    <div class="col-lg-6">
+                        <div class="dr-deal-card">
+                            <div class="deal-header">
+                                <div>
+                                    <span class="deal-type-badge capital">VỐN</span>
+                                    <h5 class="fw-semibold mt-2 mb-0">${dealNames[cat] || cat}</h5>
+                                </div>
+                                <span class="dr-permission-badge ${this.currentRole}">${this.currentRole}</span>
+                            </div>
+                            ${catFiles.map(file => `
+                                <div class="dr-doc-item ${file.isRestricted ? 'restricted' : ''}">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="bi bi-file-earmark${file.type.includes('pdf') ? '-pdf text-danger' : file.type.includes('sheet') ? '-excel text-success' : '-text text-primary'}"></i>
+                                        <div>
+                                            <strong>${file.name}</strong>
+                                            <p class="small text-muted mb-0">${(file.size / 1024).toFixed(0)} KB</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="DR.openDocument('${file.id}', '${file.name}')"><i class="bi bi-eye"></i></button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            updateRole: function(role) {
+                this.currentRole = role;
+                const roleNames = { admin: 'Admin User', member: 'Nguyễn Văn A', partner: 'Trần Văn B Partner' };
+                this.dataRoom.setCurrentUser({ id: `user-${role}`, name: roleNames[role] || 'User', role: role });
+
+                // For demo, simulate NDA signed for all roles
+                this.ndaSigned = true;
+                document.getElementById('drNdaWarning').style.display = 'none';
+                document.getElementById('drTabs').style.display = 'flex';
+
+                // Refresh permission badges based on role
+                document.querySelectorAll('.dr-permission-badge').forEach(badge => {
+                    if (role === 'admin') {
+                        badge.className = 'dr-permission-badge admin';
+                        badge.textContent = 'Admin';
+                    } else if (role === 'member') {
+                        badge.className = 'dr-permission-badge member';
+                        badge.textContent = 'Member';
+                    } else {
+                        badge.className = 'dr-permission-badge partner';
+                        badge.textContent = 'Partner';
+                    }
+                });
+
+                dataRoomAccessLog.addEntry({ id: `user-${role}`, name: roleNames[role], role: role }, 'role_switch', null, { hubType: 'capital', newRole: role });
+                this.refreshAccessLog();
+                this.renderDocuments();
+            },
+
+            switchTab: function(tab) {
+                document.querySelectorAll('.dr-tab').forEach(t => t.classList.remove('active'));
+                document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+                document.querySelectorAll('.dr-tab-content').forEach(c => c.style.display = 'none');
+                document.getElementById(`drTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`).style.display = 'block';
+                this.currentTab = tab;
+
+                if (tab === 'access-log') {
+                    this.refreshAccessLog();
+                } else if (tab === 'documents') {
+                    this.renderDocuments();
+                } else if (tab === 'preview') {
+                    this.updateWatermarkPreview();
+                }
+            },
+
+            openDocument: function(fileId, fileName) {
+                const file = this.dataRoom.getAllFiles({ hubType: 'capital' }).find(f => f.id === fileId);
+                if (!file) {
+                    this.showAccessDenied(fileName);
+                    return;
+                }
+
+                const allowed = this.dataRoom.getAccessLevel(this.currentRole);
+                // Admin can view all, partner/member restricted by isRestricted flag
+                if (this.currentRole === 'admin') {
+                    dataRoomAccessLog.addEntry(this.dataRoom.currentUser, 'view', fileId, { hubType: 'capital', fileName: file.name, category: file.category });
+                    document.getElementById('drPreviewDocName').textContent = fileName;
+                    this.switchTab('preview');
+                } else if (!file.isRestricted || this.currentRole === 'partner') {
+                    dataRoomAccessLog.addEntry(this.dataRoom.currentUser, 'view', fileId, { hubType: 'capital', fileName: file.name, category: file.category });
+                    document.getElementById('drPreviewDocName').textContent = fileName;
+                    this.switchTab('preview');
+                } else {
+                    this.showAccessDenied(fileName);
+                }
+            },
+
+            showAccessDenied: function(docName) {
+                document.getElementById('drAccessDeniedModal').style.display = 'flex';
+                dataRoomAccessLog.addEntry(this.dataRoom.currentUser, 'access_denied', null, { hubType: 'capital', fileName: docName });
+                this.refreshAccessLog();
+            },
+
+            closeAccessDenied: function() {
+                document.getElementById('drAccessDeniedModal').style.display = 'none';
+            },
+
+            handleFiles: function(files) {
+                if (files.length === 0) return;
+
+                const file = files[0];
+                const category = prompt('Chọn category cho file (teaser, nda, valuation, dd, financial, legal, misc):', 'misc') || 'misc';
+
+                document.getElementById('drFileName').textContent = file.name;
+                document.getElementById('drUploadProgress').style.display = 'block';
+
+                // Use dataRoomCore upload with progress
+                this.dataRoom.uploadWithProgress(file, { category, hubType: 'capital', isRestricted: category === 'legal' }, (progress) => {
+                    document.getElementById('drFileProgress').textContent = Math.round(progress) + '%';
+                    document.getElementById('drProgressBar').style.width = progress + '%';
+                }).then((entry) => {
+                    setTimeout(() => {
+                        document.getElementById('drUploadProgress').style.display = 'none';
+                        document.getElementById('drProgressBar').style.width = '0%';
+                        dataRoomAccessLog.addEntry(this.dataRoom.currentUser, 'upload', entry.id, { hubType: 'capital', fileName: entry.name, category: entry.category });
+                        alert(`File "${file.name}" đã được upload thành công!\nID: ${entry.id}\nCategory: ${entry.category}`);
+                    }, 300);
+                }).catch((err) => {
+                    document.getElementById('drUploadProgress').style.display = 'none';
+                    alert('Upload thất bại: ' + err.message);
+                });
+            },
+
+            updateWatermarkPreview: function() {
+                const user = document.getElementById('drWatermarkUser').value || '[User Name]';
+                const date = document.getElementById('drWatermarkDate').value || '[Date]';
+                const preview = document.getElementById('drWatermarkPreview');
+                preview.style.setProperty('--watermark-text', `HUB66 - CONFIDENTIAL - ${user} - ${date}`);
+            },
+
+            refreshAccessLog: function() {
+                const logContainer = document.getElementById('drAccessLog');
+                const logs = dataRoomAccessLog.getEntries({ hubType: 'capital' }).slice(0, 20);
+
+                logContainer.innerHTML = logs.map(log => {
+                    const time = new Date(log.timestamp).toLocaleString('vi-VN', {
+                        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                    });
+                    const actionLabels = { view: 'Xem', upload: 'Upload', delete: 'Xóa', download: 'Tải', access_denied: 'Từ chối', role_switch: 'Đổi role', init: 'Khởi tạo' };
+                    return `
+                        <div class="dr-log-entry">
+                            <div class="dr-log-icon">${(log.userName || 'S').charAt(0).toUpperCase()}</div>
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold">${log.userName || 'System'}</div>
+                                <div class="small text-muted">${actionLabels[log.action] || log.action}: ${log.fileName || log.details?.newRole || ''}</div>
+                            </div>
+                            <small class="text-muted">${time}</small>
+                        </div>
+                    `;
+                }).join('');
+
+                if (logs.length === 0) {
+                    logContainer.innerHTML = '<p class="text-center text-muted py-4">Chưa có log truy cập</p>';
+                }
+
+                // Update stats
+                const stats = dataRoomAccessLog.getStats();
+                const statsEl = document.getElementById('drAccessStats');
+                if (statsEl) {
+                    statsEl.innerHTML = `<small class="text-muted">Tổng: ${stats.total} | 24h: ${stats.last24h} | Capital: ${stats.byHub?.capital || 0} | Users: ${stats.uniqueUsers}</small>`;
+                }
+            }
+        };
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            DR.init();
+        });
+
+        // Form submit
+        document.getElementById('capitalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Nhu cầu vốn đã được ghi nhận. Hub66 sẽ liên hệ xác minh trong 24-48h.\n\n⚠️ Lưu ý: Hub66 không cam kết giải ngân thành công.');
+        });
+    </script>
+
+        <script>
+        // Floating Chat
+        let floatingAI = 'PMO';
+        const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
+        function toggleFloatingChat() { document.getElementById('floatingChatModal').classList.toggle('open'); }
+        function selectFloatingAI(btn, type) {
+            floatingAI = type;
+            document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            addFloatingMsg('system', `Đã chuyển sang ${aiLabels[type]}. ${type === 'RISK' || type === 'FINANCE' || type === 'MA' ? '⚠️ Luôn cần admin duyệt.' : 'AI sẽ gợi ý và nhắc việc.'}`);
+        }
+        function addFloatingMsg(type, content) {
+            const body = document.getElementById('floatingChatBody');
+            body.innerHTML += `<div class="floating-chat-msg ${type}">${content}</div>`;
+            body.scrollTop = body.scrollHeight;
+        }
+        function sendFloatingChat() {
+            const input = document.getElementById('floatingChatInput');
+            if (!input.value.trim()) return;
+            const msg = input.value.trim();
+            addFloatingMsg('user', msg);
+            input.value = '';
+            setTimeout(() => {
+                const m = msg.toLowerCase();
+                let reply = `<strong>${aiLabels[floatingAI]}:</strong> `;
+                if (floatingAI === 'RISK' || floatingAI === 'FINANCE' || floatingAI === 'MA') {
+                    reply += `Tôi đã ghi nhận yêu cầu. ⚠️ <strong>Yêu cầu này cần admin duyệt thủ công</strong> - AI không tự phê duyệt bước rủi ro cao.`;
+                } else if (m.includes('phí') || m.includes('fee')) {
+                    reply += `Phí Hub66: • Sales/M&A/Capital: <strong>3%</strong> • Service: <strong>20%</strong> recurring • Referrer: <strong>35%</strong> phí Hub66 • Partner: <strong>12%</strong>`;
+                } else if (m.includes('deal') || m.includes('mã')) {
+                    reply += `Mỗi deal đều có mã định danh. Deal board chỉ hiển thị ẩn danh. Cần ký NDA + Thỏa thuận phí trước khi xem chi tiết.`;
+                } else if (m.includes('nda') || m.includes('ký')) {
+                    reply += `Để xem thông tin deal: 1) Đăng nhập → 2) Ký NDA → 3) Ký Thỏa thuận phí → 4) Admin duyệt (deal >10B).`;
+                } else if (m.includes('refe') || m.includes('giớ')) {
+                    reply += `Referrer nhận <strong>35% phí Hub66 thực thu</strong>. Cần ký Referral Agreement trước khi nhận hoa hồng.`;
+                } else {
+                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="ai-assistant.html">mở AI Assistant đầy đủ</a> hoặc liên hệ Deal Desk.`;
+                }
+                addFloatingMsg('ai', reply);
+            }, 1000);
+        }
+
+    <!-- Floating AI Chat Button -->
+    <button class="floating-chat-btn" onclick="toggleFloatingChat()"><i class="bi bi-chat-dots-fill"></i></button>
+    <div class="floating-chat-modal" id="floatingChatModal">
+        <div class="floating-chat-header">
+            <div><h6><i class="bi bi-robot"></i> Hub66 AI Assistant</h6><small style="opacity:0.7">Luôn cần admin duyệt rủi ro cao</small></div>
+            <div class="d-flex gap-2">
+                <a href="ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
+                <button class="btn btn-sm btn-link text-white p-0" onclick="toggleFloatingChat()"><i class="bi bi-x-lg"></i></button>
+            </div>
+        </div>
+        <div class="floating-chat-ai-selector">
+            <button class="ai-chip active" onclick="selectFloatingAI(this, 'PMO')">PMO</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SALES_HUB')">Sales</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SERVICE_HUB')">Service</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'CAPITAL_HUB')">Capital</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'MA')">M&A</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'FINANCE')">Finance</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'RISK')">Risk</button>
+        </div>
+        <div class="floating-chat-body" id="floatingChatBody">
+            <div class="floating-chat-msg ai"><strong>Hub66 AI:</strong> Xin chào! Tôi là AI Assistant. Chọn loại AI và hỏi về deal, phí, quy trình hoặc tư vấn.</div>
+        </div>
+        <div class="floating-chat-input">
+            <input type="text" id="floatingChatInput" placeholder="Hỏi AI..." onkeypress="if(event.key==='Enter')sendFloatingChat()">
+            <button onclick="sendFloatingChat()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+</body>
+</html>

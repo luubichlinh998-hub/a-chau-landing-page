@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký Member - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff; --accent: #0000ff; --dark: #0B1F3A; --bg: #F5F7FA; --white: #FFFFFF; --text: #0B1F3A; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .navbar { background: var(--dark) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
+        .navbar .nav-link:hover { color: var(--accent) !important; }
+        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 40px 0; }
+        .form-card { background: var(--white); border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,0,255,0.1); }
+        .benefit-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
+        .benefit-card h6 { color: var(--text); font-weight: 600; }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--accent); }
+        .step-indicator { display: flex; gap: 8px; }
+        .step-indicator .step { width: 32px; height: 32px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
+        .step-indicator .step.active { background: var(--accent); color: var(--text); }
+        .step-indicator .step.completed { background: #059669; color: #fff; }
+        .warning-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; color: #92400e; font-size: 14px; }
+        .payment-option { border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; }
+        .payment-option:hover, .payment-option.selected { border-color: var(--accent); background: #f0f8ff; }
+        .payment-option input { display: none; }
+        .onboarding-card { background: var(--white); border-radius: 12px; padding: 24px; text-align: center; border: 1px solid #e2e8f0; transition: all 0.2s; }
+        .onboarding-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .onboarding-card a { text-decoration: none; color: var(--text); }
+        .onboarding-card .icon-wrapper { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; }
+        .ai-welcome-box { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: #fff; border-radius: 16px; padding: 20px 24px; margin-bottom: 24px; }
+        .ai-welcome-box .ai-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--text); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
+        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,255,0.5); }
+        .floating-chat-modal { position: fixed; bottom: 96px; right: 24px; width: 380px; max-height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
+        .floating-chat-modal.open { display: flex; }
+        .floating-chat-header { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .floating-chat-header h6 { margin: 0; font-size: 15px; font-weight: 600; }
+        .floating-chat-body { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+        .floating-chat-msg { padding: 10px 14px; margin-bottom: 10px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .floating-chat-msg.ai { background: var(--white); border: 1px solid #e2e8f0; }
+        .floating-chat-msg.user { background: var(--accent); color: var(--text); margin-left: 20%; }
+        .floating-chat-msg.system { background: #fef3c7; border: 1px solid #fbbf24; font-size: 13px; }
+        .floating-chat-input { padding: 12px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: var(--white); }
+        .floating-chat-input input { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+        .floating-chat-input input:focus { outline: none; border-color: var(--accent); }
+        .floating-chat-input button { background: var(--accent); color: var(--text); border-radius: 8px; padding: 8px 14px; font-size: 14px; }
+        .floating-chat-ai-selector { padding: 10px 16px; background: var(--white); border-bottom: 1px solid #e2e8f0; display: flex; gap: 6px; flex-wrap: wrap; }
+        .ai-chip { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #e2e8f0; background: var(--white); color: #475569; }
+        .ai-chip:hover, .ai-chip.active { background: var(--accent); color: var(--text); border-color: var(--accent); }
+        .btn-blue { background: var(--accent); color: var(--text); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-blue:hover { background: #0000cc; color: var(--text); }
+        .btn-success-custom { background: #059669; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-success-custom:hover { background: #047857; }
+        .checkbox-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; }
+        .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+        @media (max-width: 480px) { .floating-chat-modal { width: calc(100% - 32px); right: 16px; bottom: 88px; } .floating-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; font-size: 20px; } }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill" style="color:#60a5fa;"></i> <span style="color:#60a5fa;">Hub66</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="capital-hub.html">Capital Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="service-hub.html">Service Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-hub.html">M&A Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="register.html">Đăng ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="mb-3">Đăng ký Member Hub66</h1>
+            <p class="text-light opacity-75">Private Business Matching Hub - Không phải sàn rao vặt</p>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- Benefits Column -->
+            <div class="col-lg-4 mb-4">
+                <div class="form-card h-100">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-gift text-success"></i> Quyền lợi Member</h5>
+                    <div class="benefit-card">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i> Truy cập full deal board</h6>
+                        <p class="small text-muted mb-0">Xem tất cả deals ẩn danh, thông tin chi tiết sau NDA</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i> Đăng nhu cầu không giới hạn</h6>
+                        <p class="small text-muted mb-0">Capital, Service, M&A Hub - Hub nào cũng được</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i> 52 buổi coaching/năm</h6>
+                        <p class="small text-muted mb-0">Đội ngũ Hub66 hỗ trợ xuyên suốt</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i> Chat ẩn danh</h6>
+                        <p class="small text-muted mb-0">Kết nối với đối tác mà không tiết lộ thông tin</p>
+                    </div>
+                    <div class="benefit-card">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i> CRM cá nhân</h6>
+                        <p class="small text-muted mb-0">Theo dõi pipeline, deal, thông tin đối tác</p>
+                    </div>
+                    <div class="benefit-card" style="border-left-color: #059669;">
+                        <h6 class="text-success"><i class="bi bi-check-circle text-success me-2"></i> Phí Member: 1M/năm</h6>
+                        <p class="small text-muted mb-0">Thanh toán một lần, sử dụng cả năm</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="col-lg-8">
+                <div class="form-card">
+                    <!-- AI Welcome Box -->
+                    <div class="ai-welcome-box" id="aiWelcomeBox">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="ai-icon">
+                                <i class="bi bi-robot"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-2 fw-bold">Hub66 AI Assistant</h6>
+                                <p class="mb-0 opacity-90" style="font-size:14px;">Xin chào, tôi có thể giúp bạn chọn Hub phù hợp và gửi nhu cầu đầu tiên.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step Indicator -->
+                    <div class="step-indicator mb-4">
+                        <div class="step active" id="step1">1</div>
+                        <div class="step" id="step2">2</div>
+                        <div class="step" id="step3">3</div>
+                        <div class="step" id="step4">4</div>
+                    </div>
+
+                    <form id="registerForm">
+                        <!-- Step 1: Basic Info -->
+                        <div id="formStep1">
+                            <h5 class="fw-bold mb-4">Thông tin cá nhân</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" placeholder="Nguyễn Văn A" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="email@company.com" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" placeholder="0xxx xxx xxx" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Mã giới thiệu (Referrer Code)</label>
+                                    <input type="text" class="form-control" placeholder="VD: REF-2026-001">
+                                    <small class="text-muted">Không bắt buộc - Nếu có người giới thiệu</small>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Tiếp tục</button>
+                        </div>
+
+                        <!-- Step 2: Business Info -->
+                        <div id="formStep2" style="display:none;">
+                            <h5 class="fw-bold mb-4">Thông tin doanh nghiệp</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ngành nghề</label>
+                                    <select class="form-control" required>
+                                        <option value="">Chọn ngành</option>
+                                        <option value="tech">Công nghệ / IT</option>
+                                        <option value="manufacture">Sản xuất</option>
+                                        <option value="retail">Bán lẻ</option>
+                                        <option value="logistics">Logistics</option>
+                                        <option value="finance">Tài chính</option>
+                                        <option value="fmcg">FMCG</option>
+                                        <option value="realestate">Bất động sản</option>
+                                        <option value="agriculture">Nông nghiệp</option>
+                                        <option value="healthcare">Y tế</option>
+                                        <option value="education">Giáo dục</option>
+                                        <option value="construction">Xây dựng</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tỉnh/Thành phố</label>
+                                    <select class="form-control" required>
+                                        <option value="">Chọn tỉnh/thành</option>
+                                        <option value="hanoi">Hà Nội</option>
+                                        <option value="hcm">TP. Hồ Chí Minh</option>
+                                        <option value="danang">Đà Nẵng</option>
+                                        <option value="cantho">Cần Thơ</option>
+                                        <option value="haiphong">Hải Phòng</option>
+                                        <option value="bienhoa">Biên Hòa</option>
+                                        <option value="nhatrang">Nha Trang</option>
+                                        <option value="hue">Huế</option>
+                                        <option value="dalat">Đà Lạt</option>
+                                        <option value="other">Khác</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Quan tâm đến Hub nào?</label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="capital">
+                                            <div><i class="bi bi-cash-stack fs-4 text-primary"></i></div>
+                                            <div class="small fw-medium">Capital</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="ma">
+                                            <div><i class="bi bi-building fs-4 text-danger"></i></div>
+                                            <div class="small fw-medium">M&A</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="sales">
+                                            <div><i class="bi bi-graph-up fs-4 text-success"></i></div>
+                                            <div class="small fw-medium">Sales</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="service">
+                                            <div><i class="bi bi-briefcase fs-4 text-info"></i></div>
+                                            <div class="small fw-medium">Service</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="distribution">
+                                            <div><i class="bi bi-truck fs-4 text-warning"></i></div>
+                                            <div class="small fw-medium">Distribution</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="partner">
+                                            <div><i class="bi bi-handshake fs-4 text-primary"></i></div>
+                                            <div class="small fw-medium">Partner</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="referrer">
+                                            <div><i class="bi bi-person-plus fs-4 text-success"></i></div>
+                                            <div class="small fw-medium">Referrer</div>
+                                        </label>
+                                        <label class="payment-option p-3 text-center" style="min-width:120px;">
+                                            <input type="checkbox" name="mainInterest" value="coaching">
+                                            <div><i class="bi bi-mortarboard fs-4 text-warning"></i></div>
+                                            <div class="small fw-medium">Coaching</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary" onclick="prevStep(1)">Quay lại</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(3)">Tiếp tục</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Consent -->
+                        <div id="formStep3" style="display:none;">
+                            <h5 class="fw-bold mb-4">Xác nhận điều khoản</h5>
+                            <div class="mb-4">
+                                <div class="checkbox-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consentTerms" required>
+                                        <label class="form-check-label" for="consentTerms">
+                                            Tôi đồng ý với <a href="terms.html" target="_blank">Điều khoản sử dụng</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consentPrivacy" required>
+                                        <label class="form-check-label" for="consentPrivacy">
+                                            Tôi đồng ý với <a href="privacy.html" target="_blank">Chính sách bảo mật</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="checkbox-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consentData" required>
+                                        <label class="form-check-label" for="consentData">
+                                            Tôi đồng ý cho Hub66 xử lý dữ liệu để matching, CRM, AI summary và hỗ trợ khách hàng
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="warning-box mb-4">
+                                <div class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Lưu ý:</strong> Hub66 là nền tảng kết nối ẩn danh. Không hiển thị công khai: tên công ty, tên cá nhân, số điện thoại, email, địa chỉ, mã số thuế, hồ sơ tài chính, tài liệu ngân hàng, danh sách khách hàng/nhà cung cấp.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary" onclick="prevStep(2)">Quay lại</button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(4)">Tiếp tục</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Payment -->
+                        <div id="formStep4" style="display:none;">
+                            <h5 class="fw-bold mb-4">Thanh toán - Membership Payment</h5>
+                            <div class="alert alert-info">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-info-circle fs-4"></i>
+                                    <div>
+                                        <strong>Phí Member: 1,000,000 VNĐ/năm</strong><br>
+                                        <small>Bao gồm: truy cập deal board, 52 coaching, CRM cá nhân</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Chọn phương thức thanh toán</label>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="payment-option w-100 text-center" id="paymentOnline">
+                                            <input type="radio" name="paymentMethod" value="online" required>
+                                            <div><i class="bi bi-credit-card fs-4 text-primary"></i></div>
+                                            <div class="fw-medium">Online Payment</div>
+                                            <small class="text-muted">Thẻ, ATM, VNPay</small>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="payment-option w-100 text-center" id="paymentBank">
+                                            <input type="radio" name="paymentMethod" value="bank" required>
+                                            <div><i class="bi bi-bank fs-4 text-info"></i></div>
+                                            <div class="fw-medium">Bank Transfer</div>
+                                            <small class="text-muted">Chuyển khoản</small>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="payment-option w-100 text-center" id="paymentManual">
+                                            <input type="radio" name="paymentMethod" value="manual" required>
+                                            <div><i class="bi bi-clock-history fs-4 text-warning"></i></div>
+                                            <div class="fw-medium">Manual Verification</div>
+                                            <small class="text-muted">Chờ duyệt</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="warning-box mb-4">
+                                <div class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Lưu ý:</strong> Hub66 không cam kết deal thành công. Phí 3% Hub66 + 35% referral chỉ phát sinh khi deal hoàn thành.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="agreeFeePolicy" required>
+                                <label class="form-check-label" for="agreeFeePolicy">
+                                    Tôi đồng ý với <a href="fee-policy.html" target="_blank">chính sách phí</a> của Hub66: 3% phí deal + 35% referral cho người giới thiệu
+                                </label>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary" onclick="prevStep(3)">Quay lại</button>
+                                <button type="submit" class="btn btn-success-custom"><i class="bi bi-check-circle"></i> Hoàn tất đăng ký</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Onboarding Section (shown after successful registration) -->
+                    <div id="onboardingSection" style="display:none;">
+                        <div class="text-center mb-4">
+                            <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:80px;height:80px;">
+                                <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                            </div>
+                            <h3 class="mt-4 fw-bold text-success">Đăng ký thành công!</h3>
+                            <p class="text-muted">Mã Member của bạn: <strong id="memberCode">#MEM-2026-XXX</strong></p>
+                            <p class="text-muted">Vui lòng thanh toán 1M VNĐ để kích hoạt tài khoản.</p>
+                        </div>
+
+                        <h5 class="fw-bold mb-4 text-center">Bắt đầu với Hub66</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6 col-lg-3">
+                                <a href="member-dashboard.html#profile" class="text-decoration-none">
+                                    <div class="onboarding-card h-100">
+                                        <div class="icon-wrapper bg-primary bg-opacity-10 text-primary mx-auto">
+                                            <i class="bi bi-building"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Hoàn thiện hồ sơ công ty</h6>
+                                        <p class="small text-muted mb-0">Cập nhật thông tin để AI matching chính xác hơn</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="post-need.html" class="text-decoration-none">
+                                    <div class="onboarding-card h-100">
+                                        <div class="icon-wrapper bg-success bg-opacity-10 text-success mx-auto">
+                                            <i class="bi bi-send"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Gửi nhu cầu đầu tiên</h6>
+                                        <p class="small text-muted mb-0">Đăng deal/need để bắt đầu matching</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="ai-assistant.html" class="text-decoration-none">
+                                    <div class="onboarding-card h-100">
+                                        <div class="icon-wrapper bg-warning bg-opacity-10 text-warning mx-auto">
+                                            <i class="bi bi-robot"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Chat với AI Assistant</h6>
+                                        <p class="small text-muted mb-0">Được gợi ý Hub phù hợp và cách tham gia</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <a href="deal-board.html" class="text-decoration-none">
+                                    <div class="onboarding-card h-100">
+                                        <div class="icon-wrapper bg-info bg-opacity-10 text-info mx-auto">
+                                            <i class="bi bi-speedometer2"></i>
+                                        </div>
+                                        <h6 class="fw-bold">Xem Anonymous Deal Board</h6>
+                                        <p class="small text-muted mb-0">Khám phá các deals đang chờ matching</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a href="member-dashboard.html" class="btn btn-primary"><i class="bi bi-speedometer"></i> Vào Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill" style="color:#60a5fa;"></i> Hub66</h5>
+                    <p>Private Business Matching Hub - Không phải sàn rao vặt.</p>
+                    <p class="small">Bảo mật: Deal codes, NDA workflow, human approval cho high-risk actions.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hubs</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="capital-hub.html">Capital Hub</a></li>
+                        <li><a href="service-hub.html">Service Hub</a></li>
+                        <li><a href="ma-hub.html">M&A Hub</a></li>
+                        <li><a href="distribution-hub.html">Distribution Hub</a></li>
+                        <li><a href="sales-hub.html">Sales Hub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Đăng ký</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="register.html">Đăng ký Member</a></li>
+                        <li><a href="post-need.html">Đăng nhu cầu</a></li>
+                        <li><a href="become-partner.html">Trở thành Partner</a></li>
+                        <li><a href="become-referrer.html">Trở thành Referrer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="ai-assistant.html">AI Assistant</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Pháp lý</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html">Điều khoản</a></li>
+                        <li><a href="privacy.html">Bảo mật</a></li>
+                        <li><a href="deal-board.html">Deal Board</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #334155;">
+            <p class="text-center text-muted small">© 2026 Hub66. Tài Chính Á Châu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Payment option selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+                this.closest('.payment-option').classList.add('selected');
+            });
+        });
+
+        // Hub interest selection
+        document.querySelectorAll('input[name="mainInterest"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.closest('.payment-option').classList.add('selected');
+                } else {
+                    this.closest('.payment-option').classList.remove('selected');
+                }
+            });
+        });
+
+        function nextStep(step) {
+            document.querySelectorAll('[id^="formStep"]').forEach(el => el.style.display = 'none');
+            document.getElementById('formStep' + step).style.display = 'block';
+            document.querySelectorAll('.step').forEach((el, idx) => {
+                el.classList.remove('active');
+                if (idx < step) el.classList.add('completed');
+                if (idx === step - 1) el.classList.add('active');
+            });
+            // Hide AI welcome after step 1
+            if (step > 1) {
+                document.getElementById('aiWelcomeBox').style.display = 'none';
+            }
+        }
+
+        function prevStep(step) {
+            nextStep(step);
+            if (step === 1) {
+                document.getElementById('aiWelcomeBox').style.display = 'block';
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('registerForm').style.display = 'none';
+            document.querySelector('.step-indicator').style.display = 'none';
+            document.getElementById('onboardingSection').style.display = 'block';
+            // Generate mock member code
+            document.getElementById('memberCode').textContent = '#MEM-2026-' + Math.floor(100 + Math.random() * 900);
+        });
+    </script>
+
+    <!-- Floating AI Chat Button -->
+    <button class="floating-chat-btn" onclick="toggleFloatingChat()"><i class="bi bi-chat-dots-fill"></i></button>
+    <div class="floating-chat-modal" id="floatingChatModal">
+        <div class="floating-chat-header">
+            <div><h6><i class="bi bi-robot"></i> Hub66 AI Assistant</h6><small style="opacity:0.7">Luôn cần admin duyệt rủi ro cao</small></div>
+            <div class="d-flex gap-2">
+                <a href="ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
+                <button class="btn btn-sm btn-link text-white p-0" onclick="toggleFloatingChat()"><i class="bi bi-x-lg"></i></button>
+            </div>
+        </div>
+        <div class="floating-chat-ai-selector">
+            <button class="ai-chip active" onclick="selectFloatingAI(this, 'PMO')">PMO</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SALES_HUB')">Sales</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SERVICE_HUB')">Service</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'CAPITAL_HUB')">Capital</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'MA')">M&A</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'FINANCE')">Finance</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'RISK')">Risk</button>
+        </div>
+        <div class="floating-chat-body" id="floatingChatBody">
+            <div class="floating-chat-msg ai"><strong>Hub66 AI:</strong> Xin chào! Tôi là AI Assistant. Chọn loại AI và hỏi về deal, phí, quy trình hoặc tư vấn.</div>
+        </div>
+        <div class="floating-chat-input">
+            <input type="text" id="floatingChatInput" placeholder="Hỏi AI..." onkeypress="if(event.key==='Enter')sendFloatingChat()">
+            <button onclick="sendFloatingChat()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+
+    <script>
+        let floatingAI = 'PMO';
+        const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
+        function toggleFloatingChat() { document.getElementById('floatingChatModal').classList.toggle('open'); }
+        function selectFloatingAI(btn, type) {
+            floatingAI = type;
+            document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            addFloatingMsg('system', `Đã chuyển sang ${aiLabels[type]}. ${type === 'RISK' || type === 'FINANCE' || type === 'MA' ? '⚠️ Luôn cần admin duyệt.' : 'AI sẽ gợi ý và nhắc việc.'}`);
+        }
+        function addFloatingMsg(type, content) {
+            const body = document.getElementById('floatingChatBody');
+            body.innerHTML += `<div class="floating-chat-msg ${type}">${content}</div>`;
+            body.scrollTop = body.scrollHeight;
+        }
+        function sendFloatingChat() {
+            const input = document.getElementById('floatingChatInput');
+            if (!input.value.trim()) return;
+            const msg = input.value.trim();
+            addFloatingMsg('user', msg);
+            input.value = '';
+            setTimeout(() => {
+                const m = msg.toLowerCase();
+                let reply = `<strong>${aiLabels[floatingAI]}:</strong> `;
+                if (floatingAI === 'RISK' || floatingAI === 'FINANCE' || floatingAI === 'MA') {
+                    reply += `Tôi đã ghi nhận yêu cầu. ⚠️ <strong>Yêu cầu này cần admin duyệt thủ công</strong> - AI không tự phê duyệt bước rủi ro cao.`;
+                } else if (m.includes('phí') || m.includes('fee')) {
+                    reply += `Phí Hub66: • Sales/M&A/Capital: <strong>3%</strong> • Service: <strong>20%</strong> recurring • Referrer: <strong>35%</strong> phí Hub66 • Partner: <strong>12%</strong>`;
+                } else if (m.includes('deal') || m.includes('mã')) {
+                    reply += `Mỗi deal đều có mã định danh. Deal board chỉ hiển thị ẩn danh. Cần ký NDA + Thỏa thuận phí trước khi xem chi tiết.`;
+                } else if (m.includes('nda') || m.includes('ký')) {
+                    reply += `Để xem thông tin deal: 1) Đăng nhập → 2) Ký NDA → 3) Ký Thỏa thuận phí → 4) Admin duyệt (deal >10B).`;
+                } else if (m.includes('refe') || m.includes('giớ')) {
+                    reply += `Referrer nhận <strong>35% phí Hub66 thực thu</strong>. Cần ký Referral Agreement trước khi nhận hoa hồng.`;
+                } else {
+                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="ai-assistant.html">mở AI Assistant đầy đủ</a> hoặc liên hệ Deal Desk.`;
+                }
+                addFloatingMsg('ai', reply);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribution Hub - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff;
+            --accent: #0000ff;
+            --dark: #0B1F3A;  --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .navbar { background: var(--primary) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
+        .navbar .nav-link:hover { color: var(--accent) !important; }
+        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 60px 0; }
+        .section-card { background: var(--white); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,0,255,0.1); }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--accent); }
+        .pipeline-card { background: var(--white); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; }
+        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sales-hub.html">Sales Hub</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="distribution-hub.html">Distribution Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="badge bg-info">DISTRIBUTION HUB</span>
+                    </div>
+                    <h1 class="mb-3">Distribution Hub - Kết nối kênh phân phối</h1>
+                    <p class="text-light opacity-75">Tìm đại lý, nhà phân phối, dealer để mở rộng kênh bán hàng. Kết nối Supplier với Sales Partner qua Hub66.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="bg-white text-dark rounded-3 p-4">
+                        <div class="text-primary fw-bold fs-4">3% + 12%</div>
+                        <div class="small">Hub + Sales Partner Fee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <!-- Distribution Flow -->
+        <div class="section-card mb-4">
+            <h4 class="fw-bold mb-4"><i class="bi bi-diagram-3 text-primary"></i> Quy trình phân phối qua Hub66</h4>
+            <div class="row text-center">
+                <div class="col-md-3 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-3 p-4">
+                        <i class="bi bi-building text-primary fs-3 mb-3"></i>
+                        <h6 class="fw-bold">Supplier đăng sản phẩm</h6>
+                        <p class="small text-muted mb-0">Cung cấp product info, margin, khu vực</p>
+                    </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="bg-warning bg-opacity-10 rounded-3 p-4">
+                        <i class="bi bi-clipboard-check text-warning fs-3 mb-3"></i>
+                        <h6 class="fw-bold">Hub duyệt & match</h6>
+                        <p class="small text-muted mb-0">Kiểm tra product, ghép Sales Partner</p>
+                    </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-arrow-right text-muted fs-3"></i>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-3 p-4">
+                        <i class="bi bi-people text-success fs-3 mb-3"></i>
+                        <h6 class="fw-bold">Sales Partner nhận phân phối</h6>
+                        <p class="small text-muted mb-0">Ký agreement, nhận sales kit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <div class="badge bg-success"><i class="bi bi-check-circle"></i> Hub quản lý fee 3% + sales partner fee 12%</div>
+            </div>
+        </div>
+
+        <!-- 8-Step Distribution Workflow -->
+        <div class="section-card mb-4">
+            <h4 class="fw-bold mb-4"><i class="bi bi-arrow-right-circle text-primary"></i> Quy trình 8 bước</h4>
+            <div class="row text-center">
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">1</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Register</p>
+                    <small class="text-muted">Đăng ký Supplier/Partner</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">2</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Submit</p>
+                    <small class="text-muted">Đăng sản phẩm/demand</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-primary fw-bold">3</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Hub Review</p>
+                    <small class="text-muted">Kiểm tra product/lead</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-warning fw-bold">4</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Agreement</p>
+                    <small class="text-muted">Ký phân phối agreement</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-warning fw-bold">5</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">DIST Code</p>
+                    <small class="text-muted">Mã DIST-2026-XXXX</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-success fw-bold">6</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Matching</p>
+                    <small class="text-muted">Ghép Supplier-Sales Partner</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-success fw-bold">7</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Delivery</p>
+                    <small class="text-muted">Giao hàng & billing</small>
+                </div>
+                <div class="col-md-3 col-4 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:48px;height:48px;">
+                        <span class="text-success fw-bold">8</span>
+                    </div>
+                    <p class="small mt-2 mb-0 fw-semibold">Settled</p>
+                    <small class="text-muted">Thu phí 3% + 12%</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Release Warning -->
+        <div class="alert alert-warning mb-4">
+            <i class="bi bi-exclamation-triangle-fill"></i> <strong>Cảnh báo:</strong> Thông tin deal chỉ được tiết lộ sau khi ký NDA và xác nhận đối tác phân phối. Không tiết lộ thông tin trước khi matching hoàn tất.
+        </div>
+
+        <!-- Distribution vs Sales -->
+        <div class="row mb-5">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-building text-primary"></i> Supplier</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Đăng sản phẩm vào Hub</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Cung cấp sales kit, materials</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Set margin và khu vực phân phối</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Hub trả 3% cho Hub66</li>
+                            <li><i class="bi bi-check text-success me-2"></i>Tracking delivery và billing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-people text-success"></i> Sales Partner</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Đăng ký nhận sản phẩm phân phối</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Ký Supplier Agreement</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Phân phối trong khu vực được assign</li>
+                            <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Nhận 12% hoa hồng trên doanh số</li>
+                            <li><i class="bi bi-check text-success me-2"></i>Báo cáo sales hàng tháng</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution Form -->
+        <div class="section-card mb-4">
+            <h4 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary"></i> Đăng ký phân phối / tìm đại lý</h4>
+            <form id="distributionForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Loại đăng ký</label>
+                        <select class="form-control" required>
+                            <option value="">Chọn loại</option>
+                            <option value="supplier">Tôi là Supplier - muốn tìm đại lý</option>
+                            <option value="partner">Tôi là Sales Partner - muốn nhận phân phối</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Công ty / Tên <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Tên công ty hoặc cá nhân" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngành sản phẩm</label>
+                        <select class="form-control">
+                            <option value="">Chọn ngành</option>
+                            <option value="fnb">F&B</option>
+                            <option value="cosmetics">Mỹ phẩm</option>
+                            <option value="fashion">Thời trang</option>
+                            <option value="electronics">Điện tử</option>
+                            <option value="home">Đồ gia dụng</option>
+                            <option value="industrial">Công nghiệp</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Khu vực mong muốn</label>
+                        <select class="form-control">
+                            <option value="">Chọn khu vực</option>
+                            <option value="north">Miền Bắc</option>
+                            <option value="south">Miền Nam</option>
+                            <option value="central">Miền Trung</option>
+                            <option value="nationwide">Toàn quốc</option>
+                            <option value="specific">Cụ thể theo tỉnh/thành</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Doanh số dự kiến (VNĐ/tháng)</label>
+                        <input type="text" class="form-control" placeholder="VD: 500,000,000">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Margin mong muốn (%)</label>
+                        <input type="text" class="form-control" placeholder="VD: 15-25%">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Mô tả / Ghi chú thêm</label>
+                        <textarea class="form-control" rows="3" placeholder="Mô tả kinh nghiệm phân phối, sản phẩm quan tâm, kế hoạch sales..."></textarea>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeDistFee" required>
+                            <label class="form-check-label" for="agreeDistFee">
+                                Tôi đồng ý với chính sách phí: <strong>3% Hub66</strong> + <strong>12% Sales Partner</strong> trên doanh số thành công
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Gửi đăng ký</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Distribution Pipeline Preview -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-graph-up text-primary"></i> Bảng Pipeline Phân phối</h4>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="pipeline-card">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Sản phẩm F&B Miền Bắc</span>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                        <div class="text-muted small mb-2">Supplier: ABC Food Corp</div>
+                        <div class="d-flex gap-3 small">
+                            <span><i class="bi bi-people"></i> 5 Sales Partner</span>
+                            <span><i class="bi bi-currency-dollar"></i> 450M/tháng</span>
+                            <span><i class="bi bi-percent text-success"></i> Margin 22%</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-card">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Mỹ phẩm Organic Hàn Quốc</span>
+                            <span class="badge bg-warning text-dark">Pending Approval</span>
+                        </div>
+                        <div class="text-muted small mb-2">Supplier: Korea Beauty VN</div>
+                        <div class="d-flex gap-3 small">
+                            <span><i class="bi bi-people"></i> 3 đăng ký mới</span>
+                            <span><i class="bi bi-currency-dollar"></i> Chờ duyệt</span>
+                            <span><i class="bi bi-percent text-warning"></i> Margin 35%</span>
+                        </div>
+                    </div>
+                    <div class="pipeline-card">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-semibold">Thiết bị công nghiệp</span>
+                            <span class="badge bg-info">Matching</span>
+                        </div>
+                        <div class="text-muted small mb-2">Supplier: Industrial Tech</div>
+                        <div class="d-flex gap-3 small">
+                            <span><i class="bi bi-people"></i> 8 Sales Partner</span>
+                            <span><i class="bi bi-currency-dollar"></i> 1.2B/tháng</span>
+                            <span><i class="bi bi-percent text-info"></i> Margin 18%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm bg-primary text-white">
+                        <div class="card-body p-4">
+                            <h6 class="fw-bold mb-3"><i class="bi bi-people"></i> Đăng ký làm Sales Partner</h6>
+                            <p class="small opacity-75 mb-3">Nhận phân phối sản phẩm đã duyệt từ Supplier. Nhận 12% hoa hồng.</p>
+                            <a href="become-partner.html" class="btn btn-light w-100">Đăng ký ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</h5>
+                    <p>Private Business Matching Hub - Không phải sàn rao vặt.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hubs</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="capital-hub.html">Capital Hub</a></li>
+                        <li><a href="service-hub.html">Service Hub</a></li>
+                        <li><a href="ma-hub.html">M&A Hub</a></li>
+                        <li><a href="deal-board.html">Deal Board</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="ai-assistant.html">AI Assistant</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="fee-policy.html">Bảng phí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html">Điều khoản</a></li>
+                        <li><a href="privacy.html">Bảo mật</a></li>
+                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #334155;">
+            <p class="text-center text-muted small">© 2026 Hub66. Tài Chính Á Châu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
