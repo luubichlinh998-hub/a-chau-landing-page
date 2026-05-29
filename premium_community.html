@@ -42,6 +42,10 @@
         .post-type.service { background: #fef3c7; color: #92400e; }
         .post-type.question { background: #e0e7ff; color: #3730a3; }
         .post-type.event { background: #f3e8ff; color: #6b21a8; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { background: #fff; border-radius: 16px; padding: 32px; max-width: 500px; width: 90%; }
+        .modal-content.post-form { max-width: 600px; }
     </style>
 </head>
 <body>
@@ -84,7 +88,7 @@
                     <p class="text-light opacity-75">Chia sẻ kiến thức, hỏi đáp, và kết nối cơ hội trong cộng đồng doanh nghiệp. Không phải sàn rao vặt.</p>
                 </div>
                 <div class="col-lg-4">
-                    <button class="btn btn-primary w-100" onclick="alert('Mở form tạo post mới.')">
+                    <button class="btn btn-primary w-100" onclick="checkLoginAndOpenPost()">
                         <i class="bi bi-plus-circle"></i> Tạo bài đăng mới
                     </button>
                 </div>
@@ -325,6 +329,81 @@
         </div>
     </div>
 
+    <!-- Login Verification Modal -->
+    <div class="modal-overlay" id="loginVerifyModal">
+        <div class="modal-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-shield-lock text-warning"></i> Xác minh để đăng bài</h5>
+                <button type="button" class="btn-close" onclick="closeLoginVerifyModal()"></button>
+            </div>
+            <div class="alert alert-info mb-3">
+                <i class="bi bi-info-circle"></i> Vui lòng đăng nhập Member hoặc nhập Partner ID / Refer ID để đăng bài.
+            </div>
+            <div class="d-grid gap-2 mb-3">
+                <a href="premium_login.html" class="btn btn-primary"><i class="bi bi-person"></i> Đăng nhập Member</a>
+            </div>
+            <hr class="my-3">
+            <p class="text-center text-muted small">Hoặc xác minh bằng ID</p>
+            <div class="mb-3">
+                <label class="form-label">Partner ID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="partnerIdInput" placeholder="VD: PARTNER001">
+                    <button class="btn btn-outline-warning" type="button" onclick="verifyPartnerId()">Xác minh</button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Refer ID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="referIdInput" placeholder="VD: REFER001">
+                    <button class="btn btn-outline-success" type="button" onclick="verifyReferId()">Xác minh</button>
+                </div>
+            </div>
+            <div id="verifySuccess" class="alert alert-success mt-2" style="display:none;">
+                <i class="bi bi-check-circle"></i> <span id="verifySuccessText"></span>
+            </div>
+            <div id="verifyError" class="alert alert-danger mt-2" style="display:none;">
+                <i class="bi bi-exclamation-circle"></i> <span id="verifyErrorText"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Form Modal -->
+    <div class="modal-overlay" id="postFormModal">
+        <div class="modal-content post-form">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-file-plus text-primary"></i> Tạo bài đăng mới</h5>
+                <button type="button" class="btn-close" onclick="closePostFormModal()"></button>
+            </div>
+            <div id="postFormAlert" class="alert" style="display:none;"></div>
+            <form id="postForm">
+                <div class="mb-3">
+                    <label class="form-label">Tiêu đề bài viết</label>
+                    <input type="text" class="form-control" id="postTitle" placeholder="Nhập tiêu đề..." required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Danh mục</label>
+                    <select class="form-control" id="postCategory" required>
+                        <option value="">Chọn danh mục</option>
+                        <option value="knowledge">Knowledge</option>
+                        <option value="question">Question</option>
+                        <option value="opportunity">Opportunity</option>
+                        <option value="service">Service Request</option>
+                        <option value="capital">Capital Question</option>
+                        <option value="event">Event Feedback</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nội dung bài viết</label>
+                    <textarea class="form-control" id="postContent" rows="5" placeholder="Nhập nội dung bài viết..." required></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1"><i class="bi bi-send"></i> Đăng bài</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePostFormModal()">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <div class="row">
@@ -429,6 +508,102 @@
                 addFloatingMsg('ai', reply);
             }, 1000);
         }
+
+        // Login verification state
+        let verifiedType = null; // 'partner' or 'refer'
+
+        function checkLoginAndOpenPost() {
+            document.getElementById('loginVerifyModal').classList.add('show');
+            document.getElementById('verifySuccess').style.display = 'none';
+            document.getElementById('verifyError').style.display = 'none';
+            document.getElementById('partnerIdInput').value = '';
+            document.getElementById('referIdInput').value = '';
+            verifiedType = null;
+        }
+
+        function closeLoginVerifyModal() {
+            document.getElementById('loginVerifyModal').classList.remove('show');
+        }
+
+        function verifyPartnerId() {
+            const id = document.getElementById('partnerIdInput').value.trim().toUpperCase();
+            if (!id) {
+                showVerifyError('ID không hợp lệ. Vui lòng kiểm tra lại.');
+                return;
+            }
+            if (id === 'PARTNER001') {
+                verifiedType = 'partner';
+                showVerifySuccess('Đã xác minh Partner ID. Bạn có thể đăng bài.');
+                closeLoginVerifyModal();
+                openPostForm();
+            } else {
+                showVerifyError('ID không hợp lệ. Vui lòng kiểm tra lại.');
+            }
+        }
+
+        function verifyReferId() {
+            const id = document.getElementById('referIdInput').value.trim().toUpperCase();
+            if (!id) {
+                showVerifyError('ID không hợp lệ. Vui lòng kiểm tra lại.');
+                return;
+            }
+            if (id === 'REFER001') {
+                verifiedType = 'refer';
+                showVerifySuccess('Đã xác minh Refer ID. Bạn có thể đăng bài.');
+                closeLoginVerifyModal();
+                openPostForm();
+            } else {
+                showVerifyError('ID không hợp lệ. Vui lòng kiểm tra lại.');
+            }
+        }
+
+        function showVerifySuccess(msg) {
+            const el = document.getElementById('verifySuccess');
+            document.getElementById('verifySuccessText').textContent = msg;
+            el.style.display = 'block';
+            document.getElementById('verifyError').style.display = 'none';
+        }
+
+        function showVerifyError(msg) {
+            const el = document.getElementById('verifyError');
+            document.getElementById('verifyErrorText').textContent = msg;
+            el.style.display = 'block';
+            document.getElementById('verifySuccess').style.display = 'none';
+        }
+
+        function openPostForm() {
+            document.getElementById('postFormModal').classList.add('show');
+            document.getElementById('postForm').reset();
+            document.getElementById('postFormAlert').style.display = 'none';
+        }
+
+        function closePostFormModal() {
+            document.getElementById('postFormModal').classList.remove('show');
+        }
+
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('postTitle').value.trim();
+            const category = document.getElementById('postCategory').value;
+            const content = document.getElementById('postContent').value.trim();
+
+            if (!title || !category || !content) {
+                const alert = document.getElementById('postFormAlert');
+                alert.className = 'alert alert-danger';
+                alert.innerHTML = '<i class="bi bi-exclamation-circle"></i> Vui lòng điền đầy đủ thông tin.';
+                alert.style.display = 'block';
+                return;
+            }
+
+            const alert = document.getElementById('postFormAlert');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="bi bi-check-circle"></i> Bài viết đã được gửi thành công.';
+            alert.style.display = 'block';
+
+            setTimeout(() => {
+                closePostFormModal();
+            }, 2000);
+        });
     </script>
 
     <!-- Floating AI Chat Button -->
