@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Dashboard - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 240px; background: var(--primary); color: #fff; z-index: 1000; }
+        .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 8px; margin: 2px 8px; transition: all 0.2s; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(212,175,55,0.2); color: var(--accent); }
+        .sidebar .user-info { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .main-content { margin-left: 240px; min-height: 100vh; }
+        .topbar { background: var(--white); border-bottom: 1px solid #e2e8f0; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .stat-value { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .deal-card { background: var(--white); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #e2e8f0; transition: all 0.2s; }
+        .deal-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .deal-code { font-family: 'Monaco', monospace; font-size: 13px; color: var(--accent); font-weight: 600; }
+        .deal-type { font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+        .deal-type.capital { background: #dbeafe; color: #1e40af; }
+        .deal-type.ma { background: #fce7f3; color: #9d174d; }
+        .deal-type.service { background: #e0e7ff; color: #3730a3; }
+        .status-badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 500; }
+        .status-success { background: #d1fae5; color: #065f46; }
+        .status-processing { background: #dbeafe; color: #1e40af; }
+        .status-failed { background: #fee2e2; color: #991b1b; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .pipeline-badge { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .pipeline-new-lead { background: #dbeafe; color: #1e40af; }
+        .pipeline-qualified { background: #d1fae5; color: #065f46; }
+        .pipeline-agreement-sent { background: #fef3c7; color: #92400e; }
+        .pipeline-agreement-signed { background: #ede9fe; color: #5b21b6; }
+        .pipeline-partner-matched { background: #e0e7ff; color: #3730a3; }
+        .pipeline-proposal { background: #fce7f3; color: #9d174d; }
+        .pipeline-in-execution { background: #fff7ed; color: #c2410c; }
+        .pipeline-success { background: #d1fae5; color: #065f46; }
+        .pipeline-fee-collected { background: #ecfccb; color: #3f6212; }
+        .pipeline-referral-paid { background: #d1fae5; color: #065f46; }
+        .pipeline-lost { background: #fee2e2; color: #991b1b; }
+        .pipeline-rejected { background: #f3f4f6; color: #6b7280; }
+        .filter-pill { padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: var(--white); cursor: pointer; transition: all 0.2s; font-size: 13px; }
+        .filter-pill:hover, .filter-pill.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .lead-card { background: var(--white); border-radius: 12px; padding: 16px; margin-bottom: 12px; border-left: 4px solid var(--accent); }
+        .support-card { background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); border-radius: 12px; padding: 24px; color: #fff; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { background: #fff; border-radius: 16px; padding: 32px; max-width: 500px; width: 90%; }
+        .btn-primary-custom { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+        .btn-primary-custom:hover { background: #1a3a5c; color: var(--accent); }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="user-info text-center py-3">
+            <i class="bi bi-person-circle" style="font-size: 48px; color: var(--accent);"></i>
+            <p class="mb-0 mt-2 fw-bold">Partner Portal</p>
+            <small class="text-muted">Mã: #PART-2026-001</small>
+        </div>
+        <nav class="nav flex-column mt-3">
+            <a class="nav-link active" href="#"><i class="bi bi-grid-1x2 me-2"></i> Tổng quan</a>
+            <a class="nav-link" href="#"><i class="bi bi-handshake me-2"></i> Deals của tôi</a>
+            <a class="nav-link" href="#"><i class="bi bi-people me-2"></i> Quản lý Leads</a>
+            <a class="nav-link" href="#"><i class="bi bi-cash-stack me-2"></i> Commission</a>
+            <a class="nav-link" href="#"><i class="bi bi-headset me-2"></i> Hỗ trợ Matching</a>
+            <div class="mt-4 pt-3 border-top border-secondary">
+                <a class="nav-link" href="premium_become-partner.html"><i class="bi bi-box-arrow-left me-2"></i> Đăng xuất</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h4 class="mb-0">Partner Dashboard</h4>
+                <small class="text-muted">Chào mừng Partner! Theo dõi deals và hoa hồng của bạn.</small>
+            </div>
+            <div>
+                <button class="btn btn-gold" onclick="openNewDealModal()"><i class="bi bi-plus-circle"></i> Gửi Deal mới</button>
+            </div>
+        </div>
+
+        <div class="container-fluid p-4">
+            <!-- Commission Overview -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <small class="text-muted">Tổng hoa hồng</small>
+                                <div class="stat-value text-success">12%</div>
+                            </div>
+                            <i class="bi bi-cash-stack text-success" style="font-size: 24px;"></i>
+                        </div>
+                        <small class="text-muted">Hoa hồng trên mỗi deal thành công</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <small class="text-muted">Deals Thành công</small>
+                                <div class="stat-value">5</div>
+                            </div>
+                            <i class="bi bi-check-circle text-success" style="font-size: 24px;"></i>
+                        </div>
+                        <small class="text-muted">Tổng giá trị: 2.5 tỷ VNĐ</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <small class="text-muted">Đang xử lý</small>
+                                <div class="stat-value text-warning">3</div>
+                            </div>
+                            <i class="bi bi-hourglass-split text-warning" style="font-size: 24px;"></i>
+                        </div>
+                        <small class="text-muted">Đang chờ matching</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <small class="text-muted">Thất bại / Từ chối</small>
+                                <div class="stat-value text-danger">2</div>
+                            </div>
+                            <i class="bi bi-x-circle text-danger" style="font-size: 24px;"></i>
+                        </div>
+                        <small class="text-muted">Không match thành công</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commission Summary -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-wallet2 me-2"></i> Tổng quan Commission</h6>
+                        <div class="d-flex justify-content-between mb-2 py-2 border-bottom">
+                            <span>Tổng hoa hồng đã nhận</span>
+                            <span class="fw-bold text-success">125,000,000 VNĐ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 py-2 border-bottom">
+                            <span>Đang chờ thanh toán</span>
+                            <span class="fw-bold text-warning">45,000,000 VNĐ</span>
+                        </div>
+                        <div class="d-flex justify-content-between py-2">
+                            <span>Số dư khả dụng</span>
+                            <span class="fw-bold">125,000,000 VNĐ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-graph-up me-2"></i> Thống kê năm 2026</h6>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-value text-success">5</div>
+                                <small class="text-muted">Thành công</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-value text-warning">3</div>
+                                <small class="text-muted">Xử lý</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-value text-danger">2</div>
+                                <small class="text-muted">Thất bại</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Deals Table -->
+            <div class="stat-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-handshake me-2"></i> Deals của tôi</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="filter-pill active" onclick="filterDeals('all')">Tất cả</button>
+                        <button class="filter-pill" onclick="filterDeals('success')">Thành công</button>
+                        <button class="filter-pill" onclick="filterDeals('processing')">Đang xử lý</button>
+                        <button class="filter-pill" onclick="filterDeals('failed')">Thất bại</button>
+                        <button class="filter-pill" onclick="filterDeals('pending')">Chờ matching</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Mã Deal</th>
+                                <th>Loại</th>
+                                <th>Giá trị</th>
+                                <th>Trạng thái</th>
+                                <th>Pipeline</th>
+                                <th>Hoa hồng (12%)</th>
+                                <th>Ngày</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-status="success">
+                                <td class="deal-code">#DEAL-2026-001</td>
+                                <td><span class="deal-type capital">Capital</span></td>
+                                <td>500,000,000 VNĐ</td>
+                                <td><span class="status-badge status-success">Thành công</span></td>
+                                <td><span class="pipeline-badge pipeline-success">Success</span></td>
+                                <td class="text-success fw-bold">60,000,000 VNĐ</td>
+                                <td>15/01/2026</td>
+                            </tr>
+                            <tr data-status="success">
+                                <td class="deal-code">#DEAL-2026-002</td>
+                                <td><span class="deal-type ma">M&A</span></td>
+                                <td>800,000,000 VNĐ</td>
+                                <td><span class="status-badge status-success">Thành công</span></td>
+                                <td><span class="pipeline-badge pipeline-referral-paid">Referral Paid</span></td>
+                                <td class="text-success fw-bold">96,000,000 VNĐ</td>
+                                <td>20/02/2026</td>
+                            </tr>
+                            <tr data-status="processing">
+                                <td class="deal-code">#DEAL-2026-003</td>
+                                <td><span class="deal-type service">Service</span></td>
+                                <td>300,000,000 VNĐ</td>
+                                <td><span class="status-badge status-processing">Đang xử lý</span></td>
+                                <td><span class="pipeline-badge pipeline-partner-matched">Partner Matched</span></td>
+                                <td class="text-warning">36,000,000 VNĐ</td>
+                                <td>10/03/2026</td>
+                            </tr>
+                            <tr data-status="processing">
+                                <td class="deal-code">#DEAL-2026-004</td>
+                                <td><span class="deal-type capital">Capital</span></td>
+                                <td>1,200,000,000 VNĐ</td>
+                                <td><span class="status-badge status-processing">Đang xử lý</span></td>
+                                <td><span class="pipeline-badge pipeline-agreement-signed">Agreement Signed</span></td>
+                                <td class="text-warning">144,000,000 VNĐ</td>
+                                <td>05/04/2026</td>
+                            </tr>
+                            <tr data-status="failed">
+                                <td class="deal-code">#DEAL-2026-005</td>
+                                <td><span class="deal-type ma">M&A</span></td>
+                                <td>600,000,000 VNĐ</td>
+                                <td><span class="status-badge status-failed">Thất bại</span></td>
+                                <td><span class="pipeline-badge pipeline-lost">Lost</span></td>
+                                <td>-</td>
+                                <td>18/03/2026</td>
+                            </tr>
+                            <tr data-status="pending">
+                                <td class="deal-code">#DEAL-2026-006</td>
+                                <td><span class="deal-type service">Service</span></td>
+                                <td>450,000,000 VNĐ</td>
+                                <td><span class="status-badge status-pending">Chờ matching</span></td>
+                                <td><span class="pipeline-badge pipeline-new-lead">New Lead</span></td>
+                                <td class="text-muted">54,000,000 VNĐ</td>
+                                <td>22/04/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Lead Management -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold mb-0"><i class="bi bi-people me-2"></i> Quản lý Leads</h6>
+                            <button class="btn btn-primary-custom btn-sm"><i class="bi bi-plus"></i> Thêm Lead</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="lead-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <strong>Nguyễn Văn A</strong>
+                                        <span class="badge bg-success">Hot</span>
+                                    </div>
+                                    <p class="small text-muted mb-1">Cần vốn 500M cho dự án bất động sản</p>
+                                    <small class="text-muted">Lead từ: Facebook | 25/04/2026</small>
+                                    <div class="mt-2">
+                                        <button class="btn btn-sm btn-outline-primary">Liên hệ</button>
+                                        <button class="btn btn-sm btn-outline-success">Chuyển thành Deal</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="lead-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <strong>Trần Thị B</strong>
+                                        <span class="badge bg-warning text-dark">Warm</span>
+                                    </div>
+                                    <p class="small text-muted mb-1">Tìm đối tác phân phối tại HCM</p>
+                                    <small class="text-muted">Lead từ: Giới thiệu | 20/04/2026</small>
+                                    <div class="mt-2">
+                                        <button class="btn btn-sm btn-outline-primary">Liên hệ</button>
+                                        <button class="btn btn-sm btn-outline-success">Chuyển thành Deal</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="lead-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <strong>Lê Minh C</strong>
+                                        <span class="badge bg-secondary">Cold</span>
+                                    </div>
+                                    <p class="small text-muted mb-1">Cần tư vấn M&A cho startup</p>
+                                    <small class="text-muted">Lead từ: Website | 15/04/2026</small>
+                                    <div class="mt-2">
+                                        <button class="btn btn-sm btn-outline-primary">Liên hệ</button>
+                                        <button class="btn btn-sm btn-outline-success">Chuyển thành Deal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Support -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="support-card">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-headset me-2"></i> Hỗ trợ Matching</h5>
+                        <p class="mb-3 opacity-75">Đội ngũ AI & Admin của Hub66 luôn sẵn sàng hỗ trợ bạn tìm đối tác phù hợp nhất cho deals của mình.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 rounded p-3 mb-3">
+                                    <h6 class="text-white mb-2"><i class="bi bi-robot me-2"></i> AI Matching</h6>
+                                    <p class="small mb-0 opacity-75">AI phân tích và đề xuất đối tác tiềm năng dựa trên dữ liệu deal của bạn</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 rounded p-3 mb-3">
+                                    <h6 class="text-white mb-2"><i class="bi bi-person-check me-2"></i> Admin Support</h6>
+                                    <p class="small mb-0 opacity-75">Đội ngũ chuyên gia hỗ trợ trực tiếp trong quá trình đàm phán</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-gold mt-2"><i class="bi bi-chat-dots"></i> Gửi yêu cầu hỗ trợ</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card h-100">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-calendar-check me-2"></i> Hoạt động gần đây</h6>
+                        <div class="activity-item d-flex py-2 border-bottom">
+                            <i class="bi bi-check-circle text-success me-3"></i>
+                            <div>
+                                <small>Deal #DEAL-2026-002 hoàn thành</small>
+                                <br><small class="text-muted">Hoa hồng: 96,000,000 VNĐ</small>
+                            </div>
+                        </div>
+                        <div class="activity-item d-flex py-2 border-bottom">
+                            <i class="bi bi-person-plus text-primary me-3"></i>
+                            <div>
+                                <small>Lead mới: Trần Thị B</small>
+                                <br><small class="text-muted">20/04/2026</small>
+                            </div>
+                        </div>
+                        <div class="activity-item d-flex py-2">
+                            <i class="bi bi-chat text-info me-3"></i>
+                            <div>
+                                <small>Admin phản hồi về Deal #DEAL-2026-003</small>
+                                <br><small class="text-muted">18/04/2026</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Deal Modal -->
+    <div class="modal-overlay" id="newDealModal">
+        <div class="modal-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold mb-0">Gửi Deal mới</h5>
+                <button type="button" class="btn-close" onclick="closeNewDealModal()"></button>
+            </div>
+            <form id="newDealForm">
+                <div class="mb-3">
+                    <label class="form-label">Loại deal</label>
+                    <select class="form-control" required>
+                        <option value="">Chọn loại deal</option>
+                        <option value="capital">Capital Hub</option>
+                        <option value="distribution">Distribution Hub</option>
+                        <option value="ma">M&A Hub</option>
+                        <option value="sales">Sales Hub</option>
+                        <option value="service">Service Hub</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Giá trị deal (VNĐ)</label>
+                    <input type="text" class="form-control" placeholder="500,000,000" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mô tả ngắn</label>
+                    <textarea class="form-control" rows="3" placeholder="Mô tả chi tiết về deal..." required></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-gold flex-grow-1">Gửi Deal</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeNewDealModal()">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openNewDealModal() {
+            document.getElementById('newDealModal').classList.add('show');
+        }
+
+        function closeNewDealModal() {
+            document.getElementById('newDealModal').classList.remove('show');
+        }
+
+        function filterDeals(status) {
+            document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const rows = document.querySelectorAll('table tbody tr');
+            rows.forEach(row => {
+                if (status === 'all' || row.dataset.status === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('newDealForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Deal đã được gửi thành công! Đang chờ admin duyệt.');
+            closeNewDealModal();
+            this.reset();
+        });
+    </script>
+</body>
+</html>

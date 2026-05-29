@@ -188,10 +188,11 @@
             }
             var refCode = '#REF-2026-' + Math.floor(Math.random() * 900 + 100);
             var successEl = document.getElementById('formSuccess');
-            successEl.textContent = 'Đăng ký Referrer thành công! Mã Referrer của bạn: ' + refCode;
+            successEl.innerHTML = 'Đăng ký Referrer thành công! Mã Referrer của bạn: <strong>' + refCode + '</strong><br><small>Đang chuyển sang Referrer Dashboard...</small>';
             successEl.style.display = 'block';
             form.reset();
             form.classList.remove('was-validated');
+            setTimeout(function() { window.location.href = 'premium-refer-dashboard.html'; }, 2000);
         });
     </script>
 </body>
