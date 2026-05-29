@@ -35,6 +35,12 @@
         .deal-card .lock-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-align: center; }
         .deal-card .lock-overlay i { font-size: 32px; color: var(--danger); }
         .deal-card .lock-overlay span { display: block; font-size: 12px; color: #64748b; margin-top: 8px; }
+        /* Unlocked state - show full info when user is logged in */
+        .deal-card.unlocked::before { display: none; }
+        .deal-card.unlocked .blur-content { filter: none; pointer-events: auto; }
+        .deal-card.unlocked .lock-overlay { display: none; }
+        .sidebar-login-panel { transition: opacity 0.3s; }
+        .sidebar-login-panel.hidden { display: none; }
         footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
         footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: var(--accent); }
@@ -227,7 +233,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="bg-white rounded-3 p-4">
+                <div class="bg-white rounded-3 p-4 sidebar-login-panel">
                     <h5 class="fw-bold mb-3">Đăng nhập để unlock</h5>
                     <p class="text-muted small">Ký NDA để xem thông tin chi tiết deals</p>
                     <a href="premium_login.html" class="btn btn-primary w-100 mb-2">Đăng nhập</a>
@@ -268,6 +274,40 @@
     </footer>
 
     <script>
+        // Login state check - uses localStorage keys from login flow
+        function isUserLoggedIn() {
+            return localStorage.getItem("hub66_logged_in") === "true" ||
+                   localStorage.getItem("isLoggedIn") === "true";
+        }
+
+        // Apply locked/unlocked state based on login
+        function applyLoginState() {
+            const loggedIn = isUserLoggedIn();
+            const dealCards = document.querySelectorAll('.deal-card');
+            const sidebarPanel = document.querySelector('.sidebar-login-panel');
+
+            dealCards.forEach(card => {
+                if (loggedIn) {
+                    card.classList.remove('locked');
+                    card.classList.add('unlocked');
+                } else {
+                    card.classList.remove('unlocked');
+                    card.classList.add('locked');
+                }
+            });
+
+            if (sidebarPanel) {
+                if (loggedIn) {
+                    sidebarPanel.classList.add('hidden');
+                } else {
+                    sidebarPanel.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', applyLoginState);
+
         // Floating Chat
         let floatingAI = 'PMO';
         const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
