@@ -8,37 +8,68 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #f0f8ff;
-            --accent: #0000ff;
-            --dark: #0B1F3A;  --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
-        .navbar { background: var(--dark) !important; padding: 12px 0; }
-        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar { background: var(--primary) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--accent) !important; text-decoration: none; }
+        .navbar-brand:hover { color: #c9a430 !important; }
         .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
         .navbar .nav-link:hover { color: var(--accent) !important; }
-        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 40px 0; }
+        .navbar .nav-link.active { color: var(--accent) !important; font-weight: 500; }
+        .navbar .nav-link-login { color: rgba(255,255,255,0.7) !important; text-decoration: none; font-weight: 400; }
+        .navbar .nav-link-login:hover { color: var(--accent) !important; }
+        .btn-navbar-register { background: var(--accent); color: var(--primary) !important; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s; margin-left: 8px; }
+        .btn-navbar-register:hover { background: #c9a430; }
+        .dropdown-menu { background: var(--primary); border: 1px solid rgba(212,175,55,0.3); padding: 8px 0; }
+        .dropdown-item { color: rgba(255,255,255,0.8); padding: 10px 16px; transition: all 0.2s; }
+        .dropdown-item:hover, .dropdown-item:focus { background: rgba(212,175,55,0.15); color: var(--accent); }
+        .dropdown-item i { color: var(--accent); margin-right: 8px; width: 20px; text-align: center; }
+        .navbar .dropdown > .dropdown-toggle::after { display: inline-block; margin-left: 4px; vertical-align: middle; border-top: 5px solid rgba(255,255,255,0.7); border-right: 4px solid transparent; border-bottom: 0; border-left: 4px solid transparent; }
+        .navbar .dropdown > .dropdown-toggle:hover::after { border-top-color: var(--accent); }
+        .hero { background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 40px 0; }
         .post-card { background: var(--white); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #e2e8f0; }
-        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
         footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
         footer a:hover { color: var(--accent); }
-        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; }
-        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
-        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #b8962e 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(212,175,55,0.4); cursor: pointer; z-index: 9999; }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
+        .navbar .nav-link.active { color: var(--accent) !important; }
+        .post-type { font-size: 11px; padding: 3px 10px; border-radius: 4px; font-weight: 600; }
+        .post-type.knowledge { background: #dbeafe; color: #1e40af; }
+        .post-type.capital { background: #fce7f3; color: #9d174d; }
+        .post-type.opportunity { background: #d1fae5; color: #065f46; }
+        .post-type.service { background: #fef3c7; color: #92400e; }
+        .post-type.question { background: #e0e7ff; color: #3730a3; }
+        .post-type.event { background: #f3e8ff; color: #6b21a8; }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
+            <a class="navbar-brand" href="premium_index.html"><i class="bi bi-diagram-3-fill"></i> Hub66</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="member-dashboard.html">Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="community.html">Cộng đồng</a></li>
-                    <li class="nav-item"><a class="nav-link" href="ai-assistant.html">AI Assistant</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_index.html#features">Tính năng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_ai-assistant.html">AI Assistant</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_post-need.html">Đăng nhu cầu</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="hubDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">5 Hub</a>
+                        <ul class="dropdown-menu" aria-labelledby="hubDropdown">
+                            <li><a class="dropdown-item" href="premium_capital-hub.html"><i class="bi bi-cash-stack"></i>Capital Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_distribution-hub.html"><i class="bi bi-truck"></i>Distribution Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_ma-hub.html"><i class="bi bi-bank"></i>M&A Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_sales-hub.html"><i class="bi bi-bag-check"></i>Sale Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_service-hub.html"><i class="bi bi-headset"></i>Service Hub</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="premium_fee-policy.html">Bảng giá</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-login" href="premium_login.html">Đăng nhập</a></li>
+                    <li class="nav-item"><a class="btn-navbar-register" href="premium_register.html">Đăng ký</a></li>
                 </ul>
             </div>
         </div>
@@ -103,13 +134,13 @@
 
         <!-- Post Types Filter -->
         <div class="d-flex flex-wrap gap-2 mb-4">
-            <button class="btn btn-primary btn-sm">Tất cả</button>
-            <button class="btn btn-outline-primary btn-sm">Knowledge</button>
-            <button class="btn btn-outline-primary btn-sm">Question</button>
-            <button class="btn btn-outline-primary btn-sm">Opportunity</button>
-            <button class="btn btn-outline-primary btn-sm">Service Request</button>
-            <button class="btn btn-outline-primary btn-sm">Capital Question</button>
-            <button class="btn btn-outline-primary btn-sm">Event Feedback</button>
+            <button class="btn btn-primary btn-sm" onclick="filterPosts('all')">Tất cả</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('knowledge')">Knowledge</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('question')">Question</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('opportunity')">Opportunity</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('service')">Service Request</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('capital')">Capital Question</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filterPosts('event')">Event Feedback</button>
         </div>
 
         <!-- Post List -->
@@ -297,33 +328,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</h5>
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill" style="color: var(--accent);"></i> Hub66</h5>
                     <p>Private Business Matching Hub - Không phải sàn rao vặt.</p>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h6 class="text-white mb-3">Hubs</h6>
                     <ul class="list-unstyled">
-                        <li><a href="capital-hub.html">Capital Hub</a></li>
-                        <li><a href="service-hub.html">Service Hub</a></li>
-                        <li><a href="ma-hub.html">M&A Hub</a></li>
-                        <li><a href="deal-board.html">Deal Board</a></li>
+                        <li><a href="premium_capital-hub.html">Capital Hub</a></li>
+                        <li><a href="premium_service-hub.html">Service Hub</a></li>
+                        <li><a href="premium_ma-hub.html">M&A Hub</a></li>
+                        <li><a href="premium_deal-board.html">Deal Board</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h6 class="text-white mb-3">Hỗ trợ</h6>
                     <ul class="list-unstyled">
-                        <li><a href="community.html">Cộng đồng</a></li>
-                        <li><a href="events.html">Sự kiện</a></li>
-                        <li><a href="ai-assistant.html">AI Assistant</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="premium_community.html">Cộng đồng</a></li>
+                        <li><a href="premium_events.html">Sự kiện</a></li>
+                        <li><a href="premium_ai-assistant.html">AI Assistant</a></li>
+                        <li><a href="premium_faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h6 class="text-white mb-3">Legal</h6>
                     <ul class="list-unstyled">
-                        <li><a href="terms.html">Điều khoản</a></li>
-                        <li><a href="privacy.html">Bảo mật</a></li>
-                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                        <li><a href="premium_terms.html">Điều khoản</a></li>
+                        <li><a href="premium_privacy.html">Bảo mật</a></li>
+                        <li><a href="premium_fee-policy.html">Chính sách phí</a></li>
                     </ul>
                 </div>
             </div>
@@ -333,5 +364,98 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Post filter
+        function filterPosts(category) {
+            const cards = document.querySelectorAll('.post-card');
+            const filterBtns = document.querySelectorAll('.d-flex.flex-wrap.gap-2 button');
+            filterBtns.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-primary');
+            });
+            event.target.classList.remove('btn-outline-primary');
+            event.target.classList.add('btn-primary');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = '';
+                } else {
+                    const typeSpan = card.querySelector('.post-type');
+                    if (typeSpan && typeSpan.classList.contains(category)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+        // Floating Chat
+        let floatingAI = 'PMO';
+        const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
+        function toggleFloatingChat() { document.getElementById('floatingChatModal').classList.toggle('open'); }
+        function selectFloatingAI(btn, type) {
+            floatingAI = type;
+            document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            addFloatingMsg('system', `Đã chuyển sang ${aiLabels[type]}. ${type === 'RISK' || type === 'FINANCE' || type === 'MA' ? '⚠️ Luôn cần admin duyệt.' : 'AI sẽ gợi ý và nhắc việc.'}`);
+        }
+        function addFloatingMsg(type, content) {
+            const body = document.getElementById('floatingChatBody');
+            body.innerHTML += `<div class="floating-chat-msg ${type}">${content}</div>`;
+            body.scrollTop = body.scrollHeight;
+        }
+        function sendFloatingChat() {
+            const input = document.getElementById('floatingChatInput');
+            if (!input.value.trim()) return;
+            const msg = input.value.trim();
+            addFloatingMsg('user', msg);
+            input.value = '';
+            setTimeout(() => {
+                const m = msg.toLowerCase();
+                let reply = `<strong>${aiLabels[floatingAI]}:</strong> `;
+                if (floatingAI === 'RISK' || floatingAI === 'FINANCE' || floatingAI === 'MA') {
+                    reply += `Tôi đã ghi nhận yêu cầu. ⚠️ <strong>Yêu cầu này cần admin duyệt thủ công</strong> - AI không tự phê duyệt bước rủi ro cao.`;
+                } else if (m.includes('phí') || m.includes('fee')) {
+                    reply += `Phí Hub66: • Sales/M&A/Capital: <strong>3%</strong> • Service: <strong>20%</strong> recurring • Referrer: <strong>35%</strong> phí Hub66 • Partner: <strong>12%</strong>`;
+                } else if (m.includes('deal') || m.includes('mã')) {
+                    reply += `Mỗi deal đều có mã định danh. Deal board chỉ hiển thị ẩn danh. Cần ký NDA + Thỏa thuận phí trước khi xem chi tiết.`;
+                } else if (m.includes('nda') || m.includes('ký')) {
+                    reply += `Để xem thông tin deal: 1) Đăng nhập → 2) Ký NDA → 3) Ký Thỏa thuận phí → 4) Admin duyệt (deal >10B).`;
+                } else if (m.includes('refe') || m.includes('giớ')) {
+                    reply += `Referrer nhận <strong>35% phí Hub66 thực thu</strong>. Cần ký Referral Agreement trước khi nhận hoa hồng.`;
+                } else {
+                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="premium_ai-assistant.html">mở AI Assistant đầy đủ</a> hoặc liên hệ Deal Desk.`;
+                }
+                addFloatingMsg('ai', reply);
+            }, 1000);
+        }
+    </script>
+
+    <!-- Floating AI Chat Button -->
+    <button class="floating-chat-btn" onclick="toggleFloatingChat()"><i class="bi bi-chat-dots-fill"></i></button>
+    <div class="floating-chat-modal" id="floatingChatModal">
+        <div class="floating-chat-header">
+            <div><h6><i class="bi bi-robot"></i> Hub66 AI Assistant</h6><small style="opacity:0.7">Luôn cần admin duyệt rủi ro cao</small></div>
+            <div class="d-flex gap-2">
+                <a href="premium_ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
+                <button class="btn btn-sm btn-link text-white p-0" onclick="toggleFloatingChat()"><i class="bi bi-x-lg"></i></button>
+            </div>
+        </div>
+        <div class="floating-chat-ai-selector">
+            <button class="ai-chip active" onclick="selectFloatingAI(this, 'PMO')">PMO</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SALES_HUB')">Sales</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SERVICE_HUB')">Service</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'CAPITAL_HUB')">Capital</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'MA')">M&A</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'FINANCE')">Finance</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'RISK')">Risk</button>
+        </div>
+        <div class="floating-chat-body" id="floatingChatBody">
+            <div class="floating-chat-msg ai"><strong>Hub66 AI:</strong> Xin chào! Tôi là AI Assistant. Chọn loại AI và hỏi về deal, phí, quy trình hoặc tư vấn.</div>
+        </div>
+        <div class="floating-chat-input">
+            <input type="text" id="floatingChatInput" placeholder="Hỏi AI..." onkeypress="if(event.key==='Enter')sendFloatingChat()">
+            <button onclick="sendFloatingChat()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
 </body>
 </html>

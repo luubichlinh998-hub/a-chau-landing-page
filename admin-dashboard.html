@@ -9,10 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #f0f8ff;
-            --accent: #0000ff;
-            --dark: #0B1F3A;
-            
+            --primary: #0B1F3A;
+            --accent: #D4AF37;
             --success: #059669;
             --warning: #d97706;
             --danger: #dc2626;
@@ -22,9 +20,9 @@
             --border: #e2e8f0;
         }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
-        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 260px; background: var(--dark); color: #fff; z-index: 1000; transition: transform 0.3s; }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 260px; background: var(--primary); color: #fff; z-index: 1000; transition: transform 0.3s; }
         .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: 12px 20px; border-radius: 8px; margin: 2px 8px; transition: all 0.2s; }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(0,0,255,0.2); color: var(--accent); }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(212,175,55,0.2); color: var(--accent); }
         .sidebar .nav-link i { width: 24px; }
         .main-content { margin-left: 260px; min-height: 100vh; }
         .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
@@ -119,11 +117,11 @@
         .esign-type-partner { background: #fce7f3; color: #9d174d; }
         .esign-type-referral { background: #d1fae5; color: #065f46; }
         @media (max-width: 992px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } .sidebar.open { transform: translateX(0); } }
-        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
-        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,255,0.5); }
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #b8962e 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(212,175,55,0.4); cursor: pointer; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
+        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(212,175,55,0.5); }
         .floating-chat-modal { position: fixed; bottom: 96px; right: 24px; width: 380px; max-height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
         .floating-chat-modal.open { display: flex; }
-        .floating-chat-header { background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .floating-chat-header { background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
         .floating-chat-header h6 { margin: 0; font-size: 15px; font-weight: 600; }
         .floating-chat-body { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
         .floating-chat-msg { padding: 10px 14px; margin-bottom: 10px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
@@ -137,8 +135,8 @@
         .floating-chat-ai-selector { padding: 10px 16px; background: var(--white); border-bottom: 1px solid #e2e8f0; display: flex; gap: 6px; flex-wrap: wrap; }
         .ai-chip { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #e2e8f0; background: var(--white); color: #475569; }
         .ai-chip:hover, .ai-chip.active { background: var(--accent); color: var(--primary); border-color: var(--accent); }
-        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
-        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
         @media (max-width: 480px) { .floating-chat-modal { width: calc(100% - 32px); right: 16px; bottom: 88px; } .floating-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; font-size: 20px; } }
     </style>
 </head>
@@ -147,8 +145,8 @@
         <div class="p-4 border-bottom" style="border-color: #334155 !important;">
             <h4 class="mb-0"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66 Admin</h4>
         </div>
-        <nav class="nav flex-column mt-2">
-            <a href="#dashboard" class="nav-link active"><i class="bi bi-grid-1x2"></i> Tổng quan</a>
+        <nav class="nav flex-column mt-2" role="navigation" aria-label="Admin navigation">
+            <a href="#dashboard" class="nav-link active" aria-current="page"><i class="bi bi-grid-1x2"></i> Tổng quan</a>
             <a href="#users" class="nav-link"><i class="bi bi-people"></i> Quản lý Users</a>
             <a href="#deals" class="nav-link"><i class="bi bi-handbag"></i> Quản lý Deals</a>
             <a href="#approval" class="nav-link"><i class="bi bi-check-circle"></i> Duyệt & Phê duyệt</a>
@@ -160,11 +158,16 @@
 
     <div class="main-content">
         <div class="topbar">
-            <div>
-                <h5 class="mb-0 fw-semibold">Dashboard</h5>
-                <small class="text-muted">Quản lý hệ thống Hub66</small>
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-outline-secondary d-lg-none" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Mở menu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div>
+                    <h5 class="mb-0 fw-semibold">Dashboard</h5>
+                    <small class="text-muted">Quản lý hệ thống Hub66</small>
+                </div>
             </div>
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 align-items-center">
                 <span class="text-muted"><i class="bi bi-clock"></i> <span id="currentTime"></span></span>
                 <span class="fw-medium">Admin</span>
             </div>
@@ -234,19 +237,19 @@
             </div>
 
             <!-- Tabs -->
-            <ul class="nav nav-tabs mb-4" id="adminTabs">
-                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pipelineTab">CRM Pipeline</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#dealsTab">All Deals</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#financeTab">Finance</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#auditTab">Audit Log</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#approvalTab">Approval Queue</button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#riskTab"><i class="bi bi-exclamation-triangle"></i> Risk Alerts <span id="riskTabBadge" class="badge bg-danger">21</span></button></li>
-                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#esignTab"><i class="bi bi-pen"></i> E-Sign MVP</button></li>
+            <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+                <li class="nav-item" role="presentation"><button class="nav-link active" id="pipeline-tab" data-bs-toggle="tab" data-bs-target="#pipelineTab" role="tab" aria-controls="pipelineTab">CRM Pipeline</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="deals-tab" data-bs-toggle="tab" data-bs-target="#dealsTab" role="tab" aria-controls="dealsTab">All Deals</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#financeTab" role="tab" aria-controls="financeTab">Finance</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="audit-tab" data-bs-toggle="tab" data-bs-target="#auditTab" role="tab" aria-controls="auditTab">Audit Log</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="approval-tab" data-bs-toggle="tab" data-bs-target="#approvalTab" role="tab" aria-controls="approvalTab">Approval Queue</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="risk-tab" data-bs-toggle="tab" data-bs-target="#riskTab" role="tab" aria-controls="riskTab"><i class="bi bi-exclamation-triangle"></i> Risk Alerts <span id="riskTabBadge" class="badge bg-danger">21</span></button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="esign-tab" data-bs-toggle="tab" data-bs-target="#esignTab" role="tab" aria-controls="esignTab"><i class="bi bi-pen"></i> E-Sign MVP</button></li>
             </ul>
 
             <div class="tab-content">
                 <!-- CRM Pipeline -->
-                <div class="tab-pane fade show active" id="pipelineTab">
+                <div class="tab-pane fade show active" id="pipelineTab" role="tabpanel" aria-labelledby="pipeline-tab">
                     <div class="row">
                         <div class="col-lg-4"><div class="pipeline-stage"><div class="d-flex justify-content-between"><span class="fw-semibold">New Lead</span><span class="badge badge-status badge-new-lead">12</span></div><div class="progress mt-2" style="height:6px"><div class="progress-bar" style="width:20%"></div></div></div></div>
                         <div class="col-lg-4"><div class="pipeline-stage qualified"><div class="d-flex justify-content-between"><span class="fw-semibold">Qualified</span><span class="badge badge-status badge-qualified">8</span></div><div class="progress mt-2" style="height:6px"><div class="progress-bar bg-success" style="width:35%"></div></div></div></div>
@@ -265,7 +268,7 @@
                 </div>
 
                 <!-- All Deals Table -->
-                <div class="tab-pane fade" id="dealsTab">
+                <div class="tab-pane fade" id="dealsTab" role="tabpanel" aria-labelledby="deals-tab">
                     <div class="card border-0 shadow-sm">
                         <div class="card-body">
                             <table class="table table-deals table-hover">
@@ -338,7 +341,7 @@
                 </div>
 
                 <!-- Finance Dashboard -->
-                <div class="tab-pane fade" id="financeTab">
+                <div class="tab-pane fade" id="financeTab" role="tabpanel" aria-labelledby="finance-tab">
                     <!-- Finance KPIs Row -->
                     <div class="row mb-4">
                         <div class="col-md-3">
@@ -566,7 +569,7 @@
                 </div>
 
                 <!-- Audit Log -->
-                <div class="tab-pane fade" id="auditTab">
+                <div class="tab-pane fade" id="auditTab" role="tabpanel" aria-labelledby="audit-tab">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="audit-log">
@@ -634,7 +637,7 @@
                 </div>
 
                 <!-- Approval Queue -->
-                <div class="tab-pane fade" id="approvalTab">
+                <div class="tab-pane fade" id="approvalTab" role="tabpanel" aria-labelledby="approval-tab">
                     <div class="card border-0 shadow-sm">
                         <div class="card-body">
                             <table class="table">
@@ -667,7 +670,7 @@
                 </div>
 
                 <!-- Risk Dashboard -->
-                <div class="tab-pane fade" id="riskTab">
+                <div class="tab-pane fade" id="riskTab" role="tabpanel" aria-labelledby="risk-tab">
                     <!-- 6 Category Risk Summary -->
                     <div class="row mb-4">
                         <div class="col-md-2">
@@ -1107,7 +1110,7 @@
                 </div>
 
                 <!-- E-Sign MVP Tab -->
-                <div class="tab-pane fade" id="esignTab">
+                <div class="tab-pane fade" id="esignTab" role="tabpanel" aria-labelledby="esign-tab">
                     <div class="row mb-4">
                         <!-- E-Sign Status Summary -->
                         <div class="col-md-3">
@@ -1295,17 +1298,23 @@
 
         function approveDeal(dealId) {
             addAuditLog(`đã duyệt deal <span class="deal-code">#${dealId}</span>`, 'Admin');
-            alert(`Đã duyệt deal #${dealId}`);
+            var btn = event.target;
+            btn.textContent = 'Đã duyệt';
+            btn.disabled = true;
         }
 
         function rejectDeal(dealId) {
             addAuditLog(`đã từ chối deal <span class="deal-code">#${dealId}</span>`, 'Admin');
-            alert(`Đã từ chối deal #${dealId}`);
+            var btn = event.target;
+            btn.textContent = 'Đã từ chối';
+            btn.disabled = true;
         }
 
         function openInfo(dealId) {
             addAuditLog(`đã mở thông tin deal <span class="deal-code">#${dealId}</span>`, 'Admin');
-            alert(`Đã mở thông tin deal #${dealId}`);
+            var btn = event.target;
+            btn.textContent = 'Đã mở';
+            btn.disabled = true;
         }
 
         // Risk Alert Functions
@@ -1344,7 +1353,6 @@
             else if (type === 'medium') riskStats.medium--;
             else if (type === 'low') riskStats.low--;
             updateCounts();
-            alert('Đã xử lý cảnh báo #' + id);
         }
 
         function dismissRisk(btn, id, type) {
@@ -1359,7 +1367,6 @@
             else if (type === 'medium') riskStats.medium--;
             else if (type === 'low') riskStats.low--;
             updateCounts();
-            alert('Đã bỏ qua cảnh báo #' + id);
         }
 
         function updateCounts() {
@@ -1510,7 +1517,7 @@
                 } else if (m.includes('refe') || m.includes('giớ')) {
                     reply += `Referrer nhận <strong>35% phí Hub66 thực thu</strong>. Cần ký Referral Agreement trước khi nhận hoa hồng.`;
                 } else {
-                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="ai-assistant.html">mở AI Assistant đầy đủ</a>.`;
+                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="premium_ai-assistant.html">mở AI Assistant đầy đủ</a>.`;
                 }
                 addFloatingMsg('ai', reply);
             }, 1000);
@@ -1523,7 +1530,7 @@
         <div class="floating-chat-header">
             <div><h6><i class="bi bi-robot"></i> Hub66 AI Assistant</h6><small style="opacity:0.7">Luôn cần admin duyệt rủi ro cao</small></div>
             <div class="d-flex gap-2">
-                <a href="ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
+                <a href="premium_ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
                 <button class="btn btn-sm btn-link text-white p-0" onclick="toggleFloatingChat()"><i class="bi bi-x-lg"></i></button>
             </div>
         </div>

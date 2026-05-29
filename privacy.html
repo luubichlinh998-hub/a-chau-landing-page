@@ -8,31 +8,59 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #f0f8ff;
-            --accent: #0000ff;
-            --dark: #0B1F3A;  --bg: #F5F7FA; --white: #FFFFFF; }
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --bg: #F5F7FA; --white: #FFFFFF; }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
         .navbar { background: var(--primary) !important; padding: 12px 0; }
-        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
-        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--accent) !important; text-decoration: none; }
+        .navbar-brand:hover { color: #c9a430 !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
         .navbar .nav-link:hover { color: var(--accent) !important; }
-        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 40px 0; }
+        .navbar .nav-link.active { color: var(--accent) !important; font-weight: 500; }
+        .navbar .nav-link-login { color: rgba(255,255,255,0.7) !important; text-decoration: none; font-weight: 400; }
+        .navbar .nav-link-login:hover { color: var(--accent) !important; }
+        .btn-navbar-register { background: var(--accent); color: var(--primary) !important; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s; margin-left: 8px; }
+        .btn-navbar-register:hover { background: #c9a430; }
+        .dropdown-menu { background: var(--primary); border: 1px solid rgba(212,175,55,0.3); padding: 8px 0; }
+        .dropdown-item { color: rgba(255,255,255,0.8); padding: 10px 16px; transition: all 0.2s; }
+        .dropdown-item:hover, .dropdown-item:focus { background: rgba(212,175,55,0.15); color: var(--accent); }
+        .dropdown-item i { color: var(--accent); margin-right: 8px; width: 20px; text-align: center; }
+        .navbar .dropdown > .dropdown-toggle::after { display: inline-block; margin-left: 4px; vertical-align: middle; border-top: 5px solid rgba(255,255,255,0.7); border-right: 4px solid transparent; border-bottom: 0; border-left: 4px solid transparent; }
+        .navbar .dropdown > .dropdown-toggle:hover::after { border-top-color: var(--accent); }
+        .hero { background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 40px 0; }
         .content-card { background: var(--white); border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
         footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
         footer a:hover { color: var(--accent); }
-        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
-        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+            <a class="navbar-brand" href="premium_index.html"><i class="bi bi-diagram-3-fill"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="premium_index.html#features">Tính năng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_ai-assistant.html">AI Assistant</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_post-need.html">Đăng nhu cầu</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="hubDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">5 Hub</a>
+                        <ul class="dropdown-menu" aria-labelledby="hubDropdown">
+                            <li><a class="dropdown-item" href="premium_capital-hub.html"><i class="bi bi-cash-stack"></i>Capital Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_distribution-hub.html"><i class="bi bi-truck"></i>Distribution Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_ma-hub.html"><i class="bi bi-bank"></i>M&A Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_sales-hub.html"><i class="bi bi-bag-check"></i>Sale Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_service-hub.html"><i class="bi bi-headset"></i>Service Hub</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="premium_fee-policy.html">Bảng giá</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-login" href="premium_login.html">Đăng nhập</a></li>
+                    <li class="nav-item"><a class="btn-navbar-register" href="premium_register.html">Đăng ký</a></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +91,7 @@
             <h4 class="fw-bold mb-3">4. Quyền của bạn</h4>
             <p>Bạn có quyền yêu cầu truy cập, sửa đổi, hoặc xóa thông tin cá nhân của mình.</p>
 
-            <h4 class="fw-bold mb-3">5. Liên hệ</h5>
+            <h4 class="fw-bold mb-3">5. Liên hệ</h4>
             <p>Email: contact@hub66.vn | Điện thoại: 0xxx xxx xxx</p>
         </div>
     </div>

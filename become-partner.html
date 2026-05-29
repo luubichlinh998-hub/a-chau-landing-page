@@ -8,35 +8,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #f0f8ff;
-            --accent: #0000ff;
-            --dark: #0B1F3A;  --success: #059669; --bg: #F5F7FA; --white: #FFFFFF; }
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --bg: #F5F7FA; --white: #FFFFFF; }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
         .navbar { background: var(--primary) !important; padding: 12px 0; }
-        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
-        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--accent) !important; text-decoration: none; }
+        .navbar-brand:hover { color: #c9a430 !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
         .navbar .nav-link:hover { color: var(--accent) !important; }
-        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 60px 0; }
+        .navbar .nav-link.active { color: var(--accent) !important; font-weight: 500; }
+        .navbar .nav-link-login { color: rgba(255,255,255,0.7) !important; text-decoration: none; font-weight: 400; }
+        .navbar .nav-link-login:hover { color: var(--accent) !important; }
+        .btn-navbar-register { background: var(--accent); color: var(--primary) !important; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s; margin-left: 8px; }
+        .btn-navbar-register:hover { background: #c9a430; }
+        .dropdown-menu { background: var(--primary); border: 1px solid rgba(212,175,55,0.3); padding: 8px 0; }
+        .dropdown-item { color: rgba(255,255,255,0.8); padding: 10px 16px; transition: all 0.2s; }
+        .dropdown-item:hover, .dropdown-item:focus { background: rgba(212,175,55,0.15); color: var(--accent); }
+        .dropdown-item i { color: var(--accent); margin-right: 8px; width: 20px; text-align: center; }
+        .navbar .dropdown > .dropdown-toggle::after { display: inline-block; margin-left: 4px; vertical-align: middle; border-top: 5px solid rgba(255,255,255,0.7); border-right: 4px solid transparent; border-bottom: 0; border-left: 4px solid transparent; }
+        .navbar .dropdown > .dropdown-toggle:hover::after { border-top-color: var(--accent); }
+        .hero { background: linear-gradient(135deg, var(--primary) 0%, #1a3a5c 100%); color: #fff; padding: 60px 0; }
         .form-card { background: var(--white); border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
         .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
         .benefit-card { background: var(--bg); border-radius: 12px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
-        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
         footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
         footer a:hover { color: var(--accent); }
-        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
-        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="capital-hub.html">Capital Hub</a></li>
-                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+            <a class="navbar-brand" href="premium_index.html"><i class="bi bi-diagram-3-fill"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="premium_index.html#features">Tính năng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_ai-assistant.html">AI Assistant</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="premium_post-need.html">Đăng nhu cầu</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="hubDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">5 Hub</a>
+                        <ul class="dropdown-menu" aria-labelledby="hubDropdown">
+                            <li><a class="dropdown-item" href="premium_capital-hub.html"><i class="bi bi-cash-stack"></i>Capital Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_distribution-hub.html"><i class="bi bi-truck"></i>Distribution Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_ma-hub.html"><i class="bi bi-bank"></i>M&A Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_sales-hub.html"><i class="bi bi-bag-check"></i>Sale Hub</a></li>
+                            <li><a class="dropdown-item" href="premium_service-hub.html"><i class="bi bi-headset"></i>Service Hub</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="premium_fee-policy.html">Bảng giá</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-login" href="premium_login.html">Đăng nhập</a></li>
+                    <li class="nav-item"><a class="btn-navbar-register" href="premium_register.html">Đăng ký</a></li>
                 </ul>
             </div>
         </div>
@@ -50,8 +77,16 @@
     </section>
 
     <div class="container my-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="premium_index.html">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Đăng ký Partner</li>
+            </ol>
+        </nav>
+
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-4 mb-lg-0">
                 <div class="form-card h-100">
                     <h5 class="fw-bold mb-4"><i class="bi bi-gift text-success"></i> Quyền lợi Partner</h5>
                     <div class="benefit-card">
@@ -75,39 +110,45 @@
             <div class="col-lg-8">
                 <div class="form-card">
                     <h5 class="fw-bold mb-4">Đăng ký Partner</h5>
-                    <form id="partnerForm">
+                    <div id="formSuccess" class="alert alert-success mb-4" style="display:none" role="alert"></div>
+                    <form id="partnerForm" novalidate>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" placeholder="Nguyễn Văn A" required>
+                                <label class="form-label" for="partName">Họ và tên</label>
+                                <input type="text" class="form-control" id="partName" placeholder="Nguyễn Văn A" required aria-required="true">
+                                <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="email@company.com" required>
+                                <label class="form-label" for="partEmail">Email</label>
+                                <input type="email" class="form-control" id="partEmail" placeholder="email@company.com" required aria-required="true">
+                                <div class="invalid-feedback">Vui lòng nhập email hợp lệ</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Số điện thoại</label>
-                                <input type="tel" class="form-control" placeholder="0xxx xxx xxx" required>
+                                <label class="form-label" for="partPhone">Số điện thoại</label>
+                                <input type="tel" class="form-control" id="partPhone" placeholder="0xxx xxx xxx" required aria-required="true">
+                                <div class="invalid-feedback">Vui lòng nhập số điện thoại</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Kinh nghiệm</label>
-                                <select class="form-control">
+                                <label class="form-label" for="partExp">Kinh nghiệm</label>
+                                <select class="form-control" id="partExp" required aria-required="true">
                                     <option value="">Chọn kinh nghiệm</option>
                                     <option value="1-3">1-3 năm</option>
                                     <option value="3-5">3-5 năm</option>
                                     <option value="5-10">5-10 năm</option>
                                     <option value="10+">Trên 10 năm</option>
                                 </select>
+                                <div class="invalid-feedback">Vui lòng chọn kinh nghiệm</div>
                             </div>
                             <div class="col-12 mb-3">
-                                <label class="form-label">Lĩnh vực chuyên môn</label>
-                                <select class="form-control">
+                                <label class="form-label" for="partField">Lĩnh vực chuyên môn</label>
+                                <select class="form-control" id="partField" required aria-required="true">
                                     <option value="">Chọn lĩnh vực</option>
                                     <option value="capital">Vốn / Tài chính</option>
                                     <option value="ma">M&A</option>
                                     <option value="service">Dịch vụ B2B</option>
                                     <option value="all">Nhiều lĩnh vực</option>
                                 </select>
+                                <div class="invalid-feedback">Vui lòng chọn lĩnh vực</div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Đăng ký Partner</button>
@@ -127,7 +168,17 @@
     <script>
         document.getElementById('partnerForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Đăng ký Partner thành công! Mã Partner của bạn: #PART-2026-' + Math.floor(Math.random() * 900 + 100));
+            var form = this;
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+            var partCode = '#PART-2026-' + Math.floor(Math.random() * 900 + 100);
+            var successEl = document.getElementById('formSuccess');
+            successEl.textContent = 'Đăng ký Partner thành công! Mã Partner của bạn: ' + partCode;
+            successEl.style.display = 'block';
+            form.reset();
+            form.classList.remove('was-validated');
         });
     </script>
 </body>
