@@ -37,6 +37,24 @@
         .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #b8962e 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(212,175,55,0.4); cursor: pointer; z-index: 9999; }
         .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
         .btn-gold:hover { background: #b8962e; color: var(--primary); }
+        .floating-chat-modal { position: fixed; bottom: 96px; right: 24px; width: 380px; max-height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 32px rgba(11,31,58,0.15); z-index: 9998; display: none; flex-direction: column; overflow: hidden; border: 2px solid var(--accent); }
+        .floating-chat-modal.open { display: flex; }
+        .floating-chat-header { background: linear-gradient(135deg, var(--primary) 0%, #152d4d 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .floating-chat-header h6 { margin: 0; font-size: 15px; font-weight: 600; color: var(--accent) !important; }
+        .floating-chat-body { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+        .floating-chat-msg { padding: 10px 14px; margin-bottom: 10px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .floating-chat-msg.ai { background: var(--white); border: 1px solid #e2e8f0; }
+        .floating-chat-msg.user { background: var(--primary); color: #fff; margin-left: 20%; }
+        .floating-chat-msg.system { background: var(--accent); color: var(--primary); font-size: 13px; }
+        .floating-chat-input { padding: 12px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: var(--white); }
+        .floating-chat-input input { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+        .floating-chat-input input:focus { outline: none; border-color: var(--accent); }
+        .floating-chat-input button { background: var(--accent); border: none; color: var(--primary); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 600; }
+        .floating-chat-input button:hover { background: #c9a430; }
+        .floating-chat-ai-selector { padding: 10px 16px; background: var(--white); border-bottom: 1px solid #e2e8f0; display: flex; gap: 6px; flex-wrap: wrap; }
+        .ai-chip { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #e2e8f0; background: var(--white); color: var(--primary); }
+        .ai-chip:hover, .ai-chip.active { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        footer h5, footer h6 { color: var(--accent) !important; }
     </style>
 </head>
 <body>
@@ -331,16 +349,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</h5>
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill" style="color: var(--accent);"></i> Hub66</h5>
                     <p>Private Business Matching Hub - Không phải sàn rao vặt.</p>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h6 class="text-white mb-3">Hubs</h6>
                     <ul class="list-unstyled">
+                        <li><a href="premium_index.html">Trang chủ</a></li>
                         <li><a href="premium_capital-hub.html">Capital Hub</a></li>
-                        <li><a href="premium_service-hub.html">Service Hub</a></li>
+                        <li><a href="premium_distribution-hub.html">Distribution Hub</a></li>
                         <li><a href="premium_ma-hub.html">M&A Hub</a></li>
+                        <li><a href="premium_service-hub.html">Service Hub</a></li>
+                        <li><a href="premium_sales-hub.html">Sales Hub</a></li>
                         <li><a href="premium_deal-board.html">Deal Board</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Đăng ký</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="premium_register.html">Đăng ký Member</a></li>
+                        <li><a href="premium_post-need.html">Đăng nhu cầu</a></li>
+                        <li><a href="premium_become-partner.html">Trở thành Partner</a></li>
+                        <li><a href="premium_become-referrer.html">Trở thành Referrer</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
@@ -352,7 +382,7 @@
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h6 class="text-white mb-3">Legal</h6>
+                    <h6 class="text-white mb-3">Pháp lý</h6>
                     <ul class="list-unstyled">
                         <li><a href="premium_terms.html">Điều khoản</a></li>
                         <li><a href="premium_privacy.html">Bảo mật</a></li>
