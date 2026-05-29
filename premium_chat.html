@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 240px; background: var(--primary); color: #fff; z-index: 1000; }
+        .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 8px; margin: 2px 8px; transition: all 0.2s; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(212,175,55,0.2); color: var(--accent); }
+        .sidebar .user-info { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .main-content { margin-left: 240px; min-height: 100vh; }
+        .topbar { background: var(--white); border-bottom: 1px solid #e2e8f0; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        @media (max-width: 992px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } }
+        .chat-container { display: flex; height: calc(100vh - 140px); }
+        .partner-list { width: 320px; border-right: 1px solid #e2e8f0; background: var(--white); overflow-y: auto; }
+        .partner-list-header { padding: 16px; border-bottom: 1px solid #e2e8f0; }
+        .search-box { position: relative; }
+        .search-box input { padding-left: 36px; border-radius: 8px; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
+        .partner-item { padding: 12px 16px; border-bottom: 1px solid #f3f4f6; cursor: pointer; transition: all 0.2s; }
+        .partner-item:hover { background: rgba(212,175,55,0.1); }
+        .partner-item.active { background: rgba(212,175,55,0.15); border-left: 3px solid var(--accent); }
+        .partner-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .partner-info { flex: 1; }
+        .partner-name { font-weight: 600; font-size: 14px; }
+        .partner-preview { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .partner-time { font-size: 11px; color: #9ca3af; }
+        .unread-badge { background: var(--accent); color: var(--primary); font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: 600; }
+        .chat-area { flex: 1; display: flex; flex-direction: column; background: var(--white); }
+        .chat-header { padding: 16px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 12px; }
+        .chat-header-partner { flex: 1; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+        .message { margin-bottom: 16px; max-width: 70%; }
+        .message.sent { margin-left: auto; }
+        .message.received { margin-right: auto; }
+        .message-bubble { padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .message.sent .message-bubble { background: var(--accent); color: var(--primary); border-bottom-right-radius: 4px; }
+        .message.received .message-bubble { background: var(--white); border: 1px solid #e2e8f0; border-bottom-left-radius: 4px; }
+        .message-time { font-size: 10px; color: #9ca3af; margin-top: 4px; }
+        .message.sent .message-time { text-align: right; }
+        .chat-input { padding: 16px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: var(--white); }
+        .chat-input input { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; }
+        .chat-input input:focus { outline: none; border-color: var(--accent); }
+        .chat-input button { background: var(--accent); color: var(--primary); border-radius: 8px; padding: 10px 18px; font-weight: 600; }
+        .chat-input button:hover { background: #b8962e; }
+        .empty-chat { flex: 1; display: flex; align-items: center; justify-content: center; color: #9ca3af; }
+        .date-separator { text-align: center; padding: 8px 0; font-size: 11px; color: #9ca3af; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="user-info">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-primary rounded-circle p-2 text-white fw-bold">NVA</div>
+                <div>
+                    <div class="fw-semibold text-white">Nguyễn Văn A</div>
+                    <div class="text-muted small">Member #MEM-2026-001</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav flex-column mt-2">
+            <a href="premium_member-dashboard.html" class="nav-link"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <a href="premium_my-requests.html" class="nav-link"><i class="bi bi-clipboard-check"></i> Nhu cầu của tôi</a>
+            <a href="premium_deal-board.html" class="nav-link"><i class="bi bi-handbag"></i> Deals</a>
+            <a href="premium_chat.html" class="nav-link active"><i class="bi bi-chat-dots"></i> Chat</a>
+            <a href="premium_ai-assistant.html" class="nav-link"><i class="bi bi-robot"></i> AI Assistant</a>
+            <a href="premium_events.html" class="nav-link"><i class="bi bi-calendar-event"></i> Sự kiện</a>
+            <a href="premium_fee-report.html" class="nav-link"><i class="bi bi-graph-up"></i> Báo cáo phí</a>
+            <a href="premium_settings.html" class="nav-link"><i class="bi bi-gear"></i> Cài đặt</a>
+            <a href="premium_index.html" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-0 fw-semibold">Chat</h5>
+                <small class="text-muted">Nhắn tin với đối tác và thành viên</small>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="chat-container">
+                <!-- Partner List -->
+                <div class="partner-list">
+                    <div class="partner-list-header">
+                        <div class="search-box mb-3">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="form-control" placeholder="Tìm theo Member ID..." id="partnerSearch">
+                        </div>
+                    </div>
+                    <div class="partner-item active" onclick="selectPartner(0)">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="partner-avatar">LTH</div>
+                            <div class="partner-info">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="partner-name">Lê Thị Hương</span>
+                                    <span class="partner-time">10:30</span>
+                                </div>
+                                <div class="partner-preview">Mình đã xem deal CAP-2026-0001, rất quan tâm...</div>
+                            </div>
+                        </div>
+                        <div class="mt-1 text-end"><span class="unread-badge">2</span></div>
+                    </div>
+                    <div class="partner-item" onclick="selectPartner(1)">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="partner-avatar" style="background:#059669;">TMQ</div>
+                            <div class="partner-info">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="partner-name">Trần Minh Quang</span>
+                                    <span class="partner-time">Hôm qua</span>
+                                </div>
+                                <div class="partner-preview">Deal MA-2026-0002 đang trong quá trình due diligence...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="partner-item" onclick="selectPartner(2)">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="partner-avatar" style="background:#d97706;">NVB</div>
+                            <div class="partner-info">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="partner-name">Nguyễn Văn Bình</span>
+                                    <span class="partner-time">25/05</span>
+                                </div>
+                                <div class="partner-preview">Cảm ơn bạn đã giới thiệu deal service hub...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="chat-area" id="chatArea">
+                    <div class="chat-header">
+                        <div class="partner-avatar">LTH</div>
+                        <div class="chat-header-partner">
+                            <div class="fw-semibold">Lê Thị Hương</div>
+                            <small class="text-muted">Member #MEM-2026-003</small>
+                        </div>
+                        <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-info-circle"></i></button>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="date-separator">Hôm nay</div>
+                        <div class="message received">
+                            <div class="message-bubble">Xin chào Nguyễn Văn A! Mình thấy deal CAP-2026-0001 trên bảng Deals, rất quan tâm đến việc hợp tác.</div>
+                            <div class="message-time">09:15</div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-bubble">Chào Hương! Cảm ơn bạn đã quan tâm. Deal này đang cần huy động 5 tỷ cho dự án mở rộng sản xuất. Bạn có muốn mình gửi thêm thông tin chi tiết không?</div>
+                            <div class="message-time">09:20</div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-bubble">Vâng, bạn gửi mình tài liệu để review nhé. Mình là đại diện của một quỹ đầu tư, chuyên về lĩnh vực sản xuất.</div>
+                            <div class="message-time">09:22</div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-bubble">Tuyệt vời! Mình đã gửi thông tin qua email. Bạn xem và phản hồi nhé. Nếu cần ký NDA để xem đầy đủ chi tiết thì mình sẽ hỗ trợ.</div>
+                            <div class="message-time">09:25</div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-bubble">Mình đã xem deal CAP-2026-0001, rất quan tâm. Có thể sắp xếp cuộc gặp trong tuần này không?</div>
+                            <div class="message-time">10:30</div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." onkeypress="if(event.key==='Enter')sendMessage()">
+                        <button onclick="sendMessage()"><i class="bi bi-send"></i> Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const partners = [
+            {
+                name: 'Lê Thị Hương',
+                id: 'MEM-2026-003',
+                avatar: 'LTH',
+                messages: [
+                    { text: 'Xin chào Nguyễn Văn A! Mình thấy deal CAP-2026-0001 trên bảng Deals, rất quan tâm đến việc hợp tác.', time: '09:15', type: 'received' },
+                    { text: 'Chào Hương! Cảm ơn bạn đã quan tâm. Deal này đang cần huy động 5 tỷ cho dự án mở rộng sản xuất. Bạn có muốn mình gửi thêm thông tin chi tiết không?', time: '09:20', type: 'sent' },
+                    { text: 'Vâng, bạn gửi mình tài liệu để review nhé. Mình là đại diện của một quỹ đầu tư, chuyên về lĩnh vực sản xuất.', time: '09:22', type: 'received' },
+                    { text: 'Tuyệt vời! Mình đã gửi thông tin qua email. Bạn xem và phản hồi nhé. Nếu cần ký NDA để xem đầy đủ chi tiết thì mình sẽ hỗ trợ.', time: '09:25', type: 'sent' },
+                    { text: 'Mình đã xem deal CAP-2026-0001, rất quan tâm. Có thể sắp xếp cuộc gặp trong tuần này không?', time: '10:30', type: 'received' }
+                ]
+            },
+            {
+                name: 'Trần Minh Quang',
+                id: 'MEM-2026-005',
+                avatar: 'TMQ',
+                messages: [
+                    { text: 'Chào anh A! Deal MA-2026-0002 đang trong quá trình due diligence. Bên mình đã hoàn thành review tài chính.', time: 'Hôm qua 14:00', type: 'received' },
+                    { text: 'Tin tốt! Khi nào có kết quả cuối cùng?', time: 'Hôm qua 14:30', type: 'sent' },
+                    { text: 'Dự kiến tuần sau. Mình sẽ cập nhật ngay khi có thông tin.', time: 'Hôm qua 14:35', type: 'received' }
+                ]
+            },
+            {
+                name: 'Nguyễn Văn Bình',
+                id: 'MEM-2026-007',
+                avatar: 'NVB',
+                messages: [
+                    { text: 'Cảm ơn bạn đã giới thiệu deal service hub. Đối tác rất hài lòng với dịch vụ.', time: '25/05 16:00', type: 'received' },
+                    { text: 'Great! Mình sẽ tiếp tục giới thiệu thêm các deal khác.', time: '25/05 16:30', type: 'sent' }
+                ]
+            }
+        ];
+
+        let currentPartnerIndex = 0;
+
+        function selectPartner(index) {
+            currentPartnerIndex = index;
+            document.querySelectorAll('.partner-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            renderChat(index);
+        }
+
+        function renderChat(index) {
+            const partner = partners[index];
+            const chatArea = document.getElementById('chatArea');
+            const messagesContainer = document.getElementById('chatMessages');
+
+            chatArea.innerHTML = `
+                <div class="chat-header">
+                    <div class="partner-avatar">${partner.avatar}</div>
+                    <div class="chat-header-partner">
+                        <div class="fw-semibold">${partner.name}</div>
+                        <small class="text-muted">Member #${partner.id}</small>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-info-circle"></i></button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="date-separator">Hôm nay</div>
+                    ${partner.messages.map(msg => `
+                        <div class="message ${msg.type}">
+                            <div class="message-bubble">${msg.text}</div>
+                            <div class="message-time">${msg.time}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." onkeypress="if(event.key==='Enter')sendMessage()">
+                    <button onclick="sendMessage()"><i class="bi bi-send"></i> Gửi</button>
+                </div>
+            `;
+
+            const messagesEl = document.getElementById('chatMessages');
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            if (!input.value.trim()) return;
+
+            const msg = input.value.trim();
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+            partners[currentPartnerIndex].messages.push({ text: msg, time: timeStr, type: 'sent' });
+            input.value = '';
+
+            const messagesEl = document.getElementById('chatMessages');
+            messagesEl.innerHTML += `
+                <div class="message sent">
+                    <div class="message-bubble">${msg}</div>
+                    <div class="message-time">${timeStr}</div>
+                </div>
+            `;
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+
+        // Search functionality
+        document.getElementById('partnerSearch').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.partner-item');
+            items.forEach((item, index) => {
+                const partner = partners[index];
+                const match = partner.id.toLowerCase().includes(query) || partner.name.toLowerCase().includes(query);
+                item.style.display = match ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

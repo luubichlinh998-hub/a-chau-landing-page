@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 240px; background: var(--primary); color: #fff; z-index: 1000; }
+        .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 8px; margin: 2px 8px; transition: all 0.2s; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(212,175,55,0.2); color: var(--accent); }
+        .sidebar .user-info { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .main-content { margin-left: 240px; min-height: 100vh; }
+        .topbar { background: var(--white); border-bottom: 1px solid #e2e8f0; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .settings-card { background: var(--white); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .settings-card h6 { font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .form-label { font-weight: 500; color: #374151; }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
+        .avatar-upload { width: 100px; height: 100px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 32px; cursor: pointer; border: 3px solid var(--accent); }
+        .avatar-upload:hover { opacity: 0.8; }
+        @media (max-width: 992px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="user-info">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-primary rounded-circle p-2 text-white fw-bold">NVA</div>
+                <div>
+                    <div class="fw-semibold text-white">Nguyễn Văn A</div>
+                    <div class="text-muted small">Member #MEM-2026-001</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav flex-column mt-2">
+            <a href="premium_member-dashboard.html" class="nav-link"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <a href="premium_my-requests.html" class="nav-link"><i class="bi bi-clipboard-check"></i> Nhu cầu của tôi</a>
+            <a href="premium_deal-board.html" class="nav-link"><i class="bi bi-handbag"></i> Deals</a>
+            <a href="premium_chat.html" class="nav-link"><i class="bi bi-chat-dots"></i> Chat</a>
+            <a href="premium_ai-assistant.html" class="nav-link"><i class="bi bi-robot"></i> AI Assistant</a>
+            <a href="premium_events.html" class="nav-link"><i class="bi bi-calendar-event"></i> Sự kiện</a>
+            <a href="premium_fee-report.html" class="nav-link"><i class="bi bi-graph-up"></i> Báo cáo phí</a>
+            <a href="premium_settings.html" class="nav-link active"><i class="bi bi-gear"></i> Cài đặt</a>
+            <a href="premium_index.html" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-0 fw-semibold">Cài đặt</h5>
+                <small class="text-muted">Quản lý tài khoản và hỗ trợ</small>
+            </div>
+            <div class="d-flex gap-3 align-items-center">
+                <span class="text-muted"><i class="bi bi-clock"></i> <span id="currentTime"></span></span>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="row">
+                <!-- Account / Profile Section -->
+                <div class="col-lg-6">
+                    <div class="settings-card">
+                        <h6><i class="bi bi-person-circle text-primary"></i> Tài khoản / Hồ sơ</h6>
+
+                        <!-- Avatar Upload -->
+                        <div class="text-center mb-4">
+                            <div class="avatar-upload mx-auto" onclick="document.getElementById('avatarInput').click()">
+                                <i class="bi bi-camera"></i>
+                            </div>
+                            <input type="file" id="avatarInput" style="display:none;" accept="image/*" onchange="previewAvatar(this)">
+                            <p class="text-muted small mt-2">Nhấn để thay đổi avatar</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Họ và tên</label>
+                                <input type="text" class="form-control" value="Nguyễn Văn A">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="nva@example.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Số điện thoại</label>
+                                <input type="tel" class="form-control" value="0912 345 678">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Member ID</label>
+                                <input type="text" class="form-control" value="MEM-2026-001" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Địa chỉ</label>
+                                <textarea class="form-control" rows="2">123 Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh</textarea>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 d-flex gap-2">
+                            <button class="btn btn-primary" onclick="saveProfile()"><i class="bi bi-check-circle"></i> Lưu thay đổi</button>
+                            <button class="btn btn-outline-secondary" onclick="resetProfile()">Hủy</button>
+                        </div>
+
+                        <!-- Change Password -->
+                        <hr class="my-4">
+                        <h6 class="mb-3"><i class="bi bi-lock text-warning"></i> Đổi mật khẩu</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Mật khẩu hiện tại</label>
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Nhập mật khẩu hiện tại">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mật khẩu mới</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Nhập mật khẩu mới">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Xác nhận mật khẩu mới</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Nhập lại mật khẩu mới">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-warning" onclick="changePassword()"><i class="bi bi-key"></i> Đổi mật khẩu</button>
+                        </div>
+
+                        <!-- Payment Info -->
+                        <hr class="my-4">
+                        <h6 class="mb-3"><i class="bi bi-credit-card text-success"></i> Thông tin thanh toán</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Số tài khoản</label>
+                                <input type="text" class="form-control" value="1234567890" placeholder="Số tài khoản ngân hàng">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tên ngân hàng</label>
+                                <input type="text" class="form-control" value="Vietcombank" placeholder="Tên ngân hàng">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Chi nhánh</label>
+                                <input type="text" class="form-control" value="TP. Hồ Chí Minh" placeholder="Chi nhánh">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success" onclick="savePaymentInfo()"><i class="bi bi-save"></i> Lưu thông tin thanh toán</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help & Support Section -->
+                <div class="col-lg-6">
+                    <!-- Quick Links -->
+                    <div class="settings-card">
+                        <h6><i class="bi bi-question-circle text-info"></i> Hỗ trợ nhanh</h6>
+                        <div class="d-flex flex-column gap-2">
+                            <a href="premium_faq.html" class="btn btn-outline-primary text-start">
+                                <i class="bi bi-question-octagon me-2"></i> Xem FAQ (Câu hỏi thường gặp)
+                            </a>
+                            <a href="premium_ai-assistant.html" class="btn btn-outline-primary text-start">
+                                <i class="bi bi-robot me-2"></i> Hỏi AI Assistant
+                            </a>
+                            <button class="btn btn-outline-primary text-start" onclick="showSupportForm()">
+                                <i class="bi bi-envelope me-2"></i> Liên hệ Support
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Support Form -->
+                    <div class="settings-card" id="supportFormCard">
+                        <h6><i class="bi bi-headset text-danger"></i> Gửi yêu cầu hỗ trợ</h6>
+                        <form onsubmit="submitSupport(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" id="supportName" value="Nguyễn Văn A" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="supportEmail" value="nva@example.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Chủ đề</label>
+                                    <select class="form-select" id="supportSubject" required>
+                                        <option value="">-- Chọn chủ đề --</option>
+                                        <option value="general">Yêu cầu chung</option>
+                                        <option value="technical">Hỗ trợ kỹ thuật</option>
+                                        <option value="billing">Thanh toán / Phí</option>
+                                        <option value="deal">Vấn đề về Deal</option>
+                                        <option value="suggestion">Đề xuất cải tiến</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Nội dung</label>
+                                    <textarea class="form-control" id="supportMessage" rows="5" placeholder="Mô tả chi tiết vấn đề của bạn..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Đính kèm tài liệu (tùy chọn)</label>
+                                    <input type="file" class="form-control" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-gold"><i class="bi bi-send"></i> Gửi yêu cầu hỗ trợ</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="settings-card">
+                        <h6><i class="bi bi-telephone text-primary"></i> Thông tin liên hệ</h6>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <p class="mb-1"><strong>Email Support:</strong></p>
+                                <a href="mailto:taichinhachau@gmail.com" class="text-primary">taichinhachau@gmail.com</a>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <p class="mb-1"><strong>Hotline:</strong></p>
+                                <p class="text-muted">1900 1234 (8:00 - 18:00, thứ 2 - thứ 6)</p>
+                            </div>
+                            <div class="col-12">
+                                <p class="mb-1"><strong>Địa chỉ văn phòng:</strong></p>
+                                <p class="text-muted">Tầng 10, Tòa nhà ABC, 123 Nguyễn Huệ, Quận 1, TP. HCM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        setInterval(() => {
+            document.getElementById('currentTime').textContent = new Date().toLocaleString('vi-VN');
+        }, 1000);
+
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatar = document.querySelector('.avatar-upload');
+                    avatar.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function saveProfile() {
+            alert('DEMO: Thông tin cá nhân đã được lưu thành công!');
+        }
+
+        function resetProfile() {
+            alert('DEMO: Đã khôi phục thông tin ban đầu.');
+        }
+
+        function changePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+
+            if (!current || !newPass || !confirmPass) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('Mật khẩu mới không khớp. Vui lòng kiểm tra lại.');
+                return;
+            }
+
+            if (newPass.length < 8) {
+                alert('Mật khẩu mới phải có ít nhất 8 ký tự.');
+                return;
+            }
+
+            alert('DEMO: Yêu cầu đổi mật khẩu đã được gửi. Vui lòng kiểm tra email để xác nhận.');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function savePaymentInfo() {
+            alert('DEMO: Thông tin thanh toán đã được lưu thành công!');
+        }
+
+        function showSupportForm() {
+            document.getElementById('supportFormCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitSupport(event) {
+            event.preventDefault();
+            const name = document.getElementById('supportName').value;
+            const email = document.getElementById('supportEmail').value;
+            const subject = document.getElementById('supportSubject').value;
+            const message = document.getElementById('supportMessage').value;
+
+            const mailtoLink = `mailto:taichinhachau@gmail.com?subject=[Hub66 Support] ${subject}&body=Nguời gửi: ${name}%0AEmail: ${email}%0A%0A${encodeURIComponent(message)}`;
+            window.location.href = mailtoLink;
+
+            alert('DEMO: Yêu cầu hỗ trợ đã được gửi!\n\nTrong môi trường thực tế, email sẽ được gửi đến taichinhachau@gmail.com với nội dung của bạn.');
+
+            // Reset form
+            document.getElementById('supportSubject').value = '';
+            document.getElementById('supportMessage').value = '';
+        }
+    </script>
+</body>
+</html>

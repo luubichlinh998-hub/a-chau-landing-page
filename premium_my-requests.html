@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhu cầu của tôi - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0B1F3A; --accent: #D4AF37; --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 240px; background: var(--primary); color: #fff; z-index: 1000; }
+        .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: 10px 16px; border-radius: 8px; margin: 2px 8px; transition: all 0.2s; }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(212,175,55,0.2); color: var(--accent); }
+        .sidebar .user-info { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .main-content { margin-left: 240px; min-height: 100vh; }
+        .topbar { background: var(--white); border-bottom: 1px solid #e2e8f0; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .btn-gold { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-gold:hover { background: #b8962e; color: var(--primary); }
+        @media (max-width: 992px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } }
+        .table-responsive-custom { overflow-x: auto; }
+        .table-responsive-custom table { min-width: 800px; }
+        .table thead { background: var(--primary); color: #fff; }
+        .table thead th { font-weight: 600; padding: 12px 16px; border: none; }
+        .table tbody td { padding: 12px 16px; vertical-align: middle; }
+        .table tbody tr:hover { background: rgba(212,175,55,0.05); }
+        .badge-status { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .badge-active { background: #d1fae5; color: #065f46; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-closed { background: #fee2e2; color: #991b1b; }
+        .badge-processing { background: #dbeafe; color: #1e40af; }
+        .btn-action { padding: 4px 12px; font-size: 13px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="user-info">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-primary rounded-circle p-2 text-white fw-bold">NVA</div>
+                <div>
+                    <div class="fw-semibold text-white">Nguyễn Văn A</div>
+                    <div class="text-muted small">Member #MEM-2026-001</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav flex-column mt-2">
+            <a href="premium_member-dashboard.html" class="nav-link"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <a href="premium_my-requests.html" class="nav-link active"><i class="bi bi-clipboard-check"></i> Nhu cầu của tôi</a>
+            <a href="premium_deal-board.html" class="nav-link"><i class="bi bi-handbag"></i> Deals</a>
+            <a href="premium_chat.html" class="nav-link"><i class="bi bi-chat-dots"></i> Chat</a>
+            <a href="premium_ai-assistant.html" class="nav-link"><i class="bi bi-robot"></i> AI Assistant</a>
+            <a href="premium_events.html" class="nav-link"><i class="bi bi-calendar-event"></i> Sự kiện</a>
+            <a href="premium_fee-report.html" class="nav-link"><i class="bi bi-graph-up"></i> Báo cáo phí</a>
+            <a href="premium_settings.html" class="nav-link"><i class="bi bi-gear"></i> Cài đặt</a>
+            <a href="premium_index.html" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h5 class="mb-0 fw-semibold">Nhu cầu của tôi</h5>
+                <small class="text-muted">Quản lý các nhu cầu của bạn</small>
+            </div>
+            <div class="d-flex gap-3 align-items-center">
+                <span class="text-muted"><i class="bi bi-clock"></i> <span id="currentTime"></span></span>
+                <button class="btn btn-primary btn-sm" onclick="window.location.href='premium_post-need.html'"><i class="bi bi-plus-circle"></i> Tạo nhu cầu mới</button>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <!-- Summary Stats -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-value">4</div>
+                        <div class="text-muted small">Tổng nhu cầu</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-value">2</div>
+                        <div class="text-muted small">Đang xử lý</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-value">1</div>
+                        <div class="text-muted small">Hoàn thành</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-value">1</div>
+                        <div class="text-muted small">Đã đóng</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests Table -->
+            <div class="stat-card">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="fw-semibold mb-0">Danh sách nhu cầu</h6>
+                    <button class="btn btn-gold btn-sm" onclick="window.location.href='premium_post-need.html'"><i class="bi bi-plus-circle"></i> Tạo nhu cầu mới</button>
+                </div>
+                <div class="table-responsive-custom">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã nhu cầu</th>
+                                <th>Loại nhu cầu</th>
+                                <th>Tiêu đề</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="font-family: 'Monaco', monaco; font-size: 13px; color: #D4AF37; font-weight: 600;">REQ-2026-0001</span></td>
+                                <td><span class="deal-type capital" style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 4px;">Vốn</span></td>
+                                <td>Tìm đối tác phân phối B2B cho dự án mở rộng sản xuất</td>
+                                <td><span class="badge-status badge-active"><i class="bi bi-check-circle"></i> Đang xử lý</span></td>
+                                <td>2026-05-15</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-action me-1"><i class="bi bi-eye"></i> Xem chi tiết</button>
+                                    <button class="btn btn-outline-secondary btn-action"><i class="bi bi-pencil"></i> Chỉnh sửa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'Monaco', monaco; font-size: 13px; color: #D4AF37; font-weight: 600;">REQ-2026-0002</span></td>
+                                <td><span class="deal-type ma" style="background: #fce7f3; color: #9d174d; font-size: 11px; padding: 3px 8px; border-radius: 4px;">M&A</span></td>
+                                <td>Cần huy động vốn 12 tỷ cho công ty logistics</td>
+                                <td><span class="badge-status badge-processing"><i class="bi bi-clock"></i> Chờ duyệt</span></td>
+                                <td>2026-05-20</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-action me-1"><i class="bi bi-eye"></i> Xem chi tiết</button>
+                                    <button class="btn btn-outline-secondary btn-action"><i class="bi bi-pencil"></i> Chỉnh sửa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'Monaco', monaco; font-size: 13px; color: #D4AF37; font-weight: 600;">REQ-2026-0003</span></td>
+                                <td><span class="deal-type service" style="background: #e0e7ff; color: #3730a3; font-size: 11px; padding: 3px 8px; border-radius: 4px;">Dịch vụ</span></td>
+                                <td>Tư vấn M&A logistics cho công ty vừa</td>
+                                <td><span class="badge-status badge-active"><i class="bi bi-check-circle"></i> Đang xử lý</span></td>
+                                <td>2026-05-22</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-action me-1"><i class="bi bi-eye"></i> Xem chi tiết</button>
+                                    <button class="btn btn-outline-secondary btn-action"><i class="bi bi-pencil"></i> Chỉnh sửa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'Monaco', monaco; font-size: 13px; color: #D4AF37; font-weight: 600;">REQ-2026-0004</span></td>
+                                <td><span class="deal-type capital" style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 4px;">Vốn</span></td>
+                                <td>Tìm nhà đầu tư cho startup công nghệ</td>
+                                <td><span class="badge-status badge-closed"><i class="bi bi-x-circle"></i> Đã đóng</span></td>
+                                <td>2026-04-10</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-action me-1"><i class="bi bi-eye"></i> Xem chi tiết</button>
+                                    <button class="btn btn-outline-secondary btn-action"><i class="bi bi-pencil"></i> Chỉnh sửa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        setInterval(() => {
+            document.getElementById('currentTime').textContent = new Date().toLocaleString('vi-VN');
+        }, 1000);
+    </script>
+</body>
+</html>
