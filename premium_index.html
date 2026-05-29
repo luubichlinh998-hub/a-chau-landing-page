@@ -300,7 +300,7 @@
                             Xin chào, <span id="userDisplayName">Khách hàng</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="premium_member-dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#" id="dashboardLink"><i class="bi bi-speedometer2"></i><span id="dashboardLinkText">Dashboard</span></a></li>
                             <li><a class="dropdown-item" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Đăng xuất</a></li>
                         </ul>
                     </li>
@@ -956,14 +956,33 @@
         function getCustomerName() {
             return localStorage.getItem("hub66_customer_name") || localStorage.getItem("customerName") || localStorage.getItem("userName") || "Khách hàng";
         }
+        function getUserRole() {
+            return localStorage.getItem("userRole") || "member";
+        }
+        function getDashboardUrl() {
+            const role = getUserRole();
+            if (role === 'admin') return 'premium_admin-dashboard.html';
+            if (role === 'partner') return 'premium-partner-dashboard.html';
+            if (role === 'refer') return 'premium-refer-dashboard.html';
+            return 'premium_member-dashboard.html';
+        }
         function applyUserNavState() {
             const loggedIn = isUserLoggedIn();
             const guestNav = document.getElementById('guestNav');
             const userNav = document.getElementById('userNav');
             const userDisplayName = document.getElementById('userDisplayName');
+            const dashboardLink = document.getElementById('dashboardLink');
+            const dashboardLinkText = document.getElementById('dashboardLinkText');
             if (guestNav) guestNav.style.display = loggedIn ? 'none' : 'flex';
             if (userNav) userNav.style.display = loggedIn ? 'flex' : 'none';
             if (userDisplayName) userDisplayName.textContent = getCustomerName();
+            if (dashboardLink && dashboardLinkText) {
+                const url = getDashboardUrl();
+                const role = getUserRole();
+                dashboardLink.href = url;
+                if (role === 'admin') dashboardLinkText.textContent = 'Admin Dashboard';
+                else dashboardLinkText.textContent = 'Dashboard';
+            }
         }
         function logout() {
             localStorage.removeItem("hub66_logged_in");
@@ -971,6 +990,7 @@
             localStorage.removeItem("hub66_customer_name");
             localStorage.removeItem("customerName");
             localStorage.removeItem("userName");
+            localStorage.removeItem("userRole");
             window.location.href = 'premium_login.html';
         }
         document.addEventListener('DOMContentLoaded', applyUserNavState);
