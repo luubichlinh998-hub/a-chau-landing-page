@@ -169,7 +169,7 @@
                                 </tr>
                             </thead>
                             <tbody id="userTableBody">
-                                <tr>
+                                <tr data-user-type="member">
                                     <td><span class="deal-code">USR-001</span></td>
                                     <td><span class="user-type-badge badge-member">Member</span></td>
                                     <td>Nguyễn Văn Minh</td>
@@ -185,7 +185,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-001')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="partner">
                                     <td><span class="deal-code">USR-002</span></td>
                                     <td><span class="user-type-badge badge-partner">Partner</span></td>
                                     <td>Trần Thị Lan</td>
@@ -201,7 +201,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-002')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="refer">
                                     <td><span class="deal-code">USR-003</span></td>
                                     <td><span class="user-type-badge badge-refer">Refer</span></td>
                                     <td>Lê Hoàng Nam</td>
@@ -217,7 +217,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-003')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="member">
                                     <td><span class="deal-code">USR-004</span></td>
                                     <td><span class="user-type-badge badge-member">Member</span></td>
                                     <td>Phạm Thu Hà</td>
@@ -233,7 +233,7 @@
                                         <button class="btn btn-action btn-lock" onclick="unlockUser('USR-004')" style="background:#059669"><i class="bi bi-unlock"></i> Mở khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="partner">
                                     <td><span class="deal-code">USR-005</span></td>
                                     <td><span class="user-type-badge badge-partner">Partner</span></td>
                                     <td>Đặng Minh Tuấn</td>
@@ -249,7 +249,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-005')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="refer">
                                     <td><span class="deal-code">USR-006</span></td>
                                     <td><span class="user-type-badge badge-refer">Refer</span></td>
                                     <td>Ngô Thị Mai</td>
@@ -265,7 +265,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-006')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="member">
                                     <td><span class="deal-code">USR-007</span></td>
                                     <td><span class="user-type-badge badge-member">Member</span></td>
                                     <td>Hoàng Đình Phong</td>
@@ -281,7 +281,7 @@
                                         <button class="btn btn-action btn-lock" onclick="lockUser('USR-007')"><i class="bi bi-lock"></i> Khóa</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr data-user-type="member">
                                     <td><span class="deal-code">USR-008</span></td>
                                     <td><span class="user-type-badge badge-member">Member</span></td>
                                     <td>Vũ Thị Hương</td>
@@ -334,7 +334,15 @@
         function filterUsers(type, btn) {
             document.querySelectorAll('.d-flex.gap-2 .btn').forEach(b => b.classList.remove('btn-gold', 'active'));
             btn.classList.add('btn-gold', 'active');
-            // In real implementation, would filter table rows here
+            const rows = document.querySelectorAll('#userTableBody tr');
+            rows.forEach(row => {
+                if (type === 'all') {
+                    row.style.display = '';
+                } else {
+                    const userType = row.getAttribute('data-user-type');
+                    row.style.display = userType === type ? '' : 'none';
+                }
+            });
         }
 
         // User actions
