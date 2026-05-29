@@ -59,6 +59,8 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            // Set login state for deal-board unlock
+            localStorage.setItem("hub66_logged_in", "true");
             alert('Đăng nhập thành công!');
             window.location.href = 'premium_member-dashboard.html';
         });

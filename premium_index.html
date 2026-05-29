@@ -840,6 +840,8 @@
         function switchModal(from, to) { closeModal(from); setTimeout(() => showModal(to), 200); }
 
         function simulateLogin() {
+            // Set login state for deal-board unlock
+            localStorage.setItem("hub66_logged_in", "true");
             document.getElementById('loginStep1').style.display = 'none';
             document.getElementById('loginStep2').style.display = 'block';
             addAuditLog('đăng nhập hệ thống', 'Nguyễn Văn A');
