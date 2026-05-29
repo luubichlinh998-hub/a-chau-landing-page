@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Hub - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff;
+            --accent: #0000ff;
+            --dark: #0B1F3A;  --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .navbar { background: var(--primary) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
+        .navbar .nav-link:hover { color: var(--accent) !important; }
+        .btn-primary { background: var(--accent); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; color: var(--primary); }
+        .btn-primary:hover { background: #0000cc; }
+        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 60px 0; }
+        .section-card { background: var(--white); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .service-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 16px; transition: all 0.2s; }
+        .service-card:hover { border-color: var(--success); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .service-card .service-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--success); box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+        .fee-highlight { background: linear-gradient(135deg, var(--success) 0%, #047857 100%); color: #fff; padding: 24px; border-radius: 12px; text-align: center; }
+        .fee-highlight .fee-percent { font-size: 3rem; font-weight: 700; }
+        .fee-highlight .fee-label { font-size: 14px; opacity: 0.9; }
+        .warning-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; color: #92400e; font-size: 14px; }
+        .warning-box i { color: var(--warning); }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--accent); }
+        .deal-type-badge { font-size: 11px; padding: 4px 12px; border-radius: 4px; font-weight: 600; }
+        .deal-type-badge.service { background: #d1fae5; color: #065f46; }
+
+        .floating-chat-btn { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, #0000cc 100%); border: none; color: var(--primary); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,255,0.4); cursor: pointer; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
+        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,255,0.5); }
+        .floating-chat-modal { position: fixed; bottom: 96px; right: 24px; width: 380px; max-height: 520px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 9998; display: none; flex-direction: column; overflow: hidden; }
+        .floating-chat-modal.open { display: flex; }
+        .floating-chat-header { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+        .floating-chat-header h6 { margin: 0; font-size: 15px; font-weight: 600; }
+        .floating-chat-body { flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+        .floating-chat-msg { padding: 10px 14px; margin-bottom: 10px; border-radius: 12px; font-size: 14px; line-height: 1.5; }
+        .floating-chat-msg.ai { background: var(--white); border: 1px solid #e2e8f0; }
+        .floating-chat-msg.user { background: var(--accent); color: var(--primary); margin-left: 20%; }
+        .floating-chat-msg.system { background: #fef3c7; border: 1px solid #fbbf24; font-size: 13px; }
+        .floating-chat-input { padding: 12px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; background: var(--white); }
+        .floating-chat-input input { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+        .floating-chat-input input:focus { outline: none; border-color: var(--accent); }
+        .floating-chat-input button { background: var(--accent); color: var(--primary); border-radius: 8px; padding: 8px 14px; font-size: 14px; }
+        .floating-chat-ai-selector { padding: 10px 16px; background: var(--white); border-bottom: 1px solid #e2e8f0; display: flex; gap: 6px; flex-wrap: wrap; }
+        .ai-chip { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid #e2e8f0; background: var(--white); color: #475569; }
+        .ai-chip:hover, .ai-chip.active { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+        @media (max-width: 480px) { .floating-chat-modal { width: calc(100% - 32px); right: 16px; bottom: 88px; } .floating-chat-btn { bottom: 16px; right: 16px; width: 52px; height: 52px; font-size: 20px; } }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-success"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="capital-hub.html">Capital Hub</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="service-hub.html">Service Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-hub.html">M&A Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+                    <li class="nav-item"><a class="nav-link" href="post-need.html">Đăng nhu cầu</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="deal-type-badge service">DỊCH VỤ</span>
+                        <span class="badge bg-warning text-dark">Hub66 Service</span>
+                    </div>
+                    <h1 class="mb-3">Service Hub - Catalog dịch vụ B2B</h1>
+                    <p class="text-light opacity-75">Kết nối doanh nghiệp với các dịch vụ chuyên nghiệp - Tư vấn, logistics, marketing, IT. Không phải sàn rao vặt.</p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fee-highlight">
+                        <div class="fee-percent">20%</div>
+                        <div class="fee-label">Phí dịch vụ recurring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <!-- Warning Box -->
+        <div class="warning-box mb-4">
+            <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                <div>
+                    <strong>Quan trọng:</strong> Hub66 không cam kết chất lượng dịch vụ. Phí 20% là hoa hồng recurring cho các giao dịch dịch vụ thành công. Thanh toán sau khi dịch vụ hoàn thành được xác minh.
+                </div>
+            </div>
+        </div>
+
+        <!-- Catalog dịch vụ -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-grid-3x3-gap text-success"></i> Catalog Dịch vụ</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon bg-success bg-opacity-10 text-success">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <h5 class="fw-bold">Tư vấn quản lý</h5>
+                        <p class="text-muted">Tư vấn chiến lược kinh doanh, M&A advisory, restructuring</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success">Phí 20%</span>
+                            <small class="text-muted">Thời gian: 1-6 tháng</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon bg-primary bg-opacity-10 text-primary">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h5 class="fw-bold">Logistics & Supply Chain</h5>
+                        <p class="text-muted">Vận tải, kho bãi, quản lý chuỗi cung ứng</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success">Phí 20%</span>
+                            <small class="text-muted">Thời gian: 3-12 tháng</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon bg-warning bg-opacity-10 text-warning">
+                            <i class="bi bi-megaphone"></i>
+                        </div>
+                        <h5 class="fw-bold">Marketing & Sales</h5>
+                        <p class="text-muted">Marketing agency, sales outsourcing, digital marketing</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success">Phí 20%</span>
+                            <small class="text-muted">Thời gian: 3-12 tháng</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-icon bg-info bg-opacity-10 text-info">
+                            <i class="bi bi-pc-display"></i>
+                        </div>
+                        <h5 class="fw-bold">IT & Technology</h5>
+                        <p class="text-muted">Phát triển phần mềm, cloud, cybersecurity, AI integration</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success">Phí 20%</span>
+                            <small class="text-muted">Thời gian: 1-6 tháng</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form nhu cầu dịch vụ -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-pencil-square text-success"></i> Đăng nhu cầu dịch vụ</h4>
+            <form id="serviceForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Loại dịch vụ</label>
+                        <select class="form-control" required>
+                            <option value="">Chọn loại dịch vụ</option>
+                            <option value="consulting">Tư vấn quản lý</option>
+                            <option value="logistics">Logistics & Supply Chain</option>
+                            <option value="marketing">Marketing & Sales</option>
+                            <option value="it">IT & Technology</option>
+                            <option value="legal">Tư vấn pháp lý</option>
+                            <option value="hr">Nhân sự & HR</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngân sách dự kiến (VNĐ)</label>
+                        <input type="text" class="form-control" placeholder="VD: 500,000,000" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Mô tả nhu cầu</label>
+                        <textarea class="form-control" rows="3" placeholder="Mô tả chi tiết nhu cầu dịch vụ..." required></textarea>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Thời hạn mong muốn</label>
+                        <select class="form-control">
+                            <option value="">Chọn thời hạn</option>
+                            <option value="short">Dưới 1 tháng</option>
+                            <option value="medium">1-3 tháng</option>
+                            <option value="long">3-6 tháng</option>
+                            <option value="extended">6-12 tháng</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Yêu cầu đặc biệt</label>
+                        <select class="form-control">
+                            <option value="">Chọn yêu cầu</option>
+                            <option value="certification">Cần chứng chỉ/hành nghề</option>
+                            <option value="experience">Kinh nghiệm trên 5 năm</option>
+                            <option value="team">Team người Việt</option>
+                            <option value="none">Không có</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="agreeFeeService" required>
+                            <label class="form-check-label" for="agreeFeeService">
+                                Tôi đồng ý với <a href="fee-policy.html">chính sách phí</a> của Hub66: 20% phí recurring cho dịch vụ thành công
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Gửi nhu cầu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Phí dịch vụ -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-currency-dollar text-success"></i> Cấu trúc phí Service Hub</h4>
+            <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 bg-success bg-opacity-10 rounded-3">
+                        <div class="fs-1 fw-bold text-success">20%</div>
+                        <div class="fw-semibold">Phí Service Hub</div>
+                        <small class="text-muted">Trên giá trị hợp đồng dịch vụ</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 bg-primary bg-opacity-10 rounded-3">
+                        <div class="fs-1 fw-bold text-primary">35%</div>
+                        <div class="fw-semibold">Referral Commission</div>
+                        <small class="text-muted">Cho người giới thiệu thành công</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-4 bg-warning bg-opacity-10 rounded-3">
+                        <div class="fs-1 fw-bold text-warning">Recurring</div>
+                        <div class="fw-semibold">Thanh toán</div>
+                        <small class="text-muted">Theo milestone hoàn thành</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Luồng hoạt động -->
+        <div class="section-card">
+            <h4 class="fw-bold mb-4"><i class="bi bi-arrow-right-circle text-success"></i> Luồng hoạt động 6 bước</h4>
+            <div class="row text-center">
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">1</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Đăng ký Member</p>
+                    <small class="text-muted">1M/năm</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">2</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Chọn dịch vụ</p>
+                    <small class="text-muted">Browse catalog</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">3</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">AI matching</p>
+                    <small class="text-muted">Tìm provider phù hợp</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">4</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Ký NDA & Hợp đồng</p>
+                    <small class="text-muted">Bảo mật thông tin</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">5</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Thực hiện dịch vụ</p>
+                    <small class="text-muted">Theo milestone</small>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+                        <span class="text-success fw-bold">6</span>
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold">Thành công</p>
+                    <small class="text-muted">Thu phí 20%</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-success"></i> Hub66</h5>
+                    <p>Private Business Matching Hub - Không phải sàn rao vặt. Kết nối doanh nghiệp Việt Nam một cách an toàn, bảo mật.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hubs</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="capital-hub.html">Capital Hub</a></li>
+                        <li><a href="service-hub.html">Service Hub</a></li>
+                        <li><a href="ma-hub.html">M&A Hub</a></li>
+                        <li><a href="deal-board.html">Deal Board</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Đăng ký</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="register.html">Đăng ký Member</a></li>
+                        <li><a href="post-need.html">Đăng nhu cầu</a></li>
+                        <li><a href="become-partner.html">Trở thành Partner</a></li>
+                        <li><a href="become-referrer.html">Trở thành Referrer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="ai-assistant.html">AI Assistant</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="fee-policy.html">Bảng phí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Pháp lý</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html">Điều khoản</a></li>
+                        <li><a href="privacy.html">Bảo mật</a></li>
+                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #334155;">
+            <p class="text-center text-muted small">© 2026 Hub66. Tài Chính Á Châu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Nhu cầu dịch vụ đã được ghi nhận. Hub66 sẽ liên hệ xác minh trong 24-48h.\n\n⚠️ Lưu ý: Hub66 không cam kết chất lượng dịch vụ.');
+        });
+    </script>
+
+        <script>
+        // Floating Chat
+        let floatingAI = 'PMO';
+        const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
+        function toggleFloatingChat() { document.getElementById('floatingChatModal').classList.toggle('open'); }
+        function selectFloatingAI(btn, type) {
+            floatingAI = type;
+            document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            addFloatingMsg('system', `Đã chuyển sang ${aiLabels[type]}. ${type === 'RISK' || type === 'FINANCE' || type === 'MA' ? '⚠️ Luôn cần admin duyệt.' : 'AI sẽ gợi ý và nhắc việc.'}`);
+        }
+        function addFloatingMsg(type, content) {
+            const body = document.getElementById('floatingChatBody');
+            body.innerHTML += `<div class="floating-chat-msg ${type}">${content}</div>`;
+            body.scrollTop = body.scrollHeight;
+        }
+        function sendFloatingChat() {
+            const input = document.getElementById('floatingChatInput');
+            if (!input.value.trim()) return;
+            const msg = input.value.trim();
+            addFloatingMsg('user', msg);
+            input.value = '';
+            setTimeout(() => {
+                const m = msg.toLowerCase();
+                let reply = `<strong>${aiLabels[floatingAI]}:</strong> `;
+                if (floatingAI === 'RISK' || floatingAI === 'FINANCE' || floatingAI === 'MA') {
+                    reply += `Tôi đã ghi nhận yêu cầu. ⚠️ <strong>Yêu cầu này cần admin duyệt thủ công</strong> - AI không tự phê duyệt bước rủi ro cao.`;
+                } else if (m.includes('phí') || m.includes('fee')) {
+                    reply += `Phí Hub66: • Sales/M&A/Capital: <strong>3%</strong> • Service: <strong>20%</strong> recurring • Referrer: <strong>35%</strong> phí Hub66 • Partner: <strong>12%</strong>`;
+                } else if (m.includes('deal') || m.includes('mã')) {
+                    reply += `Mỗi deal đều có mã định danh. Deal board chỉ hiển thị ẩn danh. Cần ký NDA + Thỏa thuận phí trước khi xem chi tiết.`;
+                } else if (m.includes('nda') || m.includes('ký')) {
+                    reply += `Để xem thông tin deal: 1) Đăng nhập → 2) Ký NDA → 3) Ký Thỏa thuận phí → 4) Admin duyệt (deal >10B).`;
+                } else if (m.includes('refe') || m.includes('giớ')) {
+                    reply += `Referrer nhận <strong>35% phí Hub66 thực thu</strong>. Cần ký Referral Agreement trước khi nhận hoa hồng.`;
+                } else {
+                    reply += `Cảm ơn! Để được hỗ trợ chính xác, vui lòng <a href="ai-assistant.html">mở AI Assistant đầy đủ</a> hoặc liên hệ Deal Desk.`;
+                }
+                addFloatingMsg('ai', reply);
+            }, 1000);
+        }
+
+    <!-- Floating AI Chat Button -->
+    <button class="floating-chat-btn" onclick="toggleFloatingChat()"><i class="bi bi-chat-dots-fill"></i></button>
+    <div class="floating-chat-modal" id="floatingChatModal">
+        <div class="floating-chat-header">
+            <div><h6><i class="bi bi-robot"></i> Hub66 AI Assistant</h6><small style="opacity:0.7">Luôn cần admin duyệt rủi ro cao</small></div>
+            <div class="d-flex gap-2">
+                <a href="ai-assistant.html" class="btn btn-sm btn-outline-light"><i class="bi bi-box-arrow-up-right"></i></a>
+                <button class="btn btn-sm btn-link text-white p-0" onclick="toggleFloatingChat()"><i class="bi bi-x-lg"></i></button>
+            </div>
+        </div>
+        <div class="floating-chat-ai-selector">
+            <button class="ai-chip active" onclick="selectFloatingAI(this, 'PMO')">PMO</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SALES_HUB')">Sales</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'SERVICE_HUB')">Service</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'CAPITAL_HUB')">Capital</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'MA')">M&A</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'FINANCE')">Finance</button>
+            <button class="ai-chip" onclick="selectFloatingAI(this, 'RISK')">Risk</button>
+        </div>
+        <div class="floating-chat-body" id="floatingChatBody">
+            <div class="floating-chat-msg ai"><strong>Hub66 AI:</strong> Xin chào! Tôi là AI Assistant. Chọn loại AI và hỏi về deal, phí, quy trình hoặc tư vấn.</div>
+        </div>
+        <div class="floating-chat-input">
+            <input type="text" id="floatingChatInput" placeholder="Hỏi AI..." onkeypress="if(event.key==='Enter')sendFloatingChat()">
+            <button onclick="sendFloatingChat()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+</body>
+</html>

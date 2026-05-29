@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhu cầu - Hub66</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #f0f8ff;
+            --accent: #0000ff;
+            --dark: #0B1F3A;  --success: #059669; --warning: #d97706; --danger: #dc2626; --bg: #F5F7FA; --white: #FFFFFF; }
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); }
+        .navbar { background: var(--primary) !important; padding: 12px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: #fff !important; }
+        .navbar .nav-link { color: rgba(255,255,255,0.7) !important; margin: 0 8px; transition: color 0.2s; }
+        .navbar .nav-link:hover { color: var(--accent) !important; }
+        .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; padding: 40px 0; }
+        .form-card { background: var(--white); border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .form-control { border-radius: 8px; padding: 12px 16px; border: 1px solid #e2e8f0; }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,0,255,0.1); }
+        .hub-tab.active { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+        .lead-code .code { color: var(--accent); }
+        .ai-score { background: linear-gradient(135deg, var(--dark) 0%, var(--dark) 100%); color: #fff; border-radius: 12px; padding: 16px; text-align: center; }
+        footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 0 20px; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--accent); }
+        .upload-zone:hover { border-color: var(--accent); background: var(--bg); }
+        .file-item i { color: var(--accent); }
+        .btn-blue { background: var(--accent); color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; }
+        .btn-blue:hover { background: #0000cc; color: var(--primary); }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="capital-hub.html">Capital Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="service-hub.html">Service Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ma-hub.html">M&A Hub</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">Đăng ký</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="post-need.html">Đăng nhu cầu</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="mb-3">Đăng nhu cầu</h1>
+            <p class="text-light opacity-75">Chọn Hub phù hợp với nhu cầu kinh doanh của bạn</p>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- Form Column -->
+            <div class="col-lg-8">
+                <div class="form-card">
+                    <!-- Hub Tabs -->
+                    <div class="hub-tabs">
+                        <div class="hub-tab capital active" onclick="switchHub('capital')">
+                            <i class="bi bi-cash-stack"></i> Capital Hub
+                        </div>
+                        <div class="hub-tab service" onclick="switchHub('service')">
+                            <i class="bi bi-briefcase"></i> Service Hub
+                        </div>
+                        <div class="hub-tab ma" onclick="switchHub('ma')">
+                            <i class="bi bi-building"></i> M&A Hub
+                        </div>
+                    </div>
+
+                    <!-- Fee Info -->
+                    <div class="fee-info" id="feeInfo">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-info-circle text-primary fs-4"></i>
+                            <div id="feeInfoText">
+                                <strong>Phí Hub66: 3%</strong> trên giá trị deal thành công + <strong>35% referral</strong> cho người giới thiệu
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="postNeedForm">
+                        <!-- Lead Code Display -->
+                        <div class="lead-code mb-4">
+                            <div class="code" id="leadCode">#LEAD-2026-0001</div>
+                            <div class="label">Mã nhu cầu (tự động)</div>
+                        </div>
+
+                        <!-- AI Lead Score -->
+                        <div class="ai-score mb-4" style="display:none;" id="aiScoreBox">
+                            <div class="score" id="aiScore">--</div>
+                            <div class="label">AI Lead Score</div>
+                        </div>
+
+                        <!-- Duplicate Warning -->
+                        <div class="duplicate-warning mb-4" style="display:none;" id="duplicateWarning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Cảnh báo:</strong> Nhu cầu này có thể trùng lặp với nhu cầu hiện có. Vui lòng kiểm tra lại.
+                        </div>
+
+                        <!-- Capital Form -->
+                        <div id="capitalForm" class="hub-form">
+                            <h5 class="fw-bold mb-4"><i class="bi bi-cash-stack text-primary"></i> Nhu cầu vốn</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Loại nhu cầu vốn</label>
+                                    <select class="form-control" required>
+                                        <option value="">Chọn loại</option>
+                                        <option value="venture">Vốn mạo hiểm (VC)</option>
+                                        <option value="bank">Vốn ngân hàng</option>
+                                        <option value="investment">Đầu tư (PE)</option>
+                                        <option value="crowdfunding">Gọi vốn cộng đồng</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Số tiền cần huy động (VNĐ)</label>
+                                    <input type="text" class="form-control" placeholder="VD: 5,000,000,000" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Mô tả dự án</label>
+                                    <textarea class="form-control" rows="3" placeholder="Mô tả chi tiết dự án..." required></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Thời hạn</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn thời hạn</option>
+                                        <option value="short">Dưới 1 năm</option>
+                                        <option value="medium">1-3 năm</option>
+                                        <option value="long">3-5 năm</option>
+                                        <option value="extended">Trên 5 năm</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tài sản đảm bảo</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn</option>
+                                        <option value="none">Không có</option>
+                                        <option value="real-estate">Bất động sản</option>
+                                        <option value="vehicle">Phương tiện</option>
+                                        <option value="equipment">Thiết bị</option>
+                                        <option value="stock">Cổ phần</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Form -->
+                        <div id="serviceForm" class="hub-form" style="display:none;">
+                            <h5 class="fw-bold mb-4"><i class="bi bi-briefcase text-success"></i> Nhu cầu dịch vụ</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Loại dịch vụ</label>
+                                    <select class="form-control" required>
+                                        <option value="">Chọn loại dịch vụ</option>
+                                        <option value="consulting">Tư vấn quản lý</option>
+                                        <option value="logistics">Logistics & Supply Chain</option>
+                                        <option value="marketing">Marketing & Sales</option>
+                                        <option value="it">IT & Technology</option>
+                                        <option value="legal">Tư vấn pháp lý</option>
+                                        <option value="hr">Nhân sự & HR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ngân sách (VNĐ)</label>
+                                    <input type="text" class="form-control" placeholder="VD: 500,000,000" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Mô tả nhu cầu</label>
+                                    <textarea class="form-control" rows="3" placeholder="Mô tả chi tiết nhu cầu..." required></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Thời hạn</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn thời hạn</option>
+                                        <option value="short">Dưới 1 tháng</option>
+                                        <option value="medium">1-3 tháng</option>
+                                        <option value="long">3-6 tháng</option>
+                                        <option value="extended">6-12 tháng</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Yêu cầu đặc biệt</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn</option>
+                                        <option value="certification">Cần chứng chỉ</option>
+                                        <option value="experience">Kinh nghiệm 5+ năm</option>
+                                        <option value="team">Team người Việt</option>
+                                        <option value="none">Không có</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- M&A Form -->
+                        <div id="maForm" class="hub-form" style="display:none;">
+                            <h5 class="fw-bold mb-4"><i class="bi bi-building text-danger"></i> Nhu cầu M&A</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Loại giao dịch</label>
+                                    <select class="form-control" required>
+                                        <option value="">Chọn loại</option>
+                                        <option value="buy">Mua doanh nghiệp</option>
+                                        <option value="sell">Bán doanh nghiệp</option>
+                                        <option value="invest">Đầu tư chiến lược</option>
+                                        <option value="merge">Sáp nhập</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Giá trị deal (VNĐ)</label>
+                                    <input type="text" class="form-control" placeholder="VD: 50,000,000,000" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Mô tả / Tiêu chí</label>
+                                    <textarea class="form-control" rows="3" placeholder="Mô tả tiêu chí mua/bán..." required></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ngành nghề</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn ngành</option>
+                                        <option value="tech">Công nghệ / IT</option>
+                                        <option value="manufacture">Sản xuất</option>
+                                        <option value="retail">Bán lẻ</option>
+                                        <option value="logistics">Logistics</option>
+                                        <option value="finance">Tài chính</option>
+                                        <option value="fmcg">FMCG</option>
+                                        <option value="realestate">Bất động sản</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Quy mô</label>
+                                    <select class="form-control">
+                                        <option value="">Chọn quy mô</option>
+                                        <option value="small">Dưới 10B</option>
+                                        <option value="medium">10-50B</option>
+                                        <option value="large">50-200B</option>
+                                        <option value="enterprise">Trên 200B</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upload Documents -->
+                        <div class="mb-4">
+                            <label class="form-label">Tài liệu đính kèm (không bắt buộc)</label>
+                            <div class="upload-zone" onclick="document.getElementById('fileUpload').click()">
+                                <i class="bi bi-cloud-arrow-up"></i>
+                                <p class="mb-0 mt-2 text-muted">Click để upload hoặc kéo thả file</p>
+                                <small class="text-muted">PDF, DOC, XLS - Tối đa 10MB</small>
+                            </div>
+                            <input type="file" id="fileUpload" multiple style="display:none" onchange="handleFileUpload(this.files)">
+                            <div id="fileList" class="mt-3"></div>
+                        </div>
+
+                        <!-- Decision Verification -->
+                        <div class="warning-box mb-4">
+                            <div class="d-flex align-items-start gap-2">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                <div>
+                                    <strong>Xác minh quyết định:</strong> Bạn có phải là người có thẩm quyền quyết định cho nhu cầu này không? Hub66 không xử lý nhu cầu từ người không có thẩm quyền.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fee Checkbox -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="agreeFee" required>
+                            <label class="form-check-label" for="agreeFee">
+                                Tôi đồng ý với <a href="fee-policy.html">chính sách phí</a>: <span id="feeAgreeText">3% Hub66 + 35% referral</span> cho deal thành công. Hub66 không cam kết deal thành công.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Gửi nhu cầu</button>
+                    </form>
+
+                    <!-- Success Message -->
+                    <div id="successMessage" style="display:none;" class="text-center py-5">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width:80px;height:80px;">
+                            <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                        </div>
+                        <h3 class="mt-4 fw-bold text-success">Gửi nhu cầu thành công!</h3>
+                        <p class="text-muted">Mã nhu cầu: <strong id="submitLeadCode">#LEAD-2026-0001</strong></p>
+                        <p class="text-muted small">Hub66 sẽ liên hệ xác minh trong 24-48h. Không AI tự duyệt bước rủi ro cao.</p>
+                        <a href="member-dashboard.html" class="btn btn-primary mt-3">Vào Dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="form-card">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-info-circle text-primary"></i> Quy trình xử lý</h5>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                            <span class="text-primary fw-bold">1</span>
+                        </div>
+                        <div>
+                            <strong>AI & Admin duyệt</strong>
+                            <p class="small text-muted mb-0">Xác minh rủi ro trong 24-48h</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                            <span class="text-primary fw-bold">2</span>
+                        </div>
+                        <div>
+                            <strong>Ký NDA</strong>
+                            <p class="small text-muted mb-0">Bảo mật thông tin</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                            <span class="text-primary fw-bold">3</span>
+                        </div>
+                        <div>
+                            <strong>Matching</strong>
+                            <p class="small text-muted mb-0">Ghép đối tác phù hợp</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                            <span class="text-success fw-bold">4</span>
+                        </div>
+                        <div>
+                            <strong>Thành công</strong>
+                            <p class="small text-muted mb-0">Thu phí Hub66</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card mt-4">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-robot text-info"></i> AI Lead Scoring</h5>
+                    <p class="text-muted small">AI chấm điểm nhu cầu dựa trên:</p>
+                    <ul class="small text-muted">
+                        <li>Tính đầy đủ của hồ sơ</li>
+                        <li>Khả năng thanh toán</li>
+                        <li>Tính phù hợp đối tác</li>
+                    </ul>
+                    <div class="alert alert-warning small">
+                        <i class="bi bi-exclamation-triangle"></i> Deal trên 10B cần admin duyệt thủ công
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="bi bi-diagram-3-fill text-primary"></i> Hub66</h5>
+                    <p>Private Business Matching Hub - Không phải sàn rao vặt.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hubs</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="capital-hub.html">Capital Hub</a></li>
+                        <li><a href="service-hub.html">Service Hub</a></li>
+                        <li><a href="ma-hub.html">M&A Hub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Hỗ trợ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="ai-assistant.html">AI Assistant</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Pháp lý</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="terms.html">Điều khoản</a></li>
+                        <li><a href="privacy.html">Bảo mật</a></li>
+                        <li><a href="fee-policy.html">Chính sách phí</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: #334155;">
+            <p class="text-center text-muted small">© 2026 Hub66. Tài Chính Á Châu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentHub = 'capital';
+        let leadCounter = Math.floor(Math.random() * 900) + 100;
+
+        function generateLeadCode() {
+            leadCounter++;
+            return `#LEAD-2026-${leadCounter.toString().padStart(4, '0')}`;
+        }
+
+        function switchHub(hub) {
+            currentHub = hub;
+            document.querySelectorAll('.hub-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.hub-tab.${hub}`).classList.add('active');
+
+            document.querySelectorAll('.hub-form').forEach(form => form.style.display = 'none');
+            document.getElementById(`${hub}Form`).style.display = 'block';
+
+            // Update fee info
+            const feeTexts = {
+                capital: '<strong>Phí Hub66: 3%</strong> trên giá trị deal thành công + <strong>35% referral</strong> cho người giới thiệu',
+                service: '<strong>Phí Service: 20%</strong> recurring trên giá trị dịch vụ + <strong>35% referral</strong>',
+                ma: '<strong>Phí M&A: 3%</strong> trên giá trị deal thành công + <strong>35% referral</strong> cho người giới thiệu'
+            };
+            document.getElementById('feeInfoText').innerHTML = feeTexts[hub];
+            document.getElementById('feeAgreeText').textContent = hub === 'service' ? '20% recurring + 35% referral' : '3% + 35% referral';
+
+            // Update lead code
+            document.getElementById('leadCode').textContent = generateLeadCode();
+        }
+
+        function handleFileUpload(files) {
+            const fileList = document.getElementById('fileList');
+            for (let file of files) {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `<div><i class="bi bi-file-earmark"></i> ${file.name}</div><i class="bi bi-x remove" onclick="this.parentElement.remove()"></i>`;
+                fileList.appendChild(item);
+            }
+        }
+
+        // AI Lead Scoring (simulated)
+        function calculateAIScore() {
+            const score = Math.floor(Math.random() * 40) + 60; // 60-100
+            document.getElementById('aiScoreBox').style.display = 'block';
+            document.getElementById('aiScore').textContent = score + '/100';
+        }
+
+        // Simulate duplicate check
+        function checkDuplicate() {
+            if (Math.random() > 0.8) {
+                document.getElementById('duplicateWarning').style.display = 'block';
+            }
+        }
+
+        // Auto calculate AI score after form changes
+        let formChanged = false;
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('change', () => {
+                formChanged = true;
+                setTimeout(() => {
+                    if (formChanged) {
+                        calculateAIScore();
+                        checkDuplicate();
+                        formChanged = false;
+                    }
+                }, 2000);
+            });
+        });
+
+        document.getElementById('postNeedForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('postNeedForm').style.display = 'none';
+            document.querySelector('.hub-tabs').style.display = 'none';
+            document.getElementById('feeInfo').style.display = 'none';
+            document.getElementById('submitLeadCode').textContent = document.getElementById('leadCode').textContent;
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
