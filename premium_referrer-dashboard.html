@@ -66,9 +66,9 @@
     <div class="sidebar">
         <div class="user-info">
             <div class="d-flex align-items-center gap-2">
-                <div class="bg-primary rounded-circle p-2 text-white fw-bold">TVB</div>
+                <div class="bg-primary rounded-circle p-2 text-white fw-bold" id="sidebarAvatar">TVB</div>
                 <div>
-                    <div class="fw-semibold text-white">Trần Văn Bình</div>
+                    <div class="fw-semibold text-white" id="sidebarUserName">Trần Văn Bình</div>
                     <div class="text-muted small">Referrer #REF-2026-0001</div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
         <div class="topbar">
             <div>
                 <h5 class="mb-0 fw-semibold">Referrer Dashboard</h5>
-                <small class="text-muted">Chào mừng Trần Văn Bình</small>
+                <small class="text-muted" id="topbarGreeting">Chào mừng Trần Văn Bình</small>
             </div>
             <div class="d-flex gap-2 align-items-center">
                 <button class="btn btn-primary btn-sm"><i class="bi bi-bell"></i> Thông báo (3)</button>
@@ -336,6 +336,18 @@
                 body.scrollTop = body.scrollHeight;
             }, 1000);
         }
+
+        // Apply user name from localStorage
+        function applyUserName() {
+            var name = localStorage.getItem("hub66_customer_name") || localStorage.getItem("customerName") || localStorage.getItem("userName") || "Trần Văn Bình";
+            var sidebarName = document.getElementById('sidebarUserName');
+            var topbarGreeting = document.getElementById('topbarGreeting');
+            var sidebarAvatar = document.getElementById('sidebarAvatar');
+            if (sidebarName) sidebarName.textContent = name;
+            if (topbarGreeting) topbarGreeting.textContent = 'Chào mừng ' + name;
+            if (sidebarAvatar) sidebarAvatar.textContent = name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+        }
+        document.addEventListener('DOMContentLoaded', applyUserName);
     </script>
 
     <!-- Floating AI Chat Button -->

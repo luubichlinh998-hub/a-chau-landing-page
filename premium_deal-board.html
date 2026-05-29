@@ -329,6 +329,29 @@
         // Run on page load
         document.addEventListener('DOMContentLoaded', applyLoginState);
 
+        // User Nav State
+        function getCustomerName() {
+            return localStorage.getItem("hub66_customer_name") || localStorage.getItem("customerName") || localStorage.getItem("userName") || "Khách hàng";
+        }
+        function applyUserNavState() {
+            const loggedIn = isUserLoggedIn();
+            const guestNav = document.getElementById('guestNav');
+            const userNav = document.getElementById('userNav');
+            const userDisplayName = document.getElementById('userDisplayName');
+            if (guestNav) guestNav.style.display = loggedIn ? 'none' : 'flex';
+            if (userNav) userNav.style.display = loggedIn ? 'flex' : 'none';
+            if (userDisplayName) userDisplayName.textContent = getCustomerName();
+        }
+        function logout() {
+            localStorage.removeItem("hub66_logged_in");
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("hub66_customer_name");
+            localStorage.removeItem("customerName");
+            localStorage.removeItem("userName");
+            window.location.href = 'premium_login.html';
+        }
+        document.addEventListener('DOMContentLoaded', applyUserNavState);
+
         // Floating Chat
         let floatingAI = 'PMO';
         const aiLabels = {PMO:'PMO AI',SALES_HUB:'Sales Hub AI',SERVICE_HUB:'Service Hub AI',CAPITAL_HUB:'Capital Hub AI',MA:'M&A AI',FINANCE:'Finance AI',RISK:'Risk AI'};
